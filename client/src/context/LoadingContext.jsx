@@ -4,12 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const LoadingContext = createContext();
 
 const LUXURY_MESSAGES = [
-  'PREPARING YOUR EXPERIENCE',
-  'CRAFTING YOUR COFFEE JOURNEY',
-  'ROASTING THE EXPERIENCE',
-  'CALIBRATING THERMAL PRECISION',
-  'BALANCING THE SINGLE-ORIGIN AROMA',
-  'ALMOST READY',
+  'CRAFTING YOUR EXPERIENCE...',
+  'PREPARING YOUR COFFEE...',
+  'ALMOST READY...',
 ];
 
 export const LoadingProvider = ({ children }) => {
@@ -54,8 +51,8 @@ export const LoadingProvider = ({ children }) => {
     let messageTimer;
 
     if (isLoading) {
-      const duration = 3800; // 3.8s cinematic experience
-      const interval = 40;
+      const duration = 5000; // 5.0 seconds branded loading experience as specified
+      const interval = 50;
       const step = 100 / (duration / interval);
 
       progressTimer = setInterval(() => {
@@ -77,7 +74,7 @@ export const LoadingProvider = ({ children }) => {
 
       messageTimer = setInterval(() => {
         setMessageIndex((prev) => (prev + 1) % LUXURY_MESSAGES.length);
-      }, 900);
+      }, 1600);
     }
 
     return () => {

@@ -10,6 +10,7 @@
     "client": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
     "seed": "node server/seed.js",
+    "test:api": "node server/testApi.js",
     "start": "node server/server.js"
   },
   "dependencies": {

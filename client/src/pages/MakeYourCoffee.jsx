@@ -331,10 +331,10 @@ export const MakeYourCoffee = () => {
                     STEP 01
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#F4E8D1]">
-                    CHOOSE YOUR VESSEL
+                    CHOOSE YOUR BOTTLE
                   </h2>
                   <p className="text-xs text-[#EEDCC6]/75 font-sans mt-1">
-                    Select your thermal vacuum flask. Each vessel is laser-etched and calibrated for sub-zero cryo or piping hot heat retention.
+                    Select your thermal vessel. Each bottle is laser-etched and calibrated for sub-zero cryo or piping hot heat retention.
                   </p>
                 </div>
 
@@ -418,10 +418,10 @@ export const MakeYourCoffee = () => {
                     STEP 02
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#F4E8D1]">
-                    CHOOSE YOUR FLAVOR ALCHEMY
+                    CHOOSE YOUR COFFEE FLAVOR
                   </h2>
                   <p className="text-xs text-[#EEDCC6]/75 font-sans mt-1">
-                    Select up to 4 botanical and dessert essences. Toggle intensity between Light, Medium, and Strong for each layer.
+                    Select from our international flavor library. Choose multiple flavors and adjust intensity (LIGHT, MEDIUM, STRONG).
                   </p>
                 </div>
 
@@ -712,8 +712,8 @@ export const MakeYourCoffee = () => {
                       <span className="font-display font-black text-3xl sm:text-4xl text-[#F4E8D1] mt-1">
                         {String(chamberTemp).padStart(2, '0')}°C
                       </span>
-                      <span className="text-[10px] font-mono text-[#EEDCC6]/70 uppercase">
-                        TARGET: {selectedCondition === 'COOL' ? '04°C' : '68°C'}
+                      <span className="text-[10px] font-mono text-[#EEDCC6] uppercase font-bold tracking-wider">
+                        {selectedCondition === 'HOT' ? 'HEATING... 68°C' : 'COOLING... 04°C'}
                       </span>
                     </div>
 
@@ -725,7 +725,7 @@ export const MakeYourCoffee = () => {
                         00:{String(simulatedMinutes).padStart(2, '0')}:00
                       </span>
                       <span className="text-[10px] font-mono text-[#EEDCC6]/70 uppercase">
-                        SIMULATED TIME
+                        {selectedCondition === 'HOT' ? 'SIMULATED 10 MINS' : 'SIMULATED 15-20 MINS'}
                       </span>
                     </div>
                   </div>
@@ -733,7 +733,7 @@ export const MakeYourCoffee = () => {
                   {/* Chamber Progress Bar */}
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs font-mono text-[#EEDCC6]">
-                      <span>CHAMBER CYCLE STATUS</span>
+                      <span>{selectedCondition === 'HOT' ? 'HEATING CHAMBER SIMULATION' : 'REFRIGERATOR CHAMBER SIMULATION'}</span>
                       <span className="font-bold">{chamberProgress}%</span>
                     </div>
                     <div className="h-3 w-full bg-[#3C2A21] rounded-full overflow-hidden border border-[#EEDCC6]/30 p-0.5">
@@ -745,13 +745,15 @@ export const MakeYourCoffee = () => {
                   </div>
 
                   {chamberStatus === 'COMPLETED' ? (
-                    <div className="p-3 rounded-xl bg-[#3C2A21] border border-emerald-500/40 text-[#EEDCC6] font-mono text-xs flex items-center justify-center space-x-2">
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      <span>YOUR COFFEE IS READY • QUALITY CHECK 99.8% VERIFIED</span>
+                    <div className="p-3.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/40 text-[#F4E8D1] font-mono text-xs flex items-center justify-center space-x-2 shadow-coffee-glow">
+                      <Check className="w-4 h-4 text-[#EEDCC6]" />
+                      <span className="font-bold uppercase tracking-wider">YOUR COFFEE IS READY.</span>
                     </div>
                   ) : (
-                    <div className="text-xs font-mono text-[#EEDCC6]/70 animate-pulse">
-                      EXTRACTION ACTIVE • VISCOSITY & HERMETIC LOCK ENGAGED...
+                    <div className="text-xs font-mono text-[#EEDCC6]/80 animate-pulse tracking-wide">
+                      {selectedCondition === 'HOT'
+                        ? 'LIQUID TURBULENCE • STEAM • TEMPERATURE INCREASE • QUALITY CHECK...'
+                        : 'CONDENSATION • ICE CRYSTALS • COLD VAPOR • REFRIGERATOR ENVIRONMENT • QUALITY CHECK...'}
                     </div>
                   )}
                 </div>
@@ -761,14 +763,14 @@ export const MakeYourCoffee = () => {
                     onClick={() => setCurrentStep(5)}
                     className="inline-flex items-center space-x-2 px-8 py-3.5 rounded-full bg-[#EEDCC6] hover:bg-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-coffee-glow transition-all"
                   >
-                    <span>PROCEED TO LOCATION DISPATCH</span>
+                    <span>NEXT: LOCATION & DELIVERY</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </motion.div>
             )}
 
-            {/* STEP 5: LOCATION EXPERIENCE & ROUTE */}
+            {/* STEP 5: LOCATION / DELIVERY */}
             {currentStep === 5 && (
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -781,36 +783,38 @@ export const MakeYourCoffee = () => {
                     STEP 05
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#F4E8D1]">
-                    DELIVERY TO YOUR SELECTED LOCATION
+                    LOCATION / DELIVERY
                   </h2>
                   <p className="text-xs text-[#EEDCC6]/75 font-sans mt-1">
-                    Enter your destination telemetry. Our electric courier will transport your thermal vessel with live climate tracking.
+                    Provide your delivery destination. Track your coffee's journey across precision preparation stages.
                   </p>
                 </div>
 
                 {/* Animated Route Journey Tracker */}
                 <div className="p-5 rounded-2xl bg-[#2A1B16] border border-[#EEDCC6]/25 space-y-3">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-[#EEDCC6] uppercase block">
-                    YOUR COFFEE JOURNEY ROUTE
+                    YOUR COFFEE JOURNEY
                   </span>
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#EEDCC6]/80 overflow-x-auto pb-2">
-                    <span className="font-bold text-[#F4E8D1]">COFFEE LAB</span>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#EEDCC6]/90 overflow-x-auto pb-2 gap-2">
+                    <span className="font-bold text-[#F4E8D1] bg-[#3C2A21] px-2.5 py-1 rounded-lg">COFFEE LAB</span>
                     <span>→</span>
-                    <span className="font-bold text-[#F4E8D1]">PREPARATION</span>
+                    <span className="font-bold text-[#F4E8D1] bg-[#3C2A21] px-2.5 py-1 rounded-lg">CUSTOMIZATION</span>
                     <span>→</span>
-                    <span className="font-bold text-[#F4E8D1]">QUALITY CHECK</span>
+                    <span className="font-bold text-[#F4E8D1] bg-[#3C2A21] px-2.5 py-1 rounded-lg">PREPARATION</span>
                     <span>→</span>
-                    <span>DISPATCH</span>
+                    <span className="font-bold text-[#F4E8D1] bg-[#3C2A21] px-2.5 py-1 rounded-lg">QUALITY CHECK</span>
                     <span>→</span>
-                    <span>YOUR LOCATION</span>
+                    <span className="text-[#EEDCC6]/70 bg-[#2A1B16] px-2.5 py-1 rounded-lg border border-[#EEDCC6]/20">DISPATCH</span>
+                    <span>→</span>
+                    <span className="text-[#EEDCC6]/70 bg-[#2A1B16] px-2.5 py-1 rounded-lg border border-[#EEDCC6]/20">YOUR LOCATION</span>
                   </div>
                 </div>
 
-                {/* Form Fields */}
+                {/* Form Fields: NAME, PHONE, ADDRESS, CITY, POSTAL CODE */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
                     <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Creator / Recipient Name *
+                      NAME *
                     </label>
                     <input
                       type="text"
@@ -818,26 +822,13 @@ export const MakeYourCoffee = () => {
                       value={creatorName}
                       onChange={(e) => setCreatorName(e.target.value)}
                       placeholder="Sophia Laurent"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                     />
                   </div>
 
                   <div>
                     <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Blend Creation Name
-                    </label>
-                    <input
-                      type="text"
-                      value={blendTitle}
-                      onChange={(e) => setBlendTitle(e.target.value)}
-                      placeholder="e.g. Obsidian Cryo Velvet"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Contact Phone *
+                      PHONE *
                     </label>
                     <input
                       type="tel"
@@ -845,27 +836,13 @@ export const MakeYourCoffee = () => {
                       value={locationForm.phone}
                       onChange={(e) => setLocationForm({ ...locationForm, phone: e.target.value })}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      City / Roastery Hub *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={locationForm.city}
-                      onChange={(e) => setLocationForm({ ...locationForm, city: e.target.value })}
-                      placeholder="London, New York, Mumbai..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                     />
                   </div>
 
                   <div className="sm:col-span-2">
                     <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Street Address *
+                      ADDRESS *
                     </label>
                     <input
                       type="text"
@@ -873,7 +850,35 @@ export const MakeYourCoffee = () => {
                       value={locationForm.address}
                       onChange={(e) => setLocationForm({ ...locationForm, address: e.target.value })}
                       placeholder="450 Innovation Way, Suite 100"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
+                      CITY *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={locationForm.city}
+                      onChange={(e) => setLocationForm({ ...locationForm, city: e.target.value })}
+                      placeholder="London, New York, Mumbai..."
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
+                      POSTAL CODE *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={locationForm.postalCode}
+                      onChange={(e) => setLocationForm({ ...locationForm, postalCode: e.target.value })}
+                      placeholder="W1K 7AA / 10012"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                     />
                   </div>
                 </div>
@@ -900,7 +905,7 @@ export const MakeYourCoffee = () => {
               </motion.div>
             )}
 
-            {/* STEP 6: FINAL COFFEE RESULT & CREATION SHOWCASE */}
+            {/* STEP 6: FINAL CREATION */}
             {currentStep === 6 && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -909,37 +914,49 @@ export const MakeYourCoffee = () => {
               >
                 <div>
                   <span className="text-xs font-mono font-bold tracking-widest text-[#EEDCC6] uppercase block">
-                    STEP 06 • LAB CREATION COMPLETE
+                    STEP 06
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#F4E8D1] mt-1">
-                    YOUR CUSTOM CREATION
+                  <h2 className="text-2xl sm:text-3xl font-display font-black text-[#F4E8D1] uppercase mt-1">
+                    YOUR CREATION
                   </h2>
-                  <p className="text-xs text-[#EEDCC6]/80 font-sans">
-                    Your bespoke formula is telemetrically saved and verified for preparation.
+                  <p className="text-xs text-[#EEDCC6]/80 font-mono uppercase tracking-wider">
+                    CUSTOM HOT COOL SHAKE
                   </p>
                 </div>
 
                 {/* Telemetry Certificate Card */}
-                <div className="p-6 rounded-3xl bg-[#2A1B16] border border-[#EEDCC6]/30 space-y-4">
+                <div className="p-6 sm:p-8 rounded-3xl bg-[#2A1B16] border border-[#EEDCC6]/30 space-y-4 shadow-espresso-dark">
                   <div className="flex items-center justify-between pb-4 border-b border-[#EEDCC6]/15">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#F4E8D1]">
-                        "{blendTitle || 'Signature Lab Reserve'}"
+                      <h3 className="font-display font-black text-xl sm:text-2xl text-[#F4E8D1]">
+                        "{blendTitle || 'Signature Custom Blend'}"
                       </h3>
                       <span className="text-xs font-mono text-[#EEDCC6]">
-                        Formulated for: {creatorName}
+                        Formulated by: {creatorName}
                       </span>
                     </div>
 
-                    <div className="px-3 py-1 rounded-full bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs font-mono font-bold text-[#EEDCC6]">
-                      {selectedCondition === 'COOL' ? '04°C CHILLED' : '68°C HEATED'}
+                    <div className="flex items-center space-x-2">
+                      <span className="px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-400/40 text-emerald-300 text-xs font-mono font-bold uppercase">
+                        STATUS: READY
+                      </span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 text-xs font-mono">
                     <div>
-                      <span className="text-[#EEDCC6]/60 uppercase block">VESSEL:</span>
-                      <span className="font-bold text-[#F4E8D1]">{selectedBottle?.name}</span>
+                      <span className="text-[#EEDCC6]/60 uppercase block">BOTTLE:</span>
+                      <span className="font-bold text-[#F4E8D1]">{selectedBottle?.name || 'CUSTOM BOTTLE'} ({selectedBottle?.capacity})</span>
+                    </div>
+
+                    <div>
+                      <span className="text-[#EEDCC6]/60 uppercase block">CONDITION:</span>
+                      <span className="font-bold text-[#F4E8D1]">{selectedCondition}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-[#EEDCC6]/60 uppercase block">TEMPERATURE:</span>
+                      <span className="font-bold text-[#EEDCC6]">{selectedCondition === 'COOL' ? '04°C' : '68°C'}</span>
                     </div>
 
                     <div>
@@ -948,7 +965,7 @@ export const MakeYourCoffee = () => {
                     </div>
 
                     <div className="col-span-2">
-                      <span className="text-[#EEDCC6]/60 uppercase block">FLAVOR LAYERS:</span>
+                      <span className="text-[#EEDCC6]/60 uppercase block">FLAVORS:</span>
                       <div className="flex flex-wrap gap-1.5 mt-1">
                         {selectedFlavors.map((f, idx) => (
                           <span

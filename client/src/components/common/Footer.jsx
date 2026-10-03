@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TripleWaveLogo } from './TripleWaveLogo';
 import { usePageLoader } from '../../context/LoadingContext';
-import { ArrowRight, CheckCircle2, Shield, Sparkles, Share2, Globe, Send, MessageCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Globe, Send, MessageCircle, Share2, Sparkles, Shield } from 'lucide-react';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -17,35 +17,40 @@ export const Footer = () => {
     }
   };
 
-  const navColumns = [
+  const footerColumns = [
     {
-      title: 'EXPERIENCES',
+      title: 'ABOUT HOT COOL SHAKE',
       links: [
-        { label: 'Virtual Coffee Lab', path: '/make-your-coffee', title: 'VIRTUAL COFFEE LAB' },
-        { label: 'Beverage Menu', path: '/menu', title: 'INTERNATIONAL MENU' },
-        { label: 'Track Active Order', path: '/track-order/HCS-2025-01042', title: 'ORDER TELEMETRY' },
-        { label: 'Single-Origin Roasts', path: '/menu?category=hot-coffee', title: 'HOT SPECIALTIES' },
-        { label: 'Sub-Zero Nitro Chills', path: '/menu?category=cool-coffee', title: 'COOL SPECIALTIES' },
+        { label: 'OUR COFFEE', path: '/menu', title: 'OUR CRAFT & ROASTS' },
+        { label: 'OUR STORY', path: '/story', title: 'COFFEE WITHOUT LIMITS' },
+        { label: 'CAREERS', path: '/contact', title: 'GLOBAL OPPORTUNITIES' },
+        { label: 'SUSTAINABILITY', path: '/sustainability', title: 'CIRCULAR ETHICS' },
       ],
     },
     {
-      title: 'BRAND & STORY',
+      title: 'CUSTOMER',
       links: [
-        { label: 'Our Story', path: '/story', title: 'COFFEE WITHOUT LIMITS' },
-        { label: 'Global Flagships', path: '/locations', title: 'FLAGSHIP LOCATIONS' },
-        { label: 'Sustainability & Circularity', path: '/sustainability', title: 'SUSTAINABLE ROASTING' },
-        { label: 'The Technology', path: '/technology', title: 'EXTRACTION ARCHITECTURE' },
-        { label: 'Concierge & Inquiries', path: '/contact', title: 'CUSTOMER CONCIERGE' },
+        { label: 'CONTACT', path: '/contact', title: 'CONCIERGE INQUIRIES' },
+        { label: 'FAQ', path: '/contact', title: 'FREQUENT QUESTIONS' },
+        { label: 'ORDERING', path: '/menu', title: 'ORDERING PROCESS' },
+        { label: 'DELIVERY', path: '/track-order/HCS-2025-01042', title: 'CLIMATE DISPATCH' },
+        { label: 'LOCATIONS', path: '/locations', title: 'FLAGSHIP ROASTERY LABS' },
       ],
     },
     {
-      title: 'GLOBAL HUBS',
+      title: 'SHOP',
       links: [
-        { label: 'Mumbai Flagship Lab (BKC)', path: '/locations', title: 'MUMBAI ROASTERY' },
-        { label: 'Singapore Marina Bay', path: '/locations', title: 'SINGAPORE HUB' },
-        { label: 'Dubai Downtown Boulevard', path: '/locations', title: 'DUBAI RESERVE' },
-        { label: 'London Mayfair Innovation Hub', path: '/locations', title: 'LONDON LAB' },
-        { label: 'New York SoHo Concept', path: '/locations', title: 'NEW YORK LAB' },
+        { label: 'MENU', path: '/menu', title: 'INTERNATIONAL MENU' },
+        { label: 'MAKE YOUR COFFEE', path: '/make-your-coffee', title: 'VIRTUAL COFFEE LAB' },
+        { label: 'SIGNATURE COLLECTION', path: '/menu?category=signature-drinks', title: 'SIGNATURE COLLECTION' },
+      ],
+    },
+    {
+      title: 'LEGAL',
+      links: [
+        { label: 'PRIVACY', path: '/contact', title: 'PRIVACY PROTOCOL' },
+        { label: 'TERMS', path: '/contact', title: 'TERMS OF SERVICE' },
+        { label: 'ACCESSIBILITY', path: '/contact', title: 'ACCESSIBILITY STANDARDS' },
       ],
     },
   ];
@@ -64,7 +69,7 @@ export const Footer = () => {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>HOT COOL SHAKE DISPATCH</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#F4E8D1] tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-display font-black text-[#F4E8D1] tracking-tight uppercase">
                 GET THE LATEST FROM HOT COOL SHAKE.
               </h3>
               <p className="text-xs sm:text-sm text-[#EEDCC6]/75 font-sans max-w-md">
@@ -86,7 +91,7 @@ export const Footer = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your international email..."
+                    placeholder="Enter your email..."
                     required
                     className="flex-1 px-5 py-3.5 rounded-full bg-[#3C2A21] border border-[#EEDCC6]/30 text-[#F4E8D1] placeholder-[#EEDCC6]/40 text-sm font-sans focus:outline-none focus:border-[#EEDCC6] focus:ring-1 focus:ring-[#EEDCC6]"
                   />
@@ -94,7 +99,7 @@ export const Footer = () => {
                     type="submit"
                     className="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-[#EEDCC6] hover:bg-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-bold tracking-widest uppercase shadow-coffee-glow hover:shadow-lg transition-all duration-200"
                   >
-                    <span>JOIN CIRCLE</span>
+                    <span>JOIN</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
@@ -104,13 +109,13 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Main Multi-Column Links */}
+      {/* Main Multi-Column Links Architecture */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand Identity Column */}
           <div className="lg:col-span-2 space-y-4">
             <TripleWaveLogo theme="dark" size="lg" />
-            
+
             <p className="text-xs sm:text-sm text-[#EEDCC6]/80 font-sans leading-relaxed max-w-sm mt-3">
               An international premium coffee and beverage experience where customers discover, customize, and create their own coffee.
             </p>
@@ -121,7 +126,7 @@ export const Footer = () => {
               </span>
             </div>
 
-            {/* Social Channels */}
+            {/* Social Media Icons */}
             <div className="flex items-center space-x-3 pt-3">
               {[
                 { icon: Globe, label: 'Global Portal' },
@@ -145,8 +150,8 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Nav Columns */}
-          {navColumns.map((col, idx) => (
+          {/* Nav Columns: ABOUT, CUSTOMER, SHOP, LEGAL */}
+          {footerColumns.map((col, idx) => (
             <div key={idx} className="space-y-4">
               <h4 className="text-xs font-mono font-bold tracking-widest text-[#EEDCC6] uppercase">
                 {col.title}
@@ -156,7 +161,7 @@ export const Footer = () => {
                   <li key={lIdx}>
                     <button
                       onClick={() => startPageTransition(link.path, link.title)}
-                      className="text-xs text-[#EEDCC6]/75 hover:text-[#F4E8D1] transition-colors font-sans hover:underline text-left"
+                      className="text-xs text-[#EEDCC6]/75 hover:text-[#F4E8D1] transition-colors font-sans hover:underline text-left uppercase font-mono text-[11px]"
                     >
                       {link.label}
                     </button>
@@ -168,8 +173,8 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Copyright & Legal Strip */}
-      <div className="border-t border-[#EEDCC6]/15 bg-[#2A1B16]/80 relative z-10 py-6">
+      {/* Bottom Copyright Strip */}
+      <div className="border-t border-[#EEDCC6]/15 bg-[#2A1B16]/90 relative z-10 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#EEDCC6]/60">
           <div className="flex items-center space-x-2">
             <span>© {new Date().getFullYear()} HOT COOL SHAKE. ALL RIGHTS RESERVED.</span>
@@ -177,13 +182,13 @@ export const Footer = () => {
 
           <div className="flex items-center space-x-6">
             <button onClick={() => startPageTransition('/contact', 'PRIVACY PROTOCOL')} className="hover:text-[#F4E8D1]">
-              PRIVACY POLICY
+              PRIVACY
             </button>
             <button onClick={() => startPageTransition('/contact', 'TERMS OF SERVICE')} className="hover:text-[#F4E8D1]">
-              TERMS OF SERVICE
+              TERMS
             </button>
-            <button onClick={() => startPageTransition('/sustainability', 'ETHICAL DISCLOSURE')} className="hover:text-[#F4E8D1]">
-              CIRCULAR ETHICS
+            <button onClick={() => startPageTransition('/contact', 'ACCESSIBILITY STANDARDS')} className="hover:text-[#F4E8D1]">
+              ACCESSIBILITY
             </button>
           </div>
         </div>
