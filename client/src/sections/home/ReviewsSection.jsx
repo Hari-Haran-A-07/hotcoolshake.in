@@ -56,29 +56,32 @@ export const ReviewsSection = () => {
   };
 
   return (
-    <section className="py-24 bg-[#3C2A21] text-[#F4E8D1] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden border-t border-[#B8783E]/20">
+      {/* Ambient background atmosphere */}
+      <div className="absolute inset-0 bg-radial-navy opacity-90 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#EEDCC6] uppercase font-bold px-3 py-1 rounded-full bg-[#2A1B16] border border-[#EEDCC6]/20">
-              <Star className="w-3.5 h-3.5 fill-[#EEDCC6]" />
+            <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#D6A06A] uppercase font-bold px-3 py-1 rounded-full bg-[#0B2538] border border-[#B8783E]/30">
+              <Star className="w-3.5 h-3.5 fill-[#D6A06A] text-[#D6A06A]" />
               <span>CONNOISSEUR TESTIMONIALS</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-[#F4E8D1] uppercase">
-              CRAFTED FOR THE EXACTING PALATE.
+            <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-[#F7FAF9] uppercase">
+              CRAFTED FOR THE <span className="text-brand-gradient">EXACTING PALATE.</span>
             </h2>
-            <p className="text-xs sm:text-sm text-[#EEDCC6]/80 font-sans max-w-lg">
-              Hear from global connoisseurs, creators, and daily alchemists who design their bespoke coffee with HOT COOL SHAKE.
+            <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans max-w-lg">
+              Hear from global patrons, baristas, and daily alchemists who design their personalized coffee with HOT COOL SHAKE.
             </p>
           </div>
 
           <button
             onClick={() => setIsSubmitOpen(!isSubmitOpen)}
-            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-[#2A1B16] hover:bg-[#EEDCC6] text-[#F4E8D1] hover:text-[#2A1B16] border border-[#EEDCC6]/30 font-mono text-xs font-bold tracking-widest uppercase transition-all"
+            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-[#0B2538] hover:bg-brand-gradient text-[#F7FAF9] hover:text-[#071A2B] border border-[#67D9D0]/30 font-mono text-xs font-bold tracking-widest uppercase transition-all duration-300"
           >
             <MessageSquarePlus className="w-4 h-4" />
-            <span>SUBMIT YOUR CREATION REVIEW</span>
+            <span>SUBMIT YOUR TASTING REVIEW</span>
           </button>
         </div>
 
@@ -88,15 +91,15 @@ export const ReviewsSection = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="mb-12 p-8 rounded-3xl bg-[#2A1B16] border border-[#EEDCC6]/30 shadow-2xl"
+            className="mb-12 p-8 rounded-3xl bg-[#0B2538] border-2 border-[#B8783E]/40 shadow-2xl"
           >
-            <h3 className="font-display font-bold text-xl text-[#F4E8D1] mb-4">
+            <h3 className="font-display font-bold text-xl text-[#F7FAF9] mb-4 uppercase">
               SUBMIT A TASTING EXPERIENCE
             </h3>
 
             {submitSuccess ? (
-              <div className="p-4 rounded-2xl bg-[#3C2A21] border border-emerald-500/40 text-[#EEDCC6] flex items-center space-x-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+              <div className="p-4 rounded-2xl bg-[#071A2B] border border-[#67D9D0]/40 text-[#67D9D0] flex items-center space-x-3">
+                <CheckCircle2 className="w-5 h-5 text-[#67D9D0]" />
                 <span className="font-mono text-sm">
                   Thank you! Your review has been broadcasted to the Connoisseur Circle.
                 </span>
@@ -104,7 +107,7 @@ export const ReviewsSection = () => {
             ) : (
               <form onSubmit={handleSubmitReview} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                     Your Name *
                   </label>
                   <input
@@ -113,25 +116,25 @@ export const ReviewsSection = () => {
                     value={formData.authorName}
                     onChange={(e) => setFormData({ ...formData, authorName: e.target.value })}
                     placeholder="Marcus Sterling"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                     City / Location
                   </label>
                   <input
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    placeholder="New York, London, Tokyo..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    placeholder="London, New York, Mumbai..."
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                     Favorite Custom Blend
                   </label>
                   <input
@@ -139,18 +142,18 @@ export const ReviewsSection = () => {
                     value={formData.favoriteCreation}
                     onChange={(e) => setFormData({ ...formData, favoriteCreation: e.target.value })}
                     placeholder="e.g. Signature Flask + Pistachio Nitro Chill"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                     Rating (1 to 5 Stars)
                   </label>
                   <select
                     value={formData.rating}
                     onChange={(e) => setFormData({ ...formData, rating: Number(e.target.value) })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs font-mono text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs font-mono text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
                   >
                     <option value={5}>★★★★★ (5 Stars - Flawless Alchemy)</option>
                     <option value={4}>★★★★☆ (4 Stars - Exceptional)</option>
@@ -159,7 +162,7 @@ export const ReviewsSection = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                     Your Review & Tasting Notes *
                   </label>
                   <textarea
@@ -168,14 +171,14 @@ export const ReviewsSection = () => {
                     value={formData.comment}
                     onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
                     placeholder="Describe the aroma, temperature retention, and flavor balance..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
                   />
                 </div>
 
                 <div className="sm:col-span-2 flex justify-end">
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-full bg-[#EEDCC6] hover:bg-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-bold tracking-widest uppercase shadow-coffee-glow transition-all"
+                    className="px-6 py-3 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-bold tracking-widest uppercase shadow-bronze-glow transition-all"
                   >
                     PUBLISH REVIEW
                   </button>
@@ -194,31 +197,31 @@ export const ReviewsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-8 rounded-[32px] bg-[#2A1B16] border border-[#EEDCC6]/20 shadow-card-lux flex flex-col justify-between"
+              className="p-8 rounded-[32px] bg-[#0B2538]/70 border border-[#B8783E]/20 shadow-luxury-card flex flex-col justify-between hover:border-[#67D9D0]/40 transition-colors"
             >
               <div className="space-y-4">
                 {/* Rating Stars & Quote Icon */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-1 text-[#EEDCC6]">
+                  <div className="flex items-center space-x-1 text-[#D6A06A]">
                     {Array.from({ length: rev.rating || 5 }).map((_, sIdx) => (
-                      <Star key={sIdx} className="w-4 h-4 fill-[#EEDCC6]" />
+                      <Star key={sIdx} className="w-4 h-4 fill-[#D6A06A]" />
                     ))}
                   </div>
-                  <Quote className="w-6 h-6 text-[#EEDCC6]/20" />
+                  <Quote className="w-6 h-6 text-[#67D9D0]/30" />
                 </div>
 
                 {/* Comment */}
-                <p className="text-xs sm:text-sm text-[#EEDCC6]/85 font-sans leading-relaxed italic">
+                <p className="text-xs sm:text-sm text-[#F7FAF9]/90 font-sans leading-relaxed italic">
                   "{rev.comment}"
                 </p>
 
                 {/* Favorite Blend Tag */}
                 {rev.favoriteCreation && (
-                  <div className="p-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/15">
-                    <span className="text-[10px] font-mono text-[#EEDCC6]/70 uppercase block">
+                  <div className="p-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/20">
+                    <span className="text-[10px] font-mono text-[#D6A06A] uppercase block">
                       FAVORITE ALCHEMY:
                     </span>
-                    <span className="text-xs font-mono font-bold text-[#F4E8D1]">
+                    <span className="text-xs font-mono font-bold text-[#F7FAF9]">
                       {rev.favoriteCreation}
                     </span>
                   </div>
@@ -226,17 +229,17 @@ export const ReviewsSection = () => {
               </div>
 
               {/* Author Info */}
-              <div className="pt-6 mt-6 border-t border-[#EEDCC6]/15 flex items-center justify-between">
+              <div className="pt-6 mt-6 border-t border-[#071A2B] flex items-center justify-between">
                 <div>
-                  <h4 className="font-display font-bold text-sm text-[#F4E8D1]">
+                  <h4 className="font-display font-bold text-sm text-[#F7FAF9]">
                     {rev.authorName}
                   </h4>
-                  <span className="text-[11px] font-mono text-[#EEDCC6]/70">
-                    {rev.city} • {rev.role || 'Verified Buyer'}
+                  <span className="text-[11px] font-mono text-[#A8B0B4]">
+                    {rev.city} • {rev.role || 'Verified Patron'}
                   </span>
                 </div>
 
-                <div className="p-1.5 rounded-full bg-[#3C2A21] text-emerald-400" title="Verified Customer">
+                <div className="p-1.5 rounded-full bg-[#071A2B] text-[#67D9D0]" title="Verified Customer">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
               </div>

@@ -4,6 +4,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import OpeningExperience from './components/common/OpeningExperience';
 import PageLoaderModal from './components/common/PageLoaderModal';
+import CustomCursor from './components/common/CustomCursor';
 import CartDrawer from './components/common/CartDrawer';
 import CheckoutModal from './components/common/CheckoutModal';
 import AuthModal from './components/common/AuthModal';
@@ -30,8 +31,11 @@ export const App = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F4E8D1] text-[#2A1B16]">
-      {/* 12-Phase Opening Experience Reference Animation */}
+    <div className="flex flex-col min-h-screen bg-[#071A2B] text-[#F7FAF9] selection:bg-[#B8783E] selection:text-[#071A2B]">
+      {/* Desktop Custom Magnetic Cursor */}
+      <CustomCursor />
+
+      {/* Branded Opening Experience Animation */}
       {!hasCompletedOpening && (
         <OpeningExperience onComplete={handleOpeningComplete} />
       )}
@@ -39,7 +43,7 @@ export const App = () => {
       {/* Global 5-second Branded Page Loading Transition */}
       <PageLoaderModal />
 
-      {/* Header & Sticky Navigation */}
+      {/* Sticky Header & Navigation */}
       <Header />
 
       {/* Main Routed Content */}

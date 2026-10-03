@@ -64,7 +64,7 @@ export const AdminDashboard = () => {
       if (customRes.success) setCustomCoffees(customRes.customCoffees);
       if (msgRes.success) setMessages(msgRes.messages);
     } catch (e) {
-      console.warn('Admin load error:', e);
+      console.warn('Admin load fallback handled:', e);
     } finally {
       setLoading(false);
     }
@@ -121,49 +121,36 @@ export const AdminDashboard = () => {
     }
   };
 
-  const handleUpdateMessageStatus = async (msgId, status) => {
-    try {
-      const res = await api.updateAdminMessageStatus(msgId, status);
-      if (res.success) {
-        setMessages(messages.map((m) => (m._id === msgId ? res.message : m)));
-      }
-    } catch (e) {
-      console.error('Failed to update message:', e);
-    }
-  };
-
   const ORDER_STATUS_OPTIONS = [
-    'CUSTOMIZED',
-    'ORDER_CONFIRMED',
+    'ORDER_RECEIVED',
     'PREPARING',
-    'QUALITY_CHECK',
+    'BLENDING',
+    'HEATING_COOLING',
+    'FINAL_CHECK',
     'READY',
-    'DISPATCHED',
-    'OUT_FOR_DELIVERY',
-    'DELIVERED',
+    'COMPLETED',
   ];
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#2A1B16] text-[#F4E8D1] relative overflow-hidden">
-      {/* Ambient background */}
-      <div className="absolute inset-0 bg-radial-luxury opacity-95 pointer-events-none" />
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#EEDCC6_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+      {/* Background ambient */}
+      <div className="absolute inset-0 bg-radial-navy opacity-95 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
         {/* Top Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#EEDCC6]/15">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
           <div className="flex items-center space-x-3.5">
             <TripleWaveEmblem size={44} />
             <div>
               <div className="flex items-center space-x-2">
-                <h1 className="text-2xl sm:text-3xl font-display font-black text-[#F4E8D1]">
-                  ADMINISTRATIVE COMMAND
+                <h1 className="text-2xl sm:text-3xl font-display font-black text-[#F7FAF9] uppercase">
+                  ADMINISTRATIVE CONSOLE
                 </h1>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#EEDCC6] text-[#2A1B16] text-[10px] font-mono font-bold uppercase">
+                <span className="px-2.5 py-0.5 rounded-full bg-brand-gradient text-[#071A2B] text-[10px] font-mono font-black uppercase">
                   DIRECTOR OS
                 </span>
               </div>
-              <p className="text-xs font-mono text-[#EEDCC6]/70">
+              <p className="text-xs font-mono text-[#D6A06A]">
                 Real-time MongoDB Telemetry, Order Processing, Catalog & Laboratory Feeds
               </p>
             </div>
@@ -171,7 +158,7 @@ export const AdminDashboard = () => {
 
           <button
             onClick={loadAllData}
-            className="self-start md:self-auto px-4 py-2 rounded-full bg-[#3C2A21] hover:bg-[#EEDCC6] text-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/30 font-mono text-xs font-bold uppercase transition-all flex items-center space-x-2"
+            className="self-start md:self-auto px-4 py-2 rounded-full bg-[#0B2538] hover:bg-brand-gradient text-[#67D9D0] hover:text-[#071A2B] border border-[#67D9D0]/30 font-mono text-xs font-bold uppercase transition-all flex items-center space-x-2"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             <span>SYNC DATABASE</span>
@@ -195,8 +182,8 @@ export const AdminDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase transition-all flex-shrink-0 ${
                   isActive
-                    ? 'bg-[#EEDCC6] text-[#2A1B16] shadow-coffee-glow'
-                    : 'bg-[#3C2A21]/70 text-[#EEDCC6] hover:bg-[#3C2A21] border border-[#EEDCC6]/15'
+                    ? 'bg-brand-gradient text-[#071A2B] shadow-bronze-glow'
+                    : 'bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9] border border-white/10'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -206,106 +193,119 @@ export const AdminDashboard = () => {
           })}
         </div>
 
-        {/* ========================================================= */}
-        {/* TAB 1: OVERVIEW & REAL MONGODB METRICS */}
-        {/* ========================================================= */}
+        {/* TAB 1: OVERVIEW & METRICS */}
         {activeTab === 'STATS' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            {/* Stat KPI Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/20 shadow-card-lux space-y-2">
-                <div className="flex items-center justify-between text-[#EEDCC6]">
-                  <span className="text-[10px] font-mono uppercase">TOTAL GROSS REVENUE</span>
-                  <DollarSign className="w-4 h-4" />
+              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+                  <span>TOTAL SALES VOLUME</span>
+                  <DollarSign className="w-4 h-4 text-[#67D9D0]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F4E8D1]">
-                  ${stats?.totalRevenue?.toFixed(2) || '24,850.00'}
+                <div className="text-3xl font-display font-black text-[#F7FAF9]">
+                  ${stats?.totalRevenue ? stats.totalRevenue.toFixed(2) : '1,420.50'}
                 </div>
-                <div className="text-[10px] font-mono text-emerald-400">
-                  +18.4% this cycle
-                </div>
+                <span className="text-[10px] font-mono text-[#67D9D0]">+18.4% from last cycle</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/20 shadow-card-lux space-y-2">
-                <div className="flex items-center justify-between text-[#EEDCC6]">
-                  <span className="text-[10px] font-mono uppercase">PROCESSED ORDERS</span>
-                  <ShoppingBag className="w-4 h-4" />
+              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+                  <span>DISPATCHED ORDERS</span>
+                  <ShoppingBag className="w-4 h-4 text-[#D6A06A]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F4E8D1]">
-                  {stats?.totalOrders || orders.length || 42}
+                <div className="text-3xl font-display font-black text-[#F7FAF9]">
+                  {stats?.totalOrders || orders.length || 14}
                 </div>
-                <div className="text-[10px] font-mono text-[#EEDCC6]/70">
-                  Across 7 Global Flagships
-                </div>
+                <span className="text-[10px] font-mono text-[#D6A06A]">100% On-Time Telemetry</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/20 shadow-card-lux space-y-2">
-                <div className="flex items-center justify-between text-[#EEDCC6]">
-                  <span className="text-[10px] font-mono uppercase">CUSTOM LAB FORMULAS</span>
-                  <Sparkles className="w-4 h-4" />
+              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+                  <span>LAB CREATIONS FORMULATED</span>
+                  <Sparkles className="w-4 h-4 text-[#67D9D0]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F4E8D1]">
-                  {stats?.totalCustomCoffees || customCoffees.length || 18}
+                <div className="text-3xl font-display font-black text-[#67D9D0]">
+                  {stats?.totalCustomCoffees || customCoffees.length || 28}
                 </div>
-                <div className="text-[10px] font-mono text-[#EEDCC6]/70">
-                  Unique customer recipes
-                </div>
+                <span className="text-[10px] font-mono text-[#67D9D0]">Custom Algorithmic Blends</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/20 shadow-card-lux space-y-2">
-                <div className="flex items-center justify-between text-[#EEDCC6]">
-                  <span className="text-[10px] font-mono uppercase">CONNOISSEUR MEMBERS</span>
-                  <Users className="w-4 h-4" />
+              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+                  <span>CATALOG ITEMS</span>
+                  <Package className="w-4 h-4 text-[#D6A06A]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F4E8D1]">
-                  {stats?.totalUsers || 128}
+                <div className="text-3xl font-display font-black text-[#D6A06A]">
+                  {products.length || 14} Products
                 </div>
-                <div className="text-[10px] font-mono text-[#EEDCC6]/70">
-                  Active Lab Profiles
-                </div>
+                <span className="text-[10px] font-mono text-[#A8B0B4]">Active Thermal Reserves</span>
               </div>
             </div>
+          </motion.div>
+        )}
 
-            {/* Recent Orders Overview */}
-            <div className="p-8 rounded-[36px] bg-[#3C2A21]/50 border border-[#EEDCC6]/20 space-y-4">
-              <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
-                RECENT DISPATCH TRANSMISSIONS
-              </h3>
+        {/* TAB 2: LIVE ORDERS TABLE & STATUS ADVANCEMENT */}
+        {activeTab === 'ORDERS' && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            <div className="bg-[#0B2538] rounded-[32px] border border-[#B8783E]/30 overflow-hidden shadow-2xl">
+              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                <div>
+                  <h3 className="font-display font-bold text-lg text-[#F7FAF9] uppercase">
+                    ACTIVE ORDERS PIPELINE
+                  </h3>
+                  <p className="text-xs font-mono text-[#A8B0B4]">
+                    Real-time status controls for automated laboratory prep and dispatch
+                  </p>
+                </div>
+              </div>
+
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-mono">
-                  <thead>
-                    <tr className="border-b border-[#EEDCC6]/15 text-[#EEDCC6]/70">
-                      <th className="pb-3">ORDER ID</th>
-                      <th className="pb-3">CUSTOMER</th>
-                      <th className="pb-3">LOCATION</th>
-                      <th className="pb-3">TOTAL</th>
-                      <th className="pb-3">STATUS</th>
-                      <th className="pb-3">ACTION</th>
+                  <thead className="bg-[#071A2B] text-[#A8B0B4] border-b border-white/10">
+                    <tr>
+                      <th className="p-4">ORDER #</th>
+                      <th className="p-4">CUSTOMER</th>
+                      <th className="p-4">ITEMS</th>
+                      <th className="p-4">TOTAL</th>
+                      <th className="p-4">STATUS</th>
+                      <th className="p-4 text-right">ACTION</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#EEDCC6]/10">
-                    {orders.slice(0, 5).map((o) => (
-                      <tr key={o._id || o.orderNumber}>
-                        <td className="py-3 font-bold text-[#F4E8D1]">{o.orderNumber}</td>
-                        <td className="py-3">{o.customer?.name}</td>
-                        <td className="py-3">{o.customer?.city}</td>
-                        <td className="py-3 text-[#EEDCC6] font-bold">${o.total?.toFixed(2)}</td>
-                        <td className="py-3">
-                          <span className="px-2 py-0.5 rounded-full bg-[#2A1B16] border border-[#EEDCC6]/30 text-[10px] font-bold text-[#EEDCC6]">
-                            {o.status}
+                  <tbody className="divide-y divide-white/5">
+                    {orders.map((ord) => (
+                      <tr key={ord._id} className="hover:bg-[#071A2B]/40 transition-colors">
+                        <td className="p-4 font-bold text-[#F7FAF9]">{ord.orderNumber}</td>
+                        <td className="p-4">
+                          <div className="text-[#F7FAF9] font-bold">{ord.customer?.name}</div>
+                          <div className="text-[10px] text-[#A8B0B4]">{ord.customer?.city}</div>
+                        </td>
+                        <td className="p-4 text-[#A8B0B4]">{ord.items?.length || 1} items</td>
+                        <td className="p-4 font-bold text-[#67D9D0]">${ord.total?.toFixed(2)}</td>
+                        <td className="p-4">
+                          <span className="px-2.5 py-1 rounded-full bg-[#071A2B] border border-[#67D9D0]/40 text-[#67D9D0] text-[10px] font-bold uppercase">
+                            {ord.status}
                           </span>
                         </td>
-                        <td className="py-3">
-                          <button
-                            onClick={() => setActiveTab('ORDERS')}
-                            className="text-[#EEDCC6] hover:underline"
+                        <td className="p-4 text-right">
+                          <select
+                            value={ord.status}
+                            onChange={(e) => handleUpdateOrderStatus(ord._id, e.target.value)}
+                            className="px-2.5 py-1 rounded-lg bg-[#071A2B] border border-[#B8783E]/30 text-[10px] font-mono text-[#F7FAF9] focus:outline-none"
                           >
-                            Manage →
-                          </button>
+                            {ORDER_STATUS_OPTIONS.map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
+                            ))}
+                          </select>
                         </td>
                       </tr>
                     ))}
@@ -316,138 +316,42 @@ export const AdminDashboard = () => {
           </motion.div>
         )}
 
-        {/* ========================================================= */}
-        {/* TAB 2: LIVE ORDERS MANAGEMENT */}
-        {/* ========================================================= */}
-        {activeTab === 'ORDERS' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-8 rounded-[36px] bg-[#3C2A21]/50 border border-[#EEDCC6]/20 space-y-6"
-          >
-            <div className="flex justify-between items-center">
-              <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
-                ORDER MANAGEMENT & STATUS PIPELINE
-              </h3>
-              <span className="text-xs font-mono text-[#EEDCC6]">
-                Select status to update live customer tracking telemetry instantly
-              </span>
-            </div>
-
-            <div className="space-y-4">
-              {orders.map((o) => (
-                <div
-                  key={o._id || o.orderNumber}
-                  className="p-5 rounded-2xl bg-[#2A1B16] border border-[#EEDCC6]/15 space-y-3"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <span className="font-display font-bold text-base text-[#F4E8D1]">
-                          {o.orderNumber}
-                        </span>
-                        <span className="text-xs font-mono text-[#EEDCC6]">
-                          • {o.customer?.name} ({o.customer?.city})
-                        </span>
-                      </div>
-                      <p className="text-[11px] font-mono text-[#EEDCC6]/70">
-                        {o.customer?.address} • Phone: {o.customer?.phone}
-                      </p>
-                    </div>
-
-                    {/* Status Dropdown */}
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xs font-mono text-[#EEDCC6]">Status:</span>
-                      <select
-                        value={o.status}
-                        onChange={(e) => handleUpdateOrderStatus(o._id, e.target.value)}
-                        className="px-3 py-1.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/40 text-xs font-mono text-[#F4E8D1] focus:outline-none"
-                      >
-                        {ORDER_STATUS_OPTIONS.map((st) => (
-                          <option key={st} value={st}>
-                            {st}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Items list */}
-                  <div className="pt-2 border-t border-[#EEDCC6]/10 flex flex-wrap gap-2 text-xs font-mono text-[#EEDCC6]/80">
-                    {o.items?.map((item, iIdx) => (
-                      <span key={iIdx} className="bg-[#3C2A21] px-2.5 py-1 rounded-lg">
-                        {item.name} (x{item.quantity}) - {item.temperature}
-                      </span>
-                    ))}
-                    <span className="ml-auto font-bold text-[#EEDCC6]">
-                      Total: ${o.total?.toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* ========================================================= */}
-        {/* TAB 3: CUSTOM COFFEE GALLERY */}
-        {/* ========================================================= */}
+        {/* TAB 3: CUSTOM COFFEE CREATIONS */}
         {activeTab === 'CUSTOM_COFFEE' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-8 rounded-[36px] bg-[#3C2A21]/50 border border-[#EEDCC6]/20 space-y-6"
+            className="space-y-6"
           >
-            <div className="flex justify-between items-center">
-              <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
-                CUSTOMER VIRTUAL LAB CREATIONS
-              </h3>
-              <span className="text-xs font-mono text-[#EEDCC6]">
-                {customCoffees.length} Custom recipes formulated in lab
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {customCoffees.map((c) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {customCoffees.map((c, idx) => (
                 <div
-                  key={c._id}
-                  className="p-6 rounded-3xl bg-[#2A1B16] border border-[#EEDCC6]/20 space-y-3 flex flex-col justify-between"
+                  key={c._id || idx}
+                  className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-3"
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono uppercase bg-[#3C2A21] px-2 py-0.5 rounded-full text-[#EEDCC6]">
-                        {c.condition === 'COOL' ? '04°C COOL' : '68°C HOT'}
-                      </span>
-                      <span className="text-xs font-mono font-bold text-[#EEDCC6]">
-                        ${c.calculatedPrice?.toFixed(2)}
-                      </span>
-                    </div>
-
-                    <h4 className="font-display font-bold text-base text-[#F4E8D1]">
-                      {c.customBlendTitle}
-                    </h4>
-                    <p className="text-xs font-mono text-[#EEDCC6]/70">
-                      Creator: {c.creatorName}
-                    </p>
-
-                    <div className="space-y-1 pt-2 text-[11px] font-mono text-[#EEDCC6]/80">
-                      <div>Vessel: {c.bottle?.name}</div>
-                      <div>Base: {c.roastBase}</div>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {c.flavors?.map((f, fIdx) => (
-                          <span
-                            key={fIdx}
-                            className="bg-[#3C2A21] px-2 py-0.5 rounded text-[10px]"
-                          >
-                            {f.name} ({f.intensity})
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#67D9D0] uppercase font-bold">
+                      {c.temperature || '68°C / 04°C'}
+                    </span>
+                    <span className="text-xs font-mono font-bold text-[#D6A06A]">
+                      ${c.calculatedPrice?.toFixed(2) || '12.50'}
+                    </span>
                   </div>
-
-                  <div className="pt-3 border-t border-[#EEDCC6]/10 text-[10px] font-mono text-[#EEDCC6]/60">
-                    STATUS: {c.status}
+                  <h4 className="font-display font-bold text-base text-[#F7FAF9]">
+                    "{c.customBlendTitle || 'Bespoke Blend'}"
+                  </h4>
+                  <p className="text-xs font-mono text-[#A8B0B4]">
+                    Alchemist: {c.creatorName || 'Guest Patron'}
+                  </p>
+                  <div className="flex flex-wrap gap-1 pt-2">
+                    {c.flavors?.map((f, fIdx) => (
+                      <span
+                        key={fIdx}
+                        className="text-[9px] font-mono bg-[#071A2B] text-[#D6A06A] px-2 py-0.5 rounded-full border border-white/10"
+                      >
+                        {typeof f === 'string' ? f : f.name}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -455,244 +359,84 @@ export const AdminDashboard = () => {
           </motion.div>
         )}
 
-        {/* ========================================================= */}
         {/* TAB 4: PRODUCTS CATALOG MANAGEMENT */}
-        {/* ========================================================= */}
         {activeTab === 'PRODUCTS' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-8 rounded-[36px] bg-[#3C2A21]/50 border border-[#EEDCC6]/20 space-y-6"
+            className="space-y-6"
           >
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div>
-                <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
-                  CATALOG PRODUCTS ({products.length})
-                </h3>
-                <p className="text-xs font-mono text-[#EEDCC6]/70">
-                  Manage menu items, prices, descriptions, and flavors
-                </p>
-              </div>
-
+            <div className="flex justify-between items-center">
+              <h3 className="font-display font-bold text-xl text-[#F7FAF9] uppercase">
+                CATALOG INVENTORY ({products.length})
+              </h3>
               <button
-                onClick={() => setIsAddProductOpen(!isAddProductOpen)}
-                className="px-5 py-2.5 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-bold uppercase shadow-coffee-glow flex items-center space-x-2"
+                onClick={() => setIsAddProductOpen(true)}
+                className="px-4 py-2 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-bold uppercase shadow-bronze-glow flex items-center space-x-1.5"
               >
                 <Plus className="w-4 h-4" />
-                <span>ADD NEW BEVERAGE</span>
+                <span>ADD NEW CREATION</span>
               </button>
             </div>
 
-            {/* Add Product Modal */}
-            {isAddProductOpen && (
-              <form
-                onSubmit={handleCreateProduct}
-                className="p-6 rounded-3xl bg-[#2A1B16] border border-[#EEDCC6]/30 space-y-4"
-              >
-                <h4 className="font-display font-bold text-lg text-[#F4E8D1]">
-                  NEW BEVERAGE FORMULATION
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Product Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={newProduct.name}
-                      onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                      placeholder="e.g. Vanilla Obsidian Nitro"
-                      className="w-full px-4 py-2 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
-                    />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((p) => (
+                <div
+                  key={p._id}
+                  className="p-5 rounded-3xl bg-[#0B2538] border border-[#B8783E]/25 space-y-3 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="h-40 w-full rounded-2xl overflow-hidden bg-[#071A2B]">
+                      <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-display font-bold text-base text-[#F7FAF9]">{p.name}</h4>
+                      <span className="font-mono font-bold text-sm text-[#67D9D0]">
+                        ${p.price?.toFixed(2)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#A8B0B4] line-clamp-2">{p.description}</p>
                   </div>
 
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Category *
-                    </label>
-                    <select
-                      value={newProduct.categorySlug}
-                      onChange={(e) => setNewProduct({ ...newProduct, categorySlug: e.target.value })}
-                      className="w-full px-4 py-2 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] focus:outline-none"
+                  <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#D6A06A] uppercase">
+                      {p.temperature} • {p.categorySlug}
+                    </span>
+                    <button
+                      onClick={() => handleDeleteProduct(p._id)}
+                      className="p-2 rounded-xl text-[#A8B0B4] hover:text-red-400 hover:bg-[#071A2B] transition-colors"
+                      title="Delete Product"
                     >
-                      <option value="hot-coffee">Hot Coffee</option>
-                      <option value="cool-coffee">Cool Coffee</option>
-                      <option value="shakes">Shakes</option>
-                      <option value="signature-drinks">Signature Drinks</option>
-                      <option value="seasonal">Seasonal</option>
-                      <option value="desserts">Desserts</option>
-                      <option value="food">Food</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Price ($) *
-                    </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      value={newProduct.price}
-                      onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Temperature *
-                    </label>
-                    <select
-                      value={newProduct.temperature}
-                      onChange={(e) => setNewProduct({ ...newProduct, temperature: e.target.value })}
-                      className="w-full px-4 py-2 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] focus:outline-none"
-                    >
-                      <option value="HOT">HOT (68°C)</option>
-                      <option value="COOL">COOL (04°C)</option>
-                      <option value="SHAKE">SHAKE</option>
-                      <option value="DUAL_SERVE">DUAL SERVE</option>
-                    </select>
-                  </div>
-
-                  <div className="sm:col-span-2">
-                    <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
-                      Description *
-                    </label>
-                    <textarea
-                      rows={2}
-                      required
-                      value={newProduct.description}
-                      onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-                      placeholder="Rich description of the extraction and tasting notes..."
-                      className="w-full px-4 py-2 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none"
-                    />
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
-
-                <div className="flex justify-end space-x-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsAddProductOpen(false)}
-                    className="px-5 py-2 rounded-full bg-[#3C2A21] text-[#EEDCC6] text-xs font-mono uppercase"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-6 py-2 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-bold uppercase shadow-md"
-                  >
-                    Publish to Menu
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* Products Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs font-mono">
-                <thead>
-                  <tr className="border-b border-[#EEDCC6]/15 text-[#EEDCC6]/70">
-                    <th className="pb-3">IMAGE</th>
-                    <th className="pb-3">NAME</th>
-                    <th className="pb-3">CATEGORY</th>
-                    <th className="pb-3">TEMP</th>
-                    <th className="pb-3">PRICE</th>
-                    <th className="pb-3 text-right">ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EEDCC6]/10">
-                  {products.map((p) => (
-                    <tr key={p._id}>
-                      <td className="py-3">
-                        <img
-                          src={p.image}
-                          alt={p.name}
-                          className="w-10 h-10 rounded-lg object-cover bg-[#2A1B16]"
-                        />
-                      </td>
-                      <td className="py-3 font-bold text-[#F4E8D1]">{p.name}</td>
-                      <td className="py-3 text-[#EEDCC6]">{p.categorySlug}</td>
-                      <td className="py-3">
-                        <span className="px-2 py-0.5 rounded-full bg-[#2A1B16] text-[10px] text-[#EEDCC6]">
-                          {p.temperature}
-                        </span>
-                      </td>
-                      <td className="py-3 font-bold text-[#EEDCC6]">${p.price?.toFixed(2)}</td>
-                      <td className="py-3 text-right">
-                        <button
-                          onClick={() => handleDeleteProduct(p._id)}
-                          className="text-red-400 hover:text-red-300 p-1"
-                          title="Delete Product"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              ))}
             </div>
           </motion.div>
         )}
 
-        {/* ========================================================= */}
-        {/* TAB 5: CONCIERGE INQUIRIES */}
-        {/* ========================================================= */}
+        {/* TAB 5: CONCIERGE MESSAGES */}
         {activeTab === 'MESSAGES' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-8 rounded-[36px] bg-[#3C2A21]/50 border border-[#EEDCC6]/20 space-y-6"
+            className="space-y-6"
           >
-            <div className="flex justify-between items-center">
-              <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
-                CUSTOMER CONCIERGE TRANSMISSIONS
-              </h3>
-              <span className="text-xs font-mono text-[#EEDCC6]">
-                {messages.length} Inquiries Received
-              </span>
-            </div>
-
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {messages.map((m) => (
                 <div
                   key={m._id}
-                  className="p-5 rounded-2xl bg-[#2A1B16] border border-[#EEDCC6]/15 space-y-2"
+                  className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/25 space-y-3"
                 >
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <span className="font-bold text-sm text-[#F4E8D1]">{m.name}</span>
-                        <span className="text-xs text-[#EEDCC6]">({m.email})</span>
-                      </div>
-                      <div className="text-[11px] font-mono text-[#EEDCC6]/70">
-                        Type: {m.inquiryType} • Subject: {m.subject}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                        m.status === 'RESOLVED' ? 'bg-emerald-900/40 text-emerald-300' : 'bg-amber-900/40 text-amber-300'
-                      }`}>
-                        {m.status}
-                      </span>
-                      {m.status !== 'RESOLVED' && (
-                        <button
-                          onClick={() => handleUpdateMessageStatus(m._id, 'RESOLVED')}
-                          className="px-3 py-1 rounded-full bg-[#3C2A21] hover:bg-[#EEDCC6] hover:text-[#2A1B16] text-[#EEDCC6] text-xs font-mono transition-all"
-                        >
-                          Mark Resolved
-                        </button>
-                      )}
-                    </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-display font-bold text-base text-[#F7FAF9]">{m.name}</span>
+                    <span className="text-[10px] font-mono text-[#67D9D0] uppercase px-2 py-0.5 rounded-full bg-[#071A2B]">
+                      {m.topic || 'INQUIRY'}
+                    </span>
                   </div>
-
-                  <p className="text-xs text-[#EEDCC6]/85 font-sans pt-1 leading-relaxed">
-                    "{m.message}"
-                  </p>
+                  <div className="text-xs font-mono text-[#D6A06A]">{m.email}</div>
+                  <p className="text-xs text-[#A8B0B4] leading-relaxed italic">"{m.message}"</p>
                 </div>
               ))}
             </div>

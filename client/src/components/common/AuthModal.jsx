@@ -72,19 +72,19 @@ export const AuthModal = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeAuthModal}
-          className="fixed inset-0 bg-[#2A1B16]/90 backdrop-blur-md"
+          className="fixed inset-0 bg-[#071A2B]/90 backdrop-blur-md"
         />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-md bg-[#2A1B16] text-[#F4E8D1] rounded-[32px] overflow-hidden border border-[#EEDCC6]/20 shadow-2xl z-10 p-6 sm:p-8"
+          className="relative w-full max-w-md bg-[#0B2538] text-[#F7FAF9] rounded-[36px] overflow-hidden border-2 border-[#B8783E]/40 shadow-2xl z-10 p-6 sm:p-8"
         >
           {/* Close button */}
           <button
             onClick={closeAuthModal}
-            className="absolute top-5 right-5 p-2 rounded-full bg-[#3C2A21] text-[#EEDCC6]/70 hover:text-[#F4E8D1] transition-colors"
+            className="absolute top-5 right-5 p-2 rounded-full bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -92,129 +92,140 @@ export const AuthModal = () => {
           {/* Header */}
           <div className="text-center space-y-2 mb-6">
             <div className="inline-flex justify-center mb-1">
-              <TripleWaveEmblem size={52} animate />
+              <TripleWaveEmblem size={56} animate />
             </div>
-            <h3 className="text-xl sm:text-2xl font-display font-extrabold text-[#F4E8D1]">
-              {authModalMode === 'login' ? 'SIGN IN TO YOUR LAB' : 'CREATE LAB ACCOUNT'}
+            <h3 className="text-xl sm:text-2xl font-display font-black text-[#F7FAF9] uppercase">
+              {authModalMode === 'login' ? 'SIGN IN TO YOUR LAB' : 'CREATE VIP ACCOUNT'}
             </h3>
-            <p className="text-xs font-mono text-[#EEDCC6]/70">
-              {authModalMode === 'login'
-                ? 'Access saved recipes, telemetry, and fast order dispatch.'
-                : 'Join the international circle of bespoke coffee connoisseurs.'}
+            <p className="text-xs font-mono text-[#D6A06A]">
+              HOT COOL SHAKE • AUTHENTICATION
             </p>
           </div>
 
-          {/* Quick Demo Fill Buttons */}
-          <div className="mb-5 p-3 rounded-2xl bg-[#3C2A21]/60 border border-[#EEDCC6]/15 space-y-2">
-            <span className="text-[10px] font-mono text-[#EEDCC6]/70 uppercase tracking-widest block text-center font-bold">
-              ONE-CLICK DEMO ACCESS
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleFillDemo('admin')}
-                className="py-2 px-3 rounded-xl bg-[#2A1B16] hover:bg-[#3C2A21] text-[11px] font-mono text-[#EEDCC6] border border-[#EEDCC6]/20 flex items-center justify-center space-x-1 transition-all"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Admin Login</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleFillDemo('user')}
-                className="py-2 px-3 rounded-xl bg-[#2A1B16] hover:bg-[#3C2A21] text-[11px] font-mono text-[#EEDCC6] border border-[#EEDCC6]/20 flex items-center justify-center space-x-1 transition-all"
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>Customer Login</span>
-              </button>
-            </div>
-          </div>
-
           {error && (
-            <div className="mb-4 p-3 rounded-xl bg-red-900/40 border border-red-500/40 text-red-200 text-xs font-mono">
+            <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-500/40 text-red-300 text-xs font-mono">
               {error}
             </div>
           )}
 
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {authModalMode === 'register' && (
               <div>
-                <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
+                <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
                   Full Name
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-[#EEDCC6]/50 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <User className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Sophia Laurent"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs font-sans text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
                   />
                 </div>
               </div>
             )}
 
             <div>
-              <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
-                Email Address
+              <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                VIP Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#EEDCC6]/50 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="sophia@example.com"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs font-sans text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-[11px] font-mono text-[#EEDCC6]/80 uppercase block mb-1">
-                Password
+              <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                Security Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-[#EEDCC6]/50 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="password"
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/25 text-xs font-sans text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
                 />
               </div>
             </div>
 
+            {authModalMode === 'register' && (
+              <div>
+                <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  Phone (Optional)
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
+                />
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#EEDCC6] to-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-coffee-glow hover:shadow-xl transition-all disabled:opacity-50 mt-2"
+              className="w-full py-3.5 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-bronze-glow hover:brightness-110 transition-all disabled:opacity-50 mt-2"
             >
               {loading
                 ? 'AUTHENTICATING...'
                 : authModalMode === 'login'
-                ? 'SIGN IN'
+                ? 'ENTER VIP LAB'
                 : 'CREATE ACCOUNT'}
             </button>
           </form>
 
-          {/* Switch Mode */}
-          <div className="mt-5 text-center">
+          {/* Quick Demo Credentials */}
+          <div className="mt-6 pt-4 border-t border-white/10 text-center space-y-2">
+            <span className="text-[10px] font-mono text-[#A8B0B4] uppercase block">
+              ONE-CLICK DEMO CREDENTIALS
+            </span>
+            <div className="flex justify-center space-x-2">
+              <button
+                type="button"
+                onClick={() => handleFillDemo('user')}
+                className="px-3 py-1.5 rounded-lg bg-[#071A2B] hover:bg-[#071A2B]/80 text-[#67D9D0] border border-[#67D9D0]/30 text-[10px] font-mono"
+              >
+                Demo Patron
+              </button>
+              <button
+                type="button"
+                onClick={() => handleFillDemo('admin')}
+                className="px-3 py-1.5 rounded-lg bg-[#071A2B] hover:bg-[#071A2B]/80 text-[#D6A06A] border border-[#B8783E]/30 text-[10px] font-mono"
+              >
+                Director Admin
+              </button>
+            </div>
+          </div>
+
+          {/* Toggle Register/Login */}
+          <div className="mt-4 text-center">
             <button
-              type="button"
               onClick={() => {
                 setError('');
                 setAuthModalMode(authModalMode === 'login' ? 'register' : 'login');
               }}
-              className="text-xs font-mono text-[#EEDCC6]/80 hover:text-[#F4E8D1] underline"
+              className="text-xs font-mono text-[#A8B0B4] hover:text-[#67D9D0] transition-colors"
             >
               {authModalMode === 'login'
-                ? "Don't have a lab account? Register now"
-                : 'Already have an account? Sign in'}
+                ? "Don't have a VIP account? Register here."
+                : 'Already have an account? Sign in here.'}
             </button>
           </div>
         </motion.div>

@@ -11,52 +11,64 @@ export const TripleWaveEmblem = ({ size = 42, className = '', animate = false })
         viewBox="0 0 100 100"
         width={size}
         height={size}
-        className={`w-full h-full ${animate ? 'hover:rotate-12 transition-transform duration-500' : ''}`}
+        className={`w-full h-full ${animate ? 'hover:scale-105 transition-transform duration-500' : ''}`}
       >
         <defs>
-          <linearGradient id="steamGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3C2A21" />
-            <stop offset="50%" stopColor="#EEDCC6" />
-            <stop offset="100%" stopColor="#F4E8D1" />
+          {/* Ribbon 1: HOT Steam Gradient (Warm Bronze -> Light Bronze) */}
+          <linearGradient id="steamGradientHCS" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#B8783E" />
+            <stop offset="60%" stopColor="#D6A06A" />
+            <stop offset="100%" stopColor="#F7FAF9" />
           </linearGradient>
-          <linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F4E8D1" />
-            <stop offset="60%" stopColor="#EEDCC6" />
-            <stop offset="100%" stopColor="#3C2A21" />
+
+          {/* Ribbon 2: COOL Ice Crystal Gradient (Deep Teal -> Ice Teal) */}
+          <linearGradient id="iceGradientHCS" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#168C8A" />
+            <stop offset="60%" stopColor="#67D9D0" />
+            <stop offset="100%" stopColor="#F7FAF9" />
           </linearGradient>
-          <linearGradient id="vortexGradient" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="#2A1B16" />
-            <stop offset="50%" stopColor="#3C2A21" />
-            <stop offset="100%" stopColor="#EEDCC6" />
+
+          {/* Ribbon 3: SHAKE Vortex Gradient (Bronze -> Light Bronze -> Ice Teal) */}
+          <linearGradient id="vortexGradientHCS" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor="#B8783E" />
+            <stop offset="50%" stopColor="#D6A06A" />
+            <stop offset="100%" stopColor="#67D9D0" />
           </linearGradient>
+
+          {/* Badge Radial Base */}
+          <radialGradient id="badgeRadialHCS" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#0B2538" />
+            <stop offset="100%" stopColor="#071A2B" />
+          </radialGradient>
         </defs>
 
-        {/* Outer Circular Badge */}
-        <circle cx="50" cy="50" r="46" fill="#2A1B16" stroke="#EEDCC6" strokeWidth="2.5" />
-        <circle cx="50" cy="50" r="41" fill="none" stroke="#3C2A21" strokeWidth="1" strokeDasharray="3,3" />
+        {/* Outer Circular Geometric Badge */}
+        <circle cx="50" cy="50" r="46" fill="url(#badgeRadialHCS)" stroke="#B8783E" strokeWidth="2" />
+        <circle cx="50" cy="50" r="41" fill="none" stroke="#67D9D0" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.6" />
 
-        {/* Ribbon 1: Rising Steam (HOT) */}
+        {/* Ribbon 01 — HOT: Rising Steam (Smooth, curved, fluid rising ribbon) */}
         <path
-          d="M 38 72 C 34 62, 36 50, 48 44 C 58 38, 54 28, 48 20 C 56 24, 62 34, 54 44 C 44 54, 46 64, 52 70 Z"
-          fill="url(#steamGradient)"
+          d="M 38 72 C 32 60, 36 48, 48 42 C 58 36, 56 26, 48 18 C 56 22, 64 32, 54 44 C 44 54, 46 64, 52 70 Z"
+          fill="url(#steamGradientHCS)"
           opacity="0.95"
         />
 
-        {/* Ribbon 2: Ice Crystal (COOL) */}
+        {/* Ribbon 02 — COOL: Angular Ice Crystal (Sharp, geometric, crystalline form) */}
         <path
-          d="M 50 20 L 68 34 L 62 56 L 48 44 L 58 36 Z"
-          fill="url(#iceGradient)"
-          opacity="0.9"
+          d="M 50 18 L 70 32 L 64 56 L 48 42 L 60 34 Z"
+          fill="url(#iceGradientHCS)"
+          opacity="0.95"
         />
 
-        {/* Ribbon 3: Vortex Wave (SHAKE) */}
+        {/* Ribbon 03 — SHAKE: Vortex Motion (Circular, dynamic blending spiral) */}
         <path
-          d="M 32 40 C 40 32, 60 30, 68 46 C 74 58, 62 74, 46 76 C 34 78, 24 64, 30 52 C 34 44, 44 42, 50 48 C 42 50, 36 56, 38 64 C 42 70, 56 68, 60 58 C 64 48, 50 40, 38 46 Z"
-          fill="url(#vortexGradient)"
+          d="M 30 38 C 38 28, 62 28, 70 44 C 76 56, 64 74, 46 76 C 32 78, 22 62, 28 50 C 32 42, 44 40, 50 46 C 42 48, 36 54, 38 62 C 42 68, 56 66, 60 56 C 64 46, 48 38, 36 44 Z"
+          fill="url(#vortexGradientHCS)"
+          opacity="0.92"
         />
 
-        {/* Focal Fusion Center */}
-        <circle cx="50" cy="48" r="3.5" fill="#F4E8D1" stroke="#2A1B16" strokeWidth="1" />
+        {/* Focal Fusion Center: Micro Crystal Dot */}
+        <circle cx="50" cy="48" r="3.2" fill="#F7FAF9" stroke="#67D9D0" strokeWidth="1" />
       </svg>
     </div>
   );
@@ -71,13 +83,12 @@ export const TripleWaveLogo = ({
 }) => {
   const emblemSizes = {
     sm: 32,
-    md: 42,
+    md: 44,
     lg: 56,
     xl: 72,
   };
 
-  const emblemSize = emblemSizes[size] || 42;
-  const isDark = theme === 'dark';
+  const emblemSize = emblemSizes[size] || 44;
 
   if (variant === 'icon-only') {
     return (
@@ -92,7 +103,7 @@ export const TripleWaveLogo = ({
       <Link to="/" className={`inline-flex items-center space-x-2.5 group ${className}`} aria-label="HOT COOL SHAKE Home">
         <TripleWaveEmblem size={emblemSize} animate />
         <div className="flex flex-col">
-          <span className={`font-display font-extrabold tracking-tight text-sm leading-none ${isDark ? 'text-[#F4E8D1]' : 'text-[#2A1B16]'}`}>
+          <span className="font-display font-black tracking-tight text-sm leading-none text-[#F7FAF9] group-hover:text-[#67D9D0] transition-colors">
             HOT COOL SHAKE
           </span>
         </div>
@@ -105,14 +116,14 @@ export const TripleWaveLogo = ({
       <TripleWaveEmblem size={emblemSize} animate />
       <div className="flex flex-col">
         <div className="flex items-center space-x-1.5">
-          <span className={`font-display font-black tracking-widest text-base sm:text-lg leading-tight uppercase ${isDark ? 'text-[#F4E8D1]' : 'text-[#2A1B16]'}`}>
+          <span className="font-display font-black tracking-widest text-base sm:text-lg leading-tight uppercase text-[#F7FAF9] group-hover:text-[#67D9D0] transition-colors">
             HOT COOL SHAKE
           </span>
         </div>
         
         {showEndorsement && (
           <div className="flex items-center space-x-1.5 mt-0.5">
-            <span className={`text-[9px] font-mono tracking-widest uppercase font-semibold opacity-75 ${isDark ? 'text-[#EEDCC6]' : 'text-[#3C2A21]'}`}>
+            <span className="text-[8.5px] font-mono tracking-widest uppercase font-semibold text-[#D6A06A]/85">
               POWERED BY IBM DESIGN
             </span>
           </div>

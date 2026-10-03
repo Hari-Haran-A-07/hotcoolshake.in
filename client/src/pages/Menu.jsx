@@ -39,7 +39,7 @@ export const Menu = () => {
         if (prodRes.success) setProducts(prodRes.products);
         if (catRes.success) setCategories(catRes.categories);
       } catch (err) {
-        console.warn('Catalog load error:', err);
+        console.warn('Catalog load fallback handled:', err);
       } finally {
         setLoading(false);
       }
@@ -72,35 +72,38 @@ export const Menu = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#F4E8D1] text-[#2A1B16] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+      {/* Background radial atmosphere */}
+      <div className="absolute inset-0 bg-radial-navy opacity-95 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Menu Hero Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#3C2A21] uppercase font-bold px-4 py-1.5 rounded-full bg-[#EEDCC6] border border-[#3C2A21]/20">
-            <Coffee className="w-3.5 h-3.5" />
-            <span>THE BEVERAGE MANIFESTO</span>
+          <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#D6A06A] uppercase font-bold px-4 py-1.5 rounded-full bg-[#0B2538] border border-[#B8783E]/30">
+            <Coffee className="w-3.5 h-3.5 text-[#67D9D0]" />
+            <span>THE BEVERAGE COLLECTION</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#2A1B16] uppercase">
-            INTERNATIONAL MENU.
+          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#F7FAF9] uppercase">
+            INTERNATIONAL <span className="text-brand-gradient">MENU.</span>
           </h1>
-          <p className="text-xs sm:text-sm text-[#3C2A21]/80 font-sans">
-            Explore our comprehensive collection of single-origin thermal extracts, sub-zero nitro infusions, and artisanal patisserie.
+          <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans">
+            Explore our comprehensive collection of single-origin thermal extracts, sub-zero nitro infusions, and signature vortex shakes.
           </p>
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="p-6 rounded-[32px] bg-[#EEDCC6]/50 border border-[#3C2A21]/15 mb-10 space-y-4">
+        <div className="p-6 rounded-[32px] bg-[#0B2538]/70 border border-[#B8783E]/20 mb-10 space-y-4 shadow-luxury-card">
           <div className="flex flex-col lg:flex-row gap-4 justify-between items-center">
             {/* Search Bar */}
             <div className="relative w-full lg:w-96">
-              <Search className="w-4 h-4 text-[#3C2A21]/50 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#A8B0B4] absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search flavors, single-origins, notes..."
-                className="w-full pl-11 pr-4 py-3 rounded-full bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs font-sans text-[#2A1B16] placeholder-[#3C2A21]/40 focus:outline-none focus:border-[#2A1B16]"
+                placeholder="Search flavours, single-origins, notes..."
+                className="w-full pl-11 pr-4 py-3 rounded-full bg-[#071A2B] border border-[#B8783E]/30 text-xs font-sans text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
               />
             </div>
 
@@ -120,8 +123,8 @@ export const Menu = () => {
                     onClick={() => setActiveTemp(t.id)}
                     className={`flex items-center space-x-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold tracking-wider uppercase transition-all flex-shrink-0 ${
                       isSelected
-                        ? 'bg-[#2A1B16] text-[#F4E8D1]'
-                        : 'bg-[#F4E8D1] text-[#2A1B16] hover:bg-[#EEDCC6] border border-[#3C2A21]/20'
+                        ? 'bg-brand-gradient text-[#071A2B] shadow-bronze-glow'
+                        : 'bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9] border border-white/10'
                     }`}
                   >
                     {Icon && <Icon className="w-3.5 h-3.5" />}
@@ -136,7 +139,7 @@ export const Menu = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-full bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs font-mono text-[#2A1B16] focus:outline-none"
+                className="w-full px-4 py-2.5 rounded-full bg-[#071A2B] border border-[#B8783E]/30 text-xs font-mono text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
               >
                 <option value="featured">Featured Curations</option>
                 <option value="rating">Highest Rated</option>
@@ -147,108 +150,111 @@ export const Menu = () => {
           </div>
 
           {/* Category Horizontal Pills */}
-          <div className="flex items-center space-x-2 overflow-x-auto pt-2 no-scrollbar border-t border-[#3C2A21]/10">
+          <div className="flex items-center space-x-2 overflow-x-auto pt-2 no-scrollbar border-t border-[#071A2B]">
             <button
               onClick={() => setActiveCategory('ALL')}
               className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase transition-all flex-shrink-0 ${
                 activeCategory === 'ALL'
-                  ? 'bg-[#2A1B16] text-[#F4E8D1]'
-                  : 'bg-[#F4E8D1]/70 text-[#2A1B16] hover:bg-[#F4E8D1]'
+                  ? 'bg-[#B8783E] text-[#071A2B] font-black'
+                  : 'bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9]'
               }`}
             >
               All Categories
             </button>
-            {categories.map((cat) => (
-              <button
-                key={cat.slug}
-                onClick={() => setActiveCategory(cat.slug)}
-                className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase transition-all flex-shrink-0 ${
-                  activeCategory === cat.slug
-                    ? 'bg-[#2A1B16] text-[#F4E8D1]'
-                    : 'bg-[#F4E8D1]/70 text-[#2A1B16] hover:bg-[#F4E8D1]'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isCatActive = activeCategory === cat.slug;
+              return (
+                <button
+                  key={cat._id || cat.slug}
+                  onClick={() => setActiveCategory(cat.slug)}
+                  className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase transition-all flex-shrink-0 ${
+                    isCatActive
+                      ? 'bg-[#67D9D0] text-[#071A2B] font-black'
+                      : 'bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9]'
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Results Counter */}
-        <div className="mb-6 flex items-center justify-between text-xs font-mono text-[#3C2A21]/70 px-2">
-          <span>SHOWING {filteredProducts.length} CREATIONS</span>
-          <span>CALIBRATED FOR YOUR TASTE</span>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Product Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product, idx) => (
             <motion.div
               key={product._id || idx}
               layout
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: idx * 0.05 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
               onClick={() => setSelectedProduct(product)}
-              className="bg-[#EEDCC6]/50 hover:bg-[#EEDCC6] rounded-[28px] p-5 border border-[#3C2A21]/15 hover:border-[#3C2A21]/40 shadow-card-lux transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+              data-cursor="view"
+              className="product-card bg-[#0B2538]/70 hover:bg-[#0B2538] rounded-[32px] p-6 border border-[#B8783E]/20 hover:border-[#67D9D0]/50 shadow-luxury-card hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between"
             >
               <div>
-                {/* Image */}
-                <div className="relative h-52 w-full rounded-2xl overflow-hidden bg-[#2A1B16] mb-4 border border-[#3C2A21]/15">
+                {/* Image & Badges */}
+                <div className="relative h-60 w-full rounded-2xl overflow-hidden bg-[#071A2B] mb-5 border border-[#B8783E]/20">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A1B16]/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071A2B]/90 via-transparent to-transparent" />
 
                   {/* Temperature Badge */}
-                  <div className="absolute top-2.5 left-2.5">
+                  <div className="absolute top-3 left-3">
                     <span
-                      className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase ${
+                      className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase ${
                         product.temperature === 'HOT'
-                          ? 'bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/30'
-                          : 'bg-[#3C2A21] text-[#F4E8D1] border border-[#EEDCC6]/30'
+                          ? 'bg-[#071A2B] text-[#D6A06A] border border-[#B8783E]/50'
+                          : 'bg-[#071A2B] text-[#67D9D0] border border-[#67D9D0]/50'
                       }`}
                     >
                       {product.temperature === 'HOT' ? (
-                        <Flame className="w-2.5 h-2.5 text-[#EEDCC6]" />
+                        <Flame className="w-3 h-3 text-[#B8783E]" />
                       ) : (
-                        <Snowflake className="w-2.5 h-2.5 text-[#EEDCC6]" />
+                        <Snowflake className="w-3 h-3 text-[#67D9D0]" />
                       )}
                       <span>{product.temperature}</span>
                     </span>
                   </div>
 
                   {product.badge && (
-                    <div className="absolute top-2.5 right-2.5">
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-[#EEDCC6] text-[#2A1B16] shadow-sm">
+                    <div className="absolute top-3 right-3">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-brand-gradient text-[#071A2B] shadow-md">
                         {product.badge}
                       </span>
                     </div>
                   )}
 
-                  <div className="absolute bottom-2.5 left-2.5">
-                    <span className="text-sm font-mono font-black text-[#F4E8D1] px-2 py-0.5 rounded-lg bg-[#2A1B16]/80">
+                  {/* Price Tag Overlay on Bottom Image */}
+                  <div className="absolute bottom-3 left-3">
+                    <span className="text-base font-mono font-black text-[#F7FAF9] px-2.5 py-1 rounded-lg bg-[#071A2B]/85 backdrop-blur-sm border border-[#B8783E]/30">
                       ${product.price?.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
-                {/* Info */}
-                <div className="space-y-1.5">
-                  <h3 className="font-display font-extrabold text-lg text-[#2A1B16] group-hover:text-[#3C2A21] leading-snug">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-[#3C2A21]/75 font-sans line-clamp-2 leading-relaxed">
+                {/* Content */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display font-extrabold text-xl text-[#F7FAF9] group-hover:text-[#67D9D0] transition-colors leading-snug">
+                      {product.name}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs text-[#A8B0B4] font-sans line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1 pt-1.5">
-                    {product.flavorNotes?.slice(0, 2).map((note, nIdx) => (
+                  {/* Flavor Notes Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {product.flavorNotes?.map((note, nIdx) => (
                       <span
                         key={nIdx}
-                        className="text-[9px] font-mono text-[#3C2A21] bg-[#F4E8D1] px-2 py-0.5 rounded-full border border-[#3C2A21]/15"
+                        className="text-[10px] font-mono text-[#D6A06A] bg-[#071A2B] px-2.5 py-0.5 rounded-full border border-[#B8783E]/20"
                       >
                         {note}
                       </span>
@@ -257,19 +263,19 @@ export const Menu = () => {
                 </div>
               </div>
 
-              {/* Card Footer */}
-              <div className="pt-4 mt-4 border-t border-[#3C2A21]/15 flex items-center justify-between">
-                <span className="text-[11px] font-mono font-bold text-[#3C2A21] group-hover:underline">
-                  CUSTOMIZE →
+              {/* Bottom Card Actions */}
+              <div className="pt-6 mt-6 border-t border-[#071A2B] flex items-center justify-between">
+                <span className="text-xs font-mono font-semibold text-[#67D9D0] group-hover:underline">
+                  CUSTOMIZE & SPECS →
                 </span>
 
                 <button
                   type="button"
                   onClick={(e) => handleQuickAdd(e, product)}
-                  className="p-2.5 rounded-full bg-[#2A1B16] hover:bg-[#3C2A21] text-[#F4E8D1] shadow-md hover:scale-110 transition-all"
-                  aria-label="Add to bag"
+                  className="p-3 rounded-full bg-[#071A2B] hover:bg-brand-gradient text-[#F7FAF9] hover:text-[#071A2B] border border-[#B8783E]/40 shadow-md hover:scale-110 transition-all"
+                  aria-label={`Quick add ${product.name}`}
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
             </motion.div>

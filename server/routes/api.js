@@ -25,7 +25,7 @@ import {
 } from '../controllers/orderController.js';
 import { getLocations } from '../controllers/locationController.js';
 import { getReviews, createReview } from '../controllers/reviewController.js';
-import { submitContactMessage } from '../controllers/contactController.js';
+import { submitContactMessage, subscribeNewsletter } from '../controllers/contactController.js';
 import {
   getDashboardStats,
   getAdminOrders,
@@ -72,6 +72,7 @@ router.post('/orders', optionalAuth, createOrder);
 router.get('/orders/my-orders', protect, getMyOrders);
 router.get('/orders/:id', getOrderById);
 router.put('/orders/:id/status', updateOrderStatus);
+router.patch('/orders/:id/status', updateOrderStatus);
 
 // Global Locations
 router.get('/locations', getLocations);
@@ -80,8 +81,9 @@ router.get('/locations', getLocations);
 router.get('/reviews', getReviews);
 router.post('/reviews', createReview);
 
-// Contact Concierge
+// Contact Concierge & Newsletter
 router.post('/contact', submitContactMessage);
+router.post('/newsletter', subscribeNewsletter);
 
 // Admin Routes (protected, admin role)
 router.get('/admin/stats', protect, admin, getDashboardStats);
@@ -93,3 +95,4 @@ router.get('/admin/messages', protect, admin, getAdminMessages);
 router.put('/admin/messages/:id/status', protect, admin, updateAdminMessageStatus);
 
 export default router;
+

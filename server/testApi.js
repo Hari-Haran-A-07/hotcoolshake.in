@@ -97,15 +97,21 @@ const runTests = async () => {
     });
     console.log('✓ Create Order:', orderRes.status === 201, orderRes.data.order?.orderNumber);
 
-    // 8. Order Status Update
+    // 8. Order Status Update (PUT & PATCH)
     const orderId = orderRes.data.order._id;
     const updateStatusRes = await fetchJson(`/api/orders/${orderId}/status`, {
       method: 'PUT',
       body: JSON.stringify({ status: 'PREPARING' }),
     });
-    console.log('✓ Update Order Status:', updateStatusRes.status === 200, updateStatusRes.data.order?.status);
+    console.log('✓ Update Order Status (PUT):', updateStatusRes.status === 200, updateStatusRes.data.order?.status);
 
-    // 9. Contact
+    const patchStatusRes = await fetchJson(`/api/orders/${orderId}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status: 'BLENDING' }),
+    });
+    console.log('✓ Update Order Status (PATCH alias):', patchStatusRes.status === 200, patchStatusRes.data.order?.status);
+
+    // 9. Contact & Newsletter
     const contactRes = await fetchJson('/api/contact', {
       method: 'POST',
       body: JSON.stringify({
@@ -116,6 +122,14 @@ const runTests = async () => {
       }),
     });
     console.log('✓ Contact Message:', contactRes.status === 201, contactRes.data.success);
+
+    const newsletterRes = await fetchJson('/api/newsletter', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: 'vip.member@hotcoolshake.com',
+      }),
+    });
+    console.log('✓ VIP Newsletter Subscription:', newsletterRes.status === 200, newsletterRes.data.success);
 
     // 10. Auth Register & Login
     const regRes = await fetchJson('/api/auth/register', {
@@ -129,6 +143,7 @@ const runTests = async () => {
     console.log('✓ User Registration:', regRes.status === 201, regRes.data.user?.email);
 
     console.log('--- ALL BACKEND MERN API TESTS PASSED PERFECTLY ---');
+
   } catch (err) {
     console.error('Test failed:', err);
   } finally {

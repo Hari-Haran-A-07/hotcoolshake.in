@@ -59,26 +59,29 @@ export const FeaturedMenuSection = () => {
   };
 
   return (
-    <section className="py-24 bg-[#F4E8D1] text-[#2A1B16] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+      {/* Ambient background atmosphere */}
+      <div className="absolute inset-0 bg-radial-navy opacity-90 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#3C2A21] uppercase font-bold px-3 py-1 rounded-full bg-[#EEDCC6] border border-[#3C2A21]/20">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#D6A06A] uppercase font-bold px-3 py-1 rounded-full bg-[#0B2538] border border-[#B8783E]/30">
+              <Sparkles className="w-3.5 h-3.5 text-[#67D9D0]" />
               <span>THE BEVERAGE COLLECTION</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-[#2A1B16] uppercase">
-              MASTER ROASTS & INFUSIONS.
+            <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-[#F7FAF9] uppercase">
+              MASTER ROASTS & <span className="text-brand-gradient">INFUSIONS.</span>
             </h2>
-            <p className="text-xs sm:text-sm text-[#3C2A21]/80 font-sans max-w-lg">
+            <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans max-w-lg">
               Explore our internationally acclaimed menu of single-origin thermal extractions, cryogenic nitro brews, and blended vortex shakes.
             </p>
           </div>
 
           <button
             onClick={() => startPageTransition('/menu', 'INTERNATIONAL MENU')}
-            className="inline-flex items-center space-x-2 text-xs font-mono font-bold tracking-widest text-[#2A1B16] hover:text-[#3C2A21] uppercase group"
+            className="inline-flex items-center space-x-2 text-xs font-mono font-bold tracking-widest text-[#67D9D0] hover:text-[#F7FAF9] uppercase group"
           >
             <span>VIEW FULL MENU (30+ CREATIONS)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -96,8 +99,8 @@ export const FeaturedMenuSection = () => {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase transition-all flex-shrink-0 ${
                   isActive
-                    ? 'bg-[#2A1B16] text-[#F4E8D1] shadow-espresso-dark'
-                    : 'bg-[#EEDCC6]/80 text-[#2A1B16] hover:bg-[#EEDCC6] border border-[#3C2A21]/15'
+                    ? 'bg-[#B8783E] text-[#071A2B] shadow-bronze-glow font-black'
+                    : 'bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9] hover:bg-[#0B2538]/80 border border-[#B8783E]/20'
                 }`}
               >
                 {Icon && <Icon className="w-3.5 h-3.5" />}
@@ -117,31 +120,32 @@ export const FeaturedMenuSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               onClick={() => setSelectedProduct(product)}
-              className="bg-[#EEDCC6]/40 hover:bg-[#EEDCC6]/80 rounded-[32px] p-6 border border-[#3C2A21]/15 hover:border-[#3C2A21]/40 shadow-card-lux transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+              data-cursor="view"
+              className="product-card bg-[#0B2538]/70 hover:bg-[#0B2538] rounded-[32px] p-6 border border-[#B8783E]/20 hover:border-[#67D9D0]/50 shadow-luxury-card hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between"
             >
               <div>
                 {/* Image & Badges */}
-                <div className="relative h-60 w-full rounded-2xl overflow-hidden bg-[#2A1B16] mb-5 border border-[#3C2A21]/15">
+                <div className="relative h-60 w-full rounded-2xl overflow-hidden bg-[#071A2B] mb-5 border border-[#B8783E]/20">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A1B16]/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071A2B]/90 via-transparent to-transparent" />
 
                   {/* Temperature Badge */}
                   <div className="absolute top-3 left-3">
                     <span
                       className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase ${
                         product.temperature === 'HOT'
-                          ? 'bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/40'
-                          : 'bg-[#3C2A21] text-[#F4E8D1] border border-[#EEDCC6]/40'
+                          ? 'bg-[#071A2B] text-[#D6A06A] border border-[#B8783E]/50'
+                          : 'bg-[#071A2B] text-[#67D9D0] border border-[#67D9D0]/50'
                       }`}
                     >
                       {product.temperature === 'HOT' ? (
-                        <Flame className="w-3 h-3 text-[#EEDCC6]" />
+                        <Flame className="w-3 h-3 text-[#B8783E]" />
                       ) : (
-                        <Snowflake className="w-3 h-3 text-[#EEDCC6]" />
+                        <Snowflake className="w-3 h-3 text-[#67D9D0]" />
                       )}
                       <span>{product.temperature}</span>
                     </span>
@@ -149,7 +153,7 @@ export const FeaturedMenuSection = () => {
 
                   {product.badge && (
                     <div className="absolute top-3 right-3">
-                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-[#EEDCC6] text-[#2A1B16] shadow-md">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-brand-gradient text-[#071A2B] shadow-md">
                         {product.badge}
                       </span>
                     </div>
@@ -157,7 +161,7 @@ export const FeaturedMenuSection = () => {
 
                   {/* Price Tag Overlay on Bottom Image */}
                   <div className="absolute bottom-3 left-3">
-                    <span className="text-base font-mono font-black text-[#F4E8D1] px-2.5 py-1 rounded-lg bg-[#2A1B16]/80 backdrop-blur-sm">
+                    <span className="text-base font-mono font-black text-[#F7FAF9] px-2.5 py-1 rounded-lg bg-[#071A2B]/85 backdrop-blur-sm border border-[#B8783E]/30">
                       ${product.price?.toFixed(2)}
                     </span>
                   </div>
@@ -166,12 +170,12 @@ export const FeaturedMenuSection = () => {
                 {/* Content */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-display font-extrabold text-xl text-[#2A1B16] group-hover:text-[#3C2A21] transition-colors leading-snug">
+                    <h3 className="font-display font-extrabold text-xl text-[#F7FAF9] group-hover:text-[#67D9D0] transition-colors leading-snug">
                       {product.name}
                     </h3>
                   </div>
 
-                  <p className="text-xs text-[#3C2A21]/80 font-sans line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-[#A8B0B4] font-sans line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
 
@@ -180,7 +184,7 @@ export const FeaturedMenuSection = () => {
                     {product.flavorNotes?.slice(0, 3).map((note, nIdx) => (
                       <span
                         key={nIdx}
-                        className="text-[10px] font-mono text-[#3C2A21] bg-[#F4E8D1] px-2.5 py-0.5 rounded-full border border-[#3C2A21]/15"
+                        className="text-[10px] font-mono text-[#D6A06A] bg-[#071A2B] px-2.5 py-0.5 rounded-full border border-[#B8783E]/20"
                       >
                         {note}
                       </span>
@@ -190,15 +194,15 @@ export const FeaturedMenuSection = () => {
               </div>
 
               {/* Bottom Card Actions */}
-              <div className="pt-6 mt-6 border-t border-[#3C2A21]/15 flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold text-[#3C2A21] group-hover:underline">
+              <div className="pt-6 mt-6 border-t border-[#0B2538] flex items-center justify-between">
+                <span className="text-xs font-mono font-semibold text-[#67D9D0] group-hover:underline">
                   CUSTOMIZE & SPECS →
                 </span>
 
                 <button
                   type="button"
                   onClick={(e) => handleQuickAdd(e, product)}
-                  className="p-3 rounded-full bg-[#2A1B16] hover:bg-[#3C2A21] text-[#F4E8D1] shadow-md hover:scale-110 transition-all"
+                  className="p-3 rounded-full bg-[#071A2B] hover:bg-brand-gradient text-[#F7FAF9] hover:text-[#071A2B] border border-[#B8783E]/40 shadow-md hover:scale-110 transition-all"
                   aria-label={`Quick add ${product.name}`}
                 >
                   <Plus className="w-4 h-4" />

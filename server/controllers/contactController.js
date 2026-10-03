@@ -1,4 +1,5 @@
 import { ContactMessage } from '../models/ContactMessage.js';
+import { NewsletterSubscriber } from '../models/NewsletterSubscriber.js';
 
 // @desc    Submit contact message
 // @route   POST /api/contact
@@ -29,3 +30,31 @@ export const submitContactMessage = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Subscribe to newsletter
+// @route   POST /api/newsletter
+// @access  Public
+export const subscribeNewsletter = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ success: false, message: 'Please provide a valid email address' });
+    }
+
+    const subscriber = await NewsletterSubscriber.findOneAndUpdate(
+      { email: email.toLowerCase().trim() },
+      { email: email.toLowerCase().trim(), isActive: true, tier: 'VIP_COFFEE_CLUB' },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Welcome to the HOT COOL SHAKE Inner Circle.',
+      subscriber,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

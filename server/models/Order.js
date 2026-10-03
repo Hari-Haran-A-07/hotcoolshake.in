@@ -82,17 +82,23 @@ const orderSchema = new mongoose.Schema(
       type: String,
       enum: [
         'CUSTOMIZED',
+        'ORDER_RECEIVED',
         'ORDER_CONFIRMED',
         'PREPARING',
+        'BLENDING',
+        'HEATING_COOLING',
         'QUALITY_CHECK',
+        'FINAL_CHECK',
         'READY',
         'DISPATCHED',
         'OUT_FOR_DELIVERY',
         'DELIVERED',
+        'COMPLETED',
         'CANCELLED',
       ],
       default: 'ORDER_CONFIRMED',
     },
+
     statusTimeline: [
       {
         status: { type: String, required: true },

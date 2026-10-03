@@ -17,7 +17,7 @@ import {
 export const ProductDetailModal = ({ product, isOpen, onClose }) => {
   const { addToCart } = useCart();
 
-  const [selectedTemp, setSelectedTemp] = useState(product?.temperature || 'COOL');
+  const [selectedTemp, setSelectedTemp] = useState(product?.temperature || 'HOT');
   const [selectedSize, setSelectedSize] = useState('Standard 450ml');
   const [selectedMilk, setSelectedMilk] = useState('Velvet Silk Oat Milk');
   const [selectedSweetness, setSelectedSweetness] = useState('50% Balanced');
@@ -79,7 +79,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-[#2A1B16]/85 backdrop-blur-md"
+          className="fixed inset-0 bg-[#071A2B]/90 backdrop-blur-md"
         />
 
         {/* Modal Window */}
@@ -87,204 +87,148 @@ export const ProductDetailModal = ({ product, isOpen, onClose }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-4xl bg-[#2A1B16] text-[#F4E8D1] rounded-[32px] overflow-hidden border border-[#EEDCC6]/20 shadow-2xl z-10 my-8"
+          className="relative w-full max-w-4xl bg-[#0B2538] text-[#F7FAF9] rounded-[36px] overflow-hidden border-2 border-[#B8783E]/40 shadow-2xl z-10 my-8"
         >
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 z-20 p-2.5 rounded-full bg-[#3C2A21] text-[#EEDCC6] hover:text-[#F4E8D1] hover:bg-[#EEDCC6] hover:text-[#2A1B16] transition-all border border-[#EEDCC6]/20"
+            className="absolute top-5 right-5 z-20 p-2.5 rounded-full bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9] hover:bg-[#071A2B]/80 transition-all border border-white/10"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 max-h-[85vh] overflow-y-auto">
-            {/* Left Col: High-Res Beverage Visual & Notes */}
-            <div className="lg:col-span-5 bg-gradient-to-b from-[#3C2A21] to-[#2A1B16] p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#EEDCC6]/15 relative">
-              <div>
-                <div className="flex items-center space-x-2 mb-4">
-                  {product.badge && (
-                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-[#EEDCC6] text-[#2A1B16]">
-                      {product.badge}
-                    </span>
-                  )}
-                  <div className="flex items-center space-x-1 text-[#EEDCC6] text-xs font-mono">
-                    <Star className="w-3.5 h-3.5 fill-[#EEDCC6]" />
-                    <span>{product.rating || 4.9}</span>
-                    <span className="opacity-60">({product.reviewsCount || 150})</span>
-                  </div>
-                </div>
+            {/* Left Image Section */}
+            <div className="lg:col-span-5 relative bg-[#071A2B] min-h-[300px] lg:min-h-[500px]">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B2538] via-transparent to-transparent lg:hidden" />
 
-                <div className="relative h-64 sm:h-72 w-full rounded-2xl overflow-hidden bg-[#2A1B16] border border-[#EEDCC6]/20 shadow-espresso-dark mb-6 group">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A1B16]/80 via-transparent to-transparent" />
-                </div>
-              </div>
-
-              {/* Flavor Profile Strip */}
-              <div className="space-y-3 pt-2">
-                <h4 className="text-xs font-mono font-bold tracking-widest text-[#EEDCC6] uppercase">
-                  FLAVOR NOTES & ROAST ACCENT
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {product.flavorNotes?.map((note, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 rounded-full bg-[#3C2A21] text-xs font-mono text-[#F4E8D1] border border-[#EEDCC6]/20"
-                    >
-                      {note}
-                    </span>
-                  ))}
-                </div>
+              {/* Badge */}
+              <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                <span className="px-3.5 py-1 rounded-full bg-brand-gradient text-[#071A2B] text-[10px] font-mono font-black uppercase shadow-md">
+                  {product.badge || 'SIGNATURE'}
+                </span>
               </div>
             </div>
 
-            {/* Right Col: Customization Form */}
+            {/* Right Customization Section */}
             <div className="lg:col-span-7 p-6 sm:p-8 space-y-6">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#F4E8D1]">
+                <div className="flex items-center space-x-2 text-[10px] font-mono text-[#D6A06A] uppercase mb-1">
+                  <Star className="w-3.5 h-3.5 fill-[#D6A06A]" />
+                  <span>{product.rating || 4.9} RATING • 100% ETHICAL ORIGIN</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-display font-black text-[#F7FAF9] uppercase">
                   {product.name}
                 </h2>
-                <p className="text-xs sm:text-sm text-[#EEDCC6]/80 font-sans mt-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans mt-2 leading-relaxed">
                   {product.description}
                 </p>
-                {product.story && (
-                  <p className="text-xs italic text-[#EEDCC6]/60 mt-1.5">
-                    "{product.story}"
-                  </p>
-                )}
               </div>
 
-              {/* Temperature Selector */}
-              <div className="space-y-2.5">
-                <label className="text-xs font-mono font-bold tracking-wider text-[#EEDCC6] uppercase block">
-                  1. SERVING TEMPERATURE
+              {/* Story */}
+              {product.story && (
+                <div className="p-3.5 rounded-2xl bg-[#071A2B] border border-[#B8783E]/20 text-xs text-[#D6A06A] font-sans italic">
+                  "{product.story}"
+                </div>
+              )}
+
+              {/* Temperature Selection */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-mono font-bold text-[#67D9D0] uppercase tracking-wider block">
+                  CALIBRATED TEMPERATURE
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
                     onClick={() => setSelectedTemp('HOT')}
-                    className={`flex items-center justify-center space-x-2 py-3 rounded-2xl border text-xs font-mono font-bold tracking-wider transition-all ${
+                    className={`p-3 rounded-2xl border text-xs font-mono font-bold transition-all flex items-center justify-center space-x-2 ${
                       selectedTemp === 'HOT'
-                        ? 'bg-[#3C2A21] border-[#EEDCC6] text-[#F4E8D1] shadow-coffee-glow'
-                        : 'bg-[#2A1B16] border-[#EEDCC6]/20 text-[#EEDCC6]/70 hover:border-[#EEDCC6]/50'
+                        ? 'bg-[#071A2B] border-[#B8783E] text-[#D6A06A] shadow-bronze-glow'
+                        : 'bg-[#071A2B]/50 border-white/10 text-[#A8B0B4]'
                     }`}
                   >
-                    <Flame className="w-4 h-4 text-[#EEDCC6]" />
-                    <span>STEAMED HOT (68°C)</span>
+                    <Flame className="w-4 h-4 text-[#B8783E]" />
+                    <span>HOT 68°C</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setSelectedTemp('COOL')}
-                    className={`flex items-center justify-center space-x-2 py-3 rounded-2xl border text-xs font-mono font-bold tracking-wider transition-all ${
+                    className={`p-3 rounded-2xl border text-xs font-mono font-bold transition-all flex items-center justify-center space-x-2 ${
                       selectedTemp === 'COOL'
-                        ? 'bg-[#3C2A21] border-[#EEDCC6] text-[#F4E8D1] shadow-coffee-glow'
-                        : 'bg-[#2A1B16] border-[#EEDCC6]/20 text-[#EEDCC6]/70 hover:border-[#EEDCC6]/50'
+                        ? 'bg-[#071A2B] border-[#67D9D0] text-[#67D9D0] shadow-teal-glow'
+                        : 'bg-[#071A2B]/50 border-white/10 text-[#A8B0B4]'
                     }`}
                   >
-                    <Snowflake className="w-4 h-4 text-[#EEDCC6]" />
-                    <span>CRYOGENIC COOL (04°C)</span>
+                    <Snowflake className="w-4 h-4 text-[#67D9D0]" />
+                    <span>COOL 04°C</span>
                   </button>
                 </div>
               </div>
 
-              {/* Vessel Capacity / Size */}
-              <div className="space-y-2.5">
-                <label className="text-xs font-mono font-bold tracking-wider text-[#EEDCC6] uppercase block">
-                  2. VESSEL CAPACITY
+              {/* Size Selection */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-mono font-bold text-[#67D9D0] uppercase tracking-wider block">
+                  VESSEL CAPACITY
                 </label>
                 <div className="grid grid-cols-3 gap-2">
-                  {sizeOptions.map((opt) => (
+                  {sizeOptions.map((sz) => (
                     <button
-                      key={opt.name}
+                      key={sz.name}
                       type="button"
-                      onClick={() => setSelectedSize(opt.name)}
-                      className={`p-2.5 rounded-xl text-center border text-xs font-mono transition-all ${
-                        selectedSize === opt.name
-                          ? 'bg-[#3C2A21] border-[#EEDCC6] text-[#F4E8D1] font-bold shadow-sm'
-                          : 'bg-[#2A1B16] border-[#EEDCC6]/20 text-[#EEDCC6]/70 hover:border-[#EEDCC6]/50'
+                      onClick={() => setSelectedSize(sz.name)}
+                      className={`p-2.5 rounded-xl border text-center transition-all ${
+                        selectedSize === sz.name
+                          ? 'bg-[#071A2B] border-[#67D9D0] text-[#F7FAF9] shadow-teal-glow'
+                          : 'bg-[#071A2B]/50 border-white/10 text-[#A8B0B4]'
                       }`}
                     >
-                      <div className="font-bold">{opt.name.split(' ')[0]}</div>
-                      <div className="text-[10px] opacity-75">{opt.name.split(' ')[1]}</div>
-                      {opt.extra > 0 && (
-                        <div className="text-[10px] text-[#EEDCC6] mt-0.5">+${opt.extra.toFixed(2)}</div>
-                      )}
+                      <div className="text-[10px] font-mono font-bold">{sz.name.split(' ')[0]}</div>
+                      <div className="text-[9px] font-mono text-[#D6A06A]">{sz.name.split(' ')[1]}</div>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Milk Customization */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono font-bold tracking-wider text-[#EEDCC6] uppercase block">
-                  3. ARTISAN MILK BASE
-                </label>
-                <select
-                  value={selectedMilk}
-                  onChange={(e) => setSelectedMilk(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
-                >
-                  {milkOptions.map((m) => (
-                    <option key={m} value={m} className="bg-[#2A1B16]">
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Sweetness Calibration */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono font-bold tracking-wider text-[#EEDCC6] uppercase block">
-                  4. SWEETNESS CALIBRATION
-                </label>
-                <select
-                  value={selectedSweetness}
-                  onChange={(e) => setSelectedSweetness(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#3C2A21] border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
-                >
-                  {sweetnessOptions.map((s) => (
-                    <option key={s} value={s} className="bg-[#2A1B16]">
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Bottom Quantity & Add to Cart Bar */}
-              <div className="pt-4 border-t border-[#EEDCC6]/15 flex items-center justify-between gap-4">
-                {/* Quantity */}
-                <div className="flex items-center space-x-3 bg-[#3C2A21] px-3.5 py-2 rounded-full border border-[#EEDCC6]/20">
+              {/* Quantity & Add to Cart */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
+                <div className="flex items-center space-x-2 bg-[#071A2B] p-1.5 rounded-2xl border border-white/10">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="text-[#EEDCC6] hover:text-[#F4E8D1]"
+                    className="p-1.5 rounded-xl hover:bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9]"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="font-mono font-bold text-sm text-[#F4E8D1] w-4 text-center">
-                    {quantity}
-                  </span>
+                  <span className="font-mono font-bold text-sm px-2">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="text-[#EEDCC6] hover:text-[#F4E8D1]"
+                    className="p-1.5 rounded-xl hover:bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9]"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
 
-                {/* Add CTA */}
                 <button
+                  type="button"
                   onClick={handleAddToCart}
-                  className="flex-1 py-3.5 px-6 rounded-full bg-gradient-to-r from-[#EEDCC6] to-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-coffee-glow hover:shadow-xl transition-all flex items-center justify-center space-x-2"
+                  className="flex-1 py-4 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-bronze-glow hover:brightness-110 transition-all flex items-center justify-center space-x-2"
                 >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>
-                    {isAdded ? 'ADDED TO BAG' : `ADD TO BAG • $${currentPrice.toFixed(2)}`}
-                  </span>
+                  {isAdded ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>ADDED TO CURATED BAG</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>ADD TO BAG • ${currentPrice.toFixed(2)}</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -46,19 +46,22 @@ export const Locations = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#F4E8D1] text-[#2A1B16] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+      {/* Background radial atmosphere */}
+      <div className="absolute inset-0 bg-radial-navy opacity-95 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#3C2A21] uppercase font-bold px-4 py-1.5 rounded-full bg-[#EEDCC6] border border-[#3C2A21]/20">
-            <Globe className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#D6A06A] uppercase font-bold px-4 py-1.5 rounded-full bg-[#0B2538] border border-[#B8783E]/30">
+            <Globe className="w-3.5 h-3.5 text-[#67D9D0]" />
             <span>GLOBAL ROASTERY NETWORK</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#2A1B16] uppercase">
-            INTERNATIONAL HUBS.
+          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#F7FAF9] uppercase">
+            STORE <span className="text-brand-gradient">LOCATOR.</span>
           </h1>
-          <p className="text-xs sm:text-sm text-[#3C2A21]/80 font-sans">
+          <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans">
             Explore our state-of-the-art automated flagships across Mumbai, Singapore, Dubai, London, New York, Tokyo, and Sydney.
           </p>
 
@@ -70,8 +73,8 @@ export const Locations = () => {
                 onClick={() => setActiveRegion(reg)}
                 className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase transition-all ${
                   activeRegion === reg
-                    ? 'bg-[#2A1B16] text-[#F4E8D1]'
-                    : 'bg-[#EEDCC6]/70 text-[#2A1B16] hover:bg-[#EEDCC6] border border-[#3C2A21]/15'
+                    ? 'bg-brand-gradient text-[#071A2B] shadow-bronze-glow'
+                    : 'bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9] border border-white/10'
                 }`}
               >
                 {reg.replace('_', ' ')}
@@ -92,33 +95,34 @@ export const Locations = () => {
                   onClick={() => setActiveLocation(loc)}
                   className={`p-5 rounded-3xl border cursor-pointer transition-all flex items-center justify-between ${
                     isSelected
-                      ? 'bg-[#2A1B16] text-[#F4E8D1] border-[#2A1B16] shadow-espresso-dark'
-                      : 'bg-[#EEDCC6]/50 hover:bg-[#EEDCC6] text-[#2A1B16] border-[#3C2A21]/15'
+                      ? 'bg-[#0B2538] text-[#F7FAF9] border-[#67D9D0] shadow-teal-glow'
+                      : 'bg-[#0B2538]/50 hover:bg-[#0B2538] text-[#F7FAF9] border-[#B8783E]/20'
                   }`}
                 >
                   <div className="flex items-center space-x-3.5">
                     <div
                       className={`p-3 rounded-2xl ${
-                        isSelected ? 'bg-[#3C2A21] text-[#EEDCC6]' : 'bg-[#EEDCC6] text-[#3C2A21]'
+                        isSelected ? 'bg-brand-gradient text-[#071A2B]' : 'bg-[#071A2B] text-[#D6A06A]'
                       }`}
                     >
                       <MapPin className="w-5 h-5" />
                     </div>
+
                     <div>
                       <h3 className="font-display font-bold text-base leading-tight">
-                        {loc.name}
-                      </h3>
-                      <span className={`text-xs font-mono ${isSelected ? 'text-[#EEDCC6]' : 'text-[#3C2A21]/70'}`}>
                         {loc.city}, {loc.country}
+                      </h3>
+                      <span className={`text-xs font-mono ${isSelected ? 'text-[#67D9D0]' : 'text-[#A8B0B4]'}`}>
+                        {loc.name}
                       </span>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <div className="font-mono text-xs font-bold">
+                    <div className="text-xs font-mono font-bold text-[#F7FAF9]">
                       {getCityTime(loc.timezone)}
                     </div>
-                    <span className={`text-[10px] font-mono uppercase ${isSelected ? 'text-[#EEDCC6]' : 'text-[#3C2A21]/60'}`}>
+                    <span className="text-[10px] font-mono text-[#D6A06A] uppercase">
                       {loc.region}
                     </span>
                   </div>
@@ -127,48 +131,48 @@ export const Locations = () => {
             })}
           </div>
 
-          {/* Right: Selected Hub Showcase Detail */}
+          {/* Right: Selected Hub Inspection Card */}
           <div className="lg:col-span-7">
             {activeLocation && (
               <motion.div
                 key={activeLocation._id || activeLocation.name}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="p-8 sm:p-10 rounded-[40px] bg-[#2A1B16] text-[#F4E8D1] border border-[#EEDCC6]/25 shadow-2xl space-y-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-8 sm:p-10 rounded-[40px] bg-[#0B2538] text-[#F7FAF9] border-2 border-[#B8783E]/40 shadow-2xl space-y-6"
               >
-                {/* Image */}
-                <div className="relative h-64 sm:h-72 w-full rounded-3xl overflow-hidden bg-[#3C2A21] border border-[#EEDCC6]/20 shadow-espresso-dark">
+                {/* Photo */}
+                <div className="relative h-64 w-full rounded-3xl overflow-hidden bg-[#071A2B] border border-white/10">
                   <img
                     src={activeLocation.image}
                     alt={activeLocation.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A1B16] via-[#2A1B16]/30 to-transparent" />
-                  <div className="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-[#EEDCC6] text-[#2A1B16] text-[10px] font-mono font-bold uppercase">
-                    GLOBAL FLAGSHIP ROASTERY
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071A2B] via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-brand-gradient text-[#071A2B] text-[10px] font-mono font-black uppercase shadow-md">
+                    FLAGSHIP ROASTERY LAB
                   </div>
                 </div>
 
-                {/* Details */}
+                {/* Location Meta */}
                 <div className="space-y-1">
-                  <h2 className="text-3xl font-display font-black text-[#F4E8D1]">
+                  <h2 className="text-3xl font-display font-black text-[#F7FAF9] uppercase">
                     {activeLocation.name}
                   </h2>
-                  <p className="text-xs font-mono text-[#EEDCC6]">
+                  <p className="text-xs font-mono text-[#D6A06A]">
                     {activeLocation.address}, {activeLocation.city}, {activeLocation.country}
                   </p>
                 </div>
 
-                {/* Capabilities */}
-                <div className="space-y-2.5">
-                  <span className="text-xs font-mono font-bold text-[#EEDCC6] uppercase tracking-wider block">
-                    FLAGSHIP SPECIFICATIONS & AMENITIES
+                {/* Features */}
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono font-bold text-[#67D9D0] uppercase tracking-wider block">
+                    AUTOMATION LAB FEATURES
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {activeLocation.features?.map((f, idx) => (
                       <span
                         key={idx}
-                        className="px-3.5 py-1.5 rounded-full bg-[#3C2A21] border border-[#EEDCC6]/20 text-xs font-mono text-[#F4E8D1]"
+                        className="px-3.5 py-1 rounded-full bg-[#071A2B] border border-[#B8783E]/30 text-xs font-mono text-[#F7FAF9]"
                       >
                         {f}
                       </span>
@@ -176,29 +180,26 @@ export const Locations = () => {
                   </div>
                 </div>
 
-                {/* Telemetry Strip */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#EEDCC6]/15 text-xs font-mono">
+                {/* Operating Info */}
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10 text-xs font-mono">
                   <div>
-                    <span className="text-[#EEDCC6]/70 block">LOCAL TIME</span>
-                    <span className="font-bold text-[#F4E8D1]">{getCityTime(activeLocation.timezone)}</span>
+                    <span className="text-[#A8B0B4] block uppercase">OPERATING HOURS</span>
+                    <span className="font-bold text-[#F7FAF9]">{activeLocation.openingHours}</span>
                   </div>
                   <div>
-                    <span className="text-[#EEDCC6]/70 block">OPERATING HOURS</span>
-                    <span className="font-bold text-[#F4E8D1]">{activeLocation.openingHours}</span>
-                  </div>
-                  <div>
-                    <span className="text-[#EEDCC6]/70 block">LAB CAPACITY</span>
-                    <span className="font-bold text-[#EEDCC6]">{activeLocation.labCapacity}</span>
+                    <span className="text-[#A8B0B4] block uppercase">AUTOMATED CAPACITY</span>
+                    <span className="font-bold text-[#67D9D0]">{activeLocation.labCapacity}</span>
                   </div>
                 </div>
 
-                {/* Order Pickup from here CTA */}
-                <div className="pt-2">
+                {/* Direct CTA */}
+                <div className="pt-4 flex flex-col sm:flex-row gap-3">
                   <button
-                    onClick={() => startPageTransition('/make-your-coffee', `VIRTUAL LAB (${activeLocation.city.toUpperCase()})`)}
-                    className="w-full py-4 rounded-full bg-[#EEDCC6] hover:bg-[#F4E8D1] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-coffee-glow transition-all flex items-center justify-center space-x-2"
+                    onClick={() => startPageTransition('/make-your-coffee', `DISPATCH FROM ${activeLocation.city.toUpperCase()}`)}
+                    data-cursor="create"
+                    className="flex-1 py-4 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-bronze-glow hover:brightness-110 transition-all flex items-center justify-center space-x-2"
                   >
-                    <span>CRAFT CUSTOM COFFEE FOR THIS HUB</span>
+                    <span>ORDER FROM THIS HUB</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

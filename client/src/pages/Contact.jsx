@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../services/api';
-import { Mail, Phone, MapPin, CheckCircle2, ChevronDown, Sparkles, Send, MessageSquare } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  CheckCircle2,
+  ChevronDown,
+  Sparkles,
+  Send,
+  MessageSquare,
+  ShieldCheck,
+  Clock,
+} from 'lucide-react';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,19 +31,19 @@ export const Contact = () => {
   const faqs = [
     {
       q: 'How does the "Make Your Coffee" virtual laboratory work?',
-      a: 'Our digital laboratory allows you to choose your vacuum-sealed vessel, calibrate single-origin espresso bases, layer rare botanical and dessert flavor notes, and choose between thermal 68°C heated or sub-zero 04°C cryogenic cooling.',
+      a: 'Our digital laboratory allows you to choose your vacuum-sealed vessel, calibrate single-origin espresso bases, layer rare botanical and dessert flavor notes, and choose between thermal 68°C heated or sub-zero 04°C cryogenic cooling with real-time telemetry.',
     },
     {
       q: 'What makes your thermal bottles circular and sustainable?',
-      a: 'We eliminate all single-use plastics and paper cups. Our vessels are made of 100% recyclable double-walled 18/8 stainless steel and aerospace titanium alloys, retaining sub-zero chill for up to 32 hours and boiling heat for up to 18 hours.',
+      a: 'We eliminate all single-use plastics and paper cups. Our vessels are made of 100% recyclable double-walled 18/8 stainless steel and aerospace titanium alloys, retaining sub-zero chill for up to 24 hours and thermal bloom heat for up to 18 hours.',
     },
     {
       q: 'Do you offer international shipping and local flagship delivery?',
-      a: 'Yes, we operate automated Flagship Roastery Labs in Mumbai, Singapore, Dubai, London, New York, Tokyo, and Sydney. Custom creations ordered within these metropolitan zones are dispatched via climate-controlled EV courier in under 30 minutes.',
+      a: 'Yes, we operate automated Flagship Roastery Labs in Mumbai, Singapore, Dubai, London, New York, and Tokyo. Custom creations ordered within metropolitan zones are dispatched via climate-controlled EV courier in under 30 minutes.',
     },
     {
       q: 'Can I reorder my custom saved formula?',
-      a: 'Absolutely. Every custom blend receives a unique telemetry certificate code stored in our database. You can reorder your signature blend with 1-click from your order tracking screen or laboratory profile.',
+      a: 'Absolutely. Every custom blend receives a unique telemetry certificate code stored in our system. You can reorder your signature blend with 1-click from your order tracking screen or laboratory profile.',
     },
   ];
 
@@ -60,49 +71,87 @@ export const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#F4E8D1] text-[#2A1B16] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#3C2A21] uppercase font-bold px-4 py-1.5 rounded-full bg-[#EEDCC6] border border-[#3C2A21]/20">
-            <Mail className="w-3.5 h-3.5" />
-            <span>GLOBAL CONCIERGE & INQUIRIES</span>
-          </div>
+    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 bg-radial-navy opacity-90 pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-[#67D9D0]/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-96 h-96 rounded-full bg-[#B8783E]/5 blur-3xl pointer-events-none" />
 
-          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#2A1B16] uppercase">
-            CONTACT CONCIERGE.
-          </h1>
-          <p className="text-xs sm:text-sm text-[#3C2A21]/80 font-sans">
-            Have questions regarding custom blend formulations, corporate laboratory catering, or international flagship partnerships?
-          </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center space-x-2 text-xs font-mono tracking-widest text-[#D6A06A] uppercase font-bold px-4 py-1.5 rounded-full bg-[#0B2538] border border-[#B8783E]/30"
+          >
+            <Mail className="w-3.5 h-3.5 text-[#B8783E]" />
+            <span>GLOBAL CONCIERGE & INQUIRIES</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#F7FAF9] uppercase"
+          >
+            CONTACT <br />
+            <span className="text-gradient-brand">CONCIERGE.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm sm:text-base text-[#A8B0B4] font-sans leading-relaxed"
+          >
+            Have questions regarding custom blend formulations, corporate laboratory catering, or international flagship partnerships? Our concierge team is at your service.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left: Contact Form */}
-          <div className="lg:col-span-7 bg-[#EEDCC6]/50 rounded-[36px] p-8 sm:p-10 border border-[#3C2A21]/15 shadow-card-lux space-y-6">
-            <h2 className="text-2xl font-display font-bold text-[#2A1B16]">
-              TRANSMIT AN INQUIRY
-            </h2>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-7 bg-[#0B2538]/80 rounded-[36px] p-8 sm:p-10 border border-[#B8783E]/30 shadow-luxury-card space-y-6 backdrop-blur-md"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-display font-bold text-[#F7FAF9]">
+                TRANSMIT AN INQUIRY
+              </h2>
+              <span className="text-xs font-mono text-[#67D9D0] flex items-center space-x-1">
+                <Clock className="w-3.5 h-3.5" />
+                <span>AVG RESPONSE: &lt; 4 HOURS</span>
+              </span>
+            </div>
 
             {submitted ? (
-              <div className="p-6 rounded-2xl bg-[#2A1B16] text-[#F4E8D1] space-y-2 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[#EEDCC6] mx-auto" />
-                <h3 className="font-display font-bold text-lg">Inquiry Transmitted</h3>
-                <p className="text-xs font-mono text-[#EEDCC6]/80">
-                  Our international coffee concierge will respond to your transmission within 4 business hours.
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-8 rounded-3xl bg-[#071A2B] border border-[#67D9D0]/30 text-[#F7FAF9] space-y-4 text-center"
+              >
+                <div className="w-14 h-14 rounded-full bg-[#67D9D0]/10 text-[#67D9D0] flex items-center justify-center mx-auto border border-[#67D9D0]/30">
+                  <CheckCircle2 className="w-7 h-7" />
+                </div>
+                <h3 className="font-display font-bold text-xl text-[#F7FAF9]">Transmission Received</h3>
+                <p className="text-xs font-mono text-[#A8B0B4] max-w-md mx-auto leading-relaxed">
+                  Your message has been routed to our Senior Beverage Concierge. A personalized response will be dispatched to your email address.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 px-6 py-2 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-bold uppercase"
+                  className="mt-4 px-6 py-3 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-bold uppercase hover:brightness-110 transition-all"
                 >
                   Send Another Inquiry
                 </button>
-              </div>
+              </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                    <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                       Full Name *
                     </label>
                     <input
@@ -111,12 +160,12 @@ export const Contact = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Sophia Laurent"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs text-[#2A1B16] focus:outline-none focus:border-[#2A1B16]"
+                      className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/50 focus:outline-none focus:border-[#67D9D0] transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                    <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                       Email Address *
                     </label>
                     <input
@@ -125,14 +174,14 @@ export const Contact = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="sophia@example.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs text-[#2A1B16] focus:outline-none focus:border-[#2A1B16]"
+                      className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/50 focus:outline-none focus:border-[#67D9D0] transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                    <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                       Phone Number
                     </label>
                     <input
@@ -140,18 +189,18 @@ export const Contact = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+1 (800) 468-2665"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs text-[#2A1B16] focus:outline-none focus:border-[#2A1B16]"
+                      className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/50 focus:outline-none focus:border-[#67D9D0] transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                    <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                       Inquiry Category
                     </label>
                     <select
                       value={formData.inquiryType}
                       onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs font-mono text-[#2A1B16] focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs font-mono text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0] transition-colors"
                     >
                       <option value="CUSTOMER_SUPPORT">Customer Experience Concierge</option>
                       <option value="FLAGSHIP_PARTNERSHIP">Flagship Roastery Partnership</option>
@@ -163,7 +212,7 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                     Subject Line *
                   </label>
                   <input
@@ -172,12 +221,12 @@ export const Contact = () => {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Custom Roastery Collaboration or Support"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs text-[#2A1B16] focus:outline-none focus:border-[#2A1B16]"
+                    className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/50 focus:outline-none focus:border-[#67D9D0] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#3C2A21] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#D6A06A] uppercase block mb-1.5 font-bold">
                     Message Description *
                   </label>
                   <textarea
@@ -185,40 +234,52 @@ export const Contact = () => {
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Please specify your request or questions..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F4E8D1] border border-[#3C2A21]/20 text-xs text-[#2A1B16] focus:outline-none focus:border-[#2A1B16]"
+                    placeholder="Please specify your request, custom batch details, or inquiry..."
+                    className="w-full px-4 py-3 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/50 focus:outline-none focus:border-[#67D9D0] transition-colors"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-full bg-[#2A1B16] hover:bg-[#3C2A21] text-[#F4E8D1] font-mono text-xs font-black tracking-widest uppercase shadow-md transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+                  className="w-full py-4 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase hover:brightness-110 shadow-luxury transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>{loading ? 'TRANSMITTING...' : 'TRANSMIT TO CONCIERGE'}</span>
+                  {loading ? (
+                    <span className="w-4 h-4 border-2 border-[#071A2B] border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>TRANSMIT TO CONCIERGE</span>
+                    </>
+                  )}
                 </button>
               </form>
             )}
-          </div>
+          </motion.div>
 
           {/* Right: Flagship Contacts & FAQ Accordion */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-[36px] bg-[#2A1B16] text-[#F4E8D1] border border-[#EEDCC6]/20 shadow-2xl space-y-4">
-              <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
+            <div className="p-8 rounded-[36px] bg-[#0B2538]/80 text-[#F7FAF9] border border-[#67D9D0]/20 shadow-luxury-card space-y-5 backdrop-blur-md">
+              <h3 className="font-display font-bold text-xl text-[#F7FAF9]">
                 DIRECT CHANNELS
               </h3>
-              <div className="space-y-3 text-xs font-mono">
-                <div className="flex items-center space-x-3 text-[#EEDCC6]">
-                  <Phone className="w-4 h-4" />
+              <div className="space-y-4 text-xs font-mono">
+                <div className="flex items-center space-x-3 text-[#A8B0B4]">
+                  <div className="p-2.5 rounded-xl bg-[#071A2B] text-[#67D9D0]">
+                    <Phone className="w-4 h-4" />
+                  </div>
                   <span>+1 (800) 468-2665 (Toll-Free Global)</span>
                 </div>
-                <div className="flex items-center space-x-3 text-[#EEDCC6]">
-                  <Mail className="w-4 h-4" />
+                <div className="flex items-center space-x-3 text-[#A8B0B4]">
+                  <div className="p-2.5 rounded-xl bg-[#071A2B] text-[#B8783E]">
+                    <Mail className="w-4 h-4" />
+                  </div>
                   <span>concierge@hotcoolshake.com</span>
                 </div>
-                <div className="flex items-center space-x-3 text-[#EEDCC6]">
-                  <MapPin className="w-4 h-4" />
+                <div className="flex items-center space-x-3 text-[#A8B0B4]">
+                  <div className="p-2.5 rounded-xl bg-[#071A2B] text-[#D6A06A]">
+                    <MapPin className="w-4 h-4" />
+                  </div>
                   <span>Flagship Innovation Lab, SoHo, NY</span>
                 </div>
               </div>
@@ -226,7 +287,7 @@ export const Contact = () => {
 
             {/* FAQ Accordion */}
             <div className="space-y-3">
-              <h3 className="text-xs font-mono font-bold tracking-widest text-[#3C2A21] uppercase px-1">
+              <h3 className="text-xs font-mono font-bold tracking-widest text-[#D6A06A] uppercase px-1">
                 FREQUENTLY ASKED QUESTIONS
               </h3>
 
@@ -235,15 +296,15 @@ export const Contact = () => {
                 return (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-[#EEDCC6]/60 border border-[#3C2A21]/15 transition-all"
+                    className="p-5 rounded-2xl bg-[#0B2538]/60 border border-[#B8783E]/20 transition-all hover:border-[#67D9D0]/30"
                   >
                     <button
                       onClick={() => setActiveFaq(isOpen ? -1 : idx)}
-                      className="w-full flex items-center justify-between text-left font-display font-bold text-sm text-[#2A1B16]"
+                      className="w-full flex items-center justify-between text-left font-display font-bold text-sm text-[#F7FAF9]"
                     >
                       <span>{faq.q}</span>
                       <ChevronDown
-                        className={`w-4 h-4 text-[#3C2A21] transition-transform ${
+                        className={`w-4 h-4 text-[#D6A06A] transition-transform ${
                           isOpen ? 'rotate-180' : ''
                         }`}
                       />
@@ -255,7 +316,7 @@ export const Contact = () => {
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
-                          className="text-xs text-[#3C2A21]/80 font-sans mt-2.5 leading-relaxed"
+                          className="text-xs text-[#A8B0B4] font-sans mt-3 leading-relaxed"
                         >
                           {faq.a}
                         </motion.p>

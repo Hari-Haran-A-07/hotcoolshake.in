@@ -127,6 +127,16 @@ export const api = {
     return handleResponse(res);
   },
 
+  async subscribeNewsletter(data) {
+    const res = await fetch(`${API_BASE}/newsletter`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+
   // Auth
   async login(email, password) {
     const res = await fetch(`${API_BASE}/auth/login`, {
