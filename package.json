@@ -8,11 +8,16 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/server.js",
     "client": "npm run dev --prefix client",
+    "prebuild": "npm install --prefix client",
     "build": "npm run build --prefix client",
+    "postinstall": "npm install --prefix client",
     "seed": "node server/seed.js",
     "test:api": "node server/testApi.js",
     "start": "node server/server.js"
   },
+  "workspaces": [
+    "client"
+  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
