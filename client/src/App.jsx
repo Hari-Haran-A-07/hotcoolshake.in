@@ -8,12 +8,24 @@ import CustomCursor from './components/common/CustomCursor';
 import CartDrawer from './components/common/CartDrawer';
 import CheckoutModal from './components/common/CheckoutModal';
 import AuthModal from './components/common/AuthModal';
+import SearchModal from './components/common/SearchModal';
+import SensoryAudioPlayer from './components/common/SensoryAudioPlayer';
+import AiSommelierModal from './components/common/AiSommelierModal';
 
 import Home from './pages/Home';
 import Menu from './pages/Menu';
 import MakeYourCoffee from './pages/MakeYourCoffee';
+import AiAlchemist from './pages/AiAlchemist';
+import GlobalTelemetry from './pages/GlobalTelemetry';
 import OurStory from './pages/OurStory';
 import Locations from './pages/Locations';
+import Rewards from './pages/Rewards';
+import OurCoffee from './pages/OurCoffee';
+import Order from './pages/Order';
+import Stories from './pages/Stories';
+import GiftCards from './pages/GiftCards';
+import Careers from './pages/Careers';
+import Account from './pages/Account';
 import Sustainability from './pages/Sustainability';
 import Technology from './pages/Technology';
 import TrackOrder from './pages/TrackOrder';
@@ -24,6 +36,7 @@ export const App = () => {
   const [hasCompletedOpening, setHasCompletedOpening] = useState(() => {
     return sessionStorage.getItem('hcs_intro_seen') === 'true';
   });
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleOpeningComplete = () => {
     sessionStorage.setItem('hcs_intro_seen', 'true');
@@ -31,7 +44,7 @@ export const App = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#071A2B] text-[#F7FAF9] selection:bg-[#B8783E] selection:text-[#071A2B]">
+    <div className="flex flex-col min-h-screen bg-[#2A1B16] text-[#F4E8D1] selection:bg-[#EEDCC6] selection:text-[#2A1B16]">
       {/* Desktop Custom Magnetic Cursor */}
       <CustomCursor />
 
@@ -44,7 +57,7 @@ export const App = () => {
       <PageLoaderModal />
 
       {/* Sticky Header & Navigation */}
-      <Header />
+      <Header onOpenSearch={() => setIsSearchOpen(true)} />
 
       {/* Main Routed Content */}
       <main className="flex-grow">
@@ -52,8 +65,17 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/make-your-coffee" element={<MakeYourCoffee />} />
+          <Route path="/alchemist" element={<AiAlchemist />} />
+          <Route path="/telemetry" element={<GlobalTelemetry />} />
           <Route path="/story" element={<OurStory />} />
           <Route path="/locations" element={<Locations />} />
+          <Route path="/rewards" element={<Rewards />} />
+          <Route path="/coffee" element={<OurCoffee />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/stories" element={<Stories />} />
+          <Route path="/gift-cards" element={<GiftCards />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/track-order" element={<TrackOrder />} />
@@ -63,6 +85,12 @@ export const App = () => {
         </Routes>
       </main>
 
+      {/* Global Real-time Web Audio API ASMR Player */}
+      <SensoryAudioPlayer />
+
+      {/* Global CUPERTINO-7™ Master Roaster AI Assistant */}
+      <AiSommelierModal />
+
       {/* Global Slide-out Cart Drawer */}
       <CartDrawer />
 
@@ -71,6 +99,9 @@ export const App = () => {
 
       {/* Global Auth Modal */}
       <AuthModal />
+
+      {/* Global Instant Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       {/* Multi-Column International Footer */}
       <Footer />

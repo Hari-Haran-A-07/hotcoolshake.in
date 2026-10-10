@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 export const AdminDashboard = () => {
-  const { user, isAdmin, openAuthModal } = useAuth();
+  const { user, isAdmin } = useAuth();
 
   const [activeTab, setActiveTab] = useState('STATS'); // 'STATS' | 'ORDERS' | 'PRODUCTS' | 'CUSTOM_COFFEE' | 'MESSAGES'
   const [stats, setStats] = useState(null);
@@ -132,33 +132,35 @@ export const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
-      {/* Background ambient */}
-      <div className="absolute inset-0 bg-radial-navy opacity-95 pointer-events-none" />
+    <div className="min-h-screen pt-28 pb-24 bg-[#2A1B16] text-[#F4E8D1] relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute inset-0 bg-radial-vignette opacity-80 pointer-events-none" />
+      <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-[#EEDCC6]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-[#3C2A21]/60 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
         {/* Top Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#EEDCC6]/20">
           <div className="flex items-center space-x-3.5">
             <TripleWaveEmblem size={44} />
             <div>
               <div className="flex items-center space-x-2">
-                <h1 className="text-2xl sm:text-3xl font-display font-black text-[#F7FAF9] uppercase">
+                <h1 className="text-2xl sm:text-3xl font-display font-black text-[#F4E8D1] uppercase">
                   ADMINISTRATIVE CONSOLE
                 </h1>
-                <span className="px-2.5 py-0.5 rounded-full bg-brand-gradient text-[#071A2B] text-[10px] font-mono font-black uppercase">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#EEDCC6] text-[#2A1B16] text-[10px] font-mono font-black uppercase">
                   DIRECTOR OS
                 </span>
               </div>
-              <p className="text-xs font-mono text-[#D6A06A]">
-                Real-time MongoDB Telemetry, Order Processing, Catalog & Laboratory Feeds
+              <p className="text-xs font-mono text-[#EEDCC6]">
+                Real-time Database Telemetry, Order Processing, Catalog & Laboratory Feeds
               </p>
             </div>
           </div>
 
           <button
             onClick={loadAllData}
-            className="self-start md:self-auto px-4 py-2 rounded-full bg-[#0B2538] hover:bg-brand-gradient text-[#67D9D0] hover:text-[#071A2B] border border-[#67D9D0]/30 font-mono text-xs font-bold uppercase transition-all flex items-center space-x-2"
+            className="self-start md:self-auto px-4 py-2 rounded-full bg-[#3C2A21] hover:bg-[#EEDCC6] text-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/30 font-mono text-xs font-bold uppercase transition-all flex items-center space-x-2"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             <span>SYNC DATABASE</span>
@@ -182,8 +184,8 @@ export const AdminDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase transition-all flex-shrink-0 ${
                   isActive
-                    ? 'bg-brand-gradient text-[#071A2B] shadow-bronze-glow'
-                    : 'bg-[#0B2538] text-[#A8B0B4] hover:text-[#F7FAF9] border border-white/10'
+                    ? 'bg-[#EEDCC6] text-[#2A1B16] shadow-md'
+                    : 'bg-[#3C2A21] text-[#EEDCC6]/70 hover:text-[#F4E8D1] border border-[#EEDCC6]/20'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -201,48 +203,48 @@ export const AdminDashboard = () => {
             className="space-y-8"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#EEDCC6]/70">
                   <span>TOTAL SALES VOLUME</span>
-                  <DollarSign className="w-4 h-4 text-[#67D9D0]" />
+                  <DollarSign className="w-4 h-4 text-[#EEDCC6]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F7FAF9]">
+                <div className="text-3xl font-display font-black text-[#F4E8D1]">
                   ${stats?.totalRevenue ? stats.totalRevenue.toFixed(2) : '1,420.50'}
                 </div>
-                <span className="text-[10px] font-mono text-[#67D9D0]">+18.4% from last cycle</span>
+                <span className="text-[10px] font-mono text-[#EEDCC6]">+18.4% from last cycle</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#EEDCC6]/70">
                   <span>DISPATCHED ORDERS</span>
-                  <ShoppingBag className="w-4 h-4 text-[#D6A06A]" />
+                  <ShoppingBag className="w-4 h-4 text-[#EEDCC6]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#F7FAF9]">
+                <div className="text-3xl font-display font-black text-[#F4E8D1]">
                   {stats?.totalOrders || orders.length || 14}
                 </div>
-                <span className="text-[10px] font-mono text-[#D6A06A]">100% On-Time Telemetry</span>
+                <span className="text-[10px] font-mono text-[#EEDCC6]">100% On-Time Telemetry</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#EEDCC6]/70">
                   <span>LAB CREATIONS FORMULATED</span>
-                  <Sparkles className="w-4 h-4 text-[#67D9D0]" />
+                  <Sparkles className="w-4 h-4 text-[#EEDCC6]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#67D9D0]">
+                <div className="text-3xl font-display font-black text-[#EEDCC6]">
                   {stats?.totalCustomCoffees || customCoffees.length || 28}
                 </div>
-                <span className="text-[10px] font-mono text-[#67D9D0]">Custom Algorithmic Blends</span>
+                <span className="text-[10px] font-mono text-[#EEDCC6]">Custom Algorithmic Blends</span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-[#A8B0B4]">
+              <div className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#EEDCC6]/70">
                   <span>CATALOG ITEMS</span>
-                  <Package className="w-4 h-4 text-[#D6A06A]" />
+                  <Package className="w-4 h-4 text-[#EEDCC6]" />
                 </div>
-                <div className="text-3xl font-display font-black text-[#D6A06A]">
+                <div className="text-3xl font-display font-black text-[#EEDCC6]">
                   {products.length || 14} Products
                 </div>
-                <span className="text-[10px] font-mono text-[#A8B0B4]">Active Thermal Reserves</span>
+                <span className="text-[10px] font-mono text-[#EEDCC6]/70">Active Thermal Reserves</span>
               </div>
             </div>
           </motion.div>
@@ -255,13 +257,13 @@ export const AdminDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            <div className="bg-[#0B2538] rounded-[32px] border border-[#B8783E]/30 overflow-hidden shadow-2xl">
-              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+            <div className="bg-[#3C2A21]/70 rounded-[32px] border border-[#EEDCC6]/25 overflow-hidden shadow-2xl">
+              <div className="p-6 border-b border-[#EEDCC6]/20 flex items-center justify-between">
                 <div>
-                  <h3 className="font-display font-bold text-lg text-[#F7FAF9] uppercase">
+                  <h3 className="font-display font-bold text-lg text-[#F4E8D1] uppercase">
                     ACTIVE ORDERS PIPELINE
                   </h3>
-                  <p className="text-xs font-mono text-[#A8B0B4]">
+                  <p className="text-xs font-mono text-[#EEDCC6]/70">
                     Real-time status controls for automated laboratory prep and dispatch
                   </p>
                 </div>
@@ -269,7 +271,7 @@ export const AdminDashboard = () => {
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-[#071A2B] text-[#A8B0B4] border-b border-white/10">
+                  <thead className="bg-[#2A1B16] text-[#EEDCC6] border-b border-[#EEDCC6]/20">
                     <tr>
                       <th className="p-4">ORDER #</th>
                       <th className="p-4">CUSTOMER</th>
@@ -279,18 +281,18 @@ export const AdminDashboard = () => {
                       <th className="p-4 text-right">ACTION</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-[#EEDCC6]/10">
                     {orders.map((ord) => (
-                      <tr key={ord._id} className="hover:bg-[#071A2B]/40 transition-colors">
-                        <td className="p-4 font-bold text-[#F7FAF9]">{ord.orderNumber}</td>
+                      <tr key={ord._id} className="hover:bg-[#2A1B16]/40 transition-colors">
+                        <td className="p-4 font-bold text-[#F4E8D1]">{ord.orderNumber}</td>
                         <td className="p-4">
-                          <div className="text-[#F7FAF9] font-bold">{ord.customer?.name}</div>
-                          <div className="text-[10px] text-[#A8B0B4]">{ord.customer?.city}</div>
+                          <div className="text-[#F4E8D1] font-bold">{ord.customer?.name}</div>
+                          <div className="text-[10px] text-[#EEDCC6]/70">{ord.customer?.city}</div>
                         </td>
-                        <td className="p-4 text-[#A8B0B4]">{ord.items?.length || 1} items</td>
-                        <td className="p-4 font-bold text-[#67D9D0]">${ord.total?.toFixed(2)}</td>
+                        <td className="p-4 text-[#EEDCC6]/70">{ord.items?.length || 1} items</td>
+                        <td className="p-4 font-bold text-[#EEDCC6]">${ord.total?.toFixed(2)}</td>
                         <td className="p-4">
-                          <span className="px-2.5 py-1 rounded-full bg-[#071A2B] border border-[#67D9D0]/40 text-[#67D9D0] text-[10px] font-bold uppercase">
+                          <span className="px-2.5 py-1 rounded-full bg-[#2A1B16] border border-[#EEDCC6]/40 text-[#EEDCC6] text-[10px] font-bold uppercase">
                             {ord.status}
                           </span>
                         </td>
@@ -298,7 +300,7 @@ export const AdminDashboard = () => {
                           <select
                             value={ord.status}
                             onChange={(e) => handleUpdateOrderStatus(ord._id, e.target.value)}
-                            className="px-2.5 py-1 rounded-lg bg-[#071A2B] border border-[#B8783E]/30 text-[10px] font-mono text-[#F7FAF9] focus:outline-none"
+                            className="px-2.5 py-1 rounded-lg bg-[#2A1B16] border border-[#EEDCC6]/30 text-[10px] font-mono text-[#F4E8D1] focus:outline-none"
                           >
                             {ORDER_STATUS_OPTIONS.map((opt) => (
                               <option key={opt} value={opt}>
@@ -327,27 +329,27 @@ export const AdminDashboard = () => {
               {customCoffees.map((c, idx) => (
                 <div
                   key={c._id || idx}
-                  className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/30 shadow-luxury-card space-y-3"
+                  className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-[#67D9D0] uppercase font-bold">
+                    <span className="text-[10px] font-mono text-[#EEDCC6] uppercase font-bold">
                       {c.temperature || '68°C / 04°C'}
                     </span>
-                    <span className="text-xs font-mono font-bold text-[#D6A06A]">
+                    <span className="text-xs font-mono font-bold text-[#EEDCC6]">
                       ${c.calculatedPrice?.toFixed(2) || '12.50'}
                     </span>
                   </div>
-                  <h4 className="font-display font-bold text-base text-[#F7FAF9]">
+                  <h4 className="font-display font-bold text-base text-[#F4E8D1]">
                     "{c.customBlendTitle || 'Bespoke Blend'}"
                   </h4>
-                  <p className="text-xs font-mono text-[#A8B0B4]">
+                  <p className="text-xs font-mono text-[#EEDCC6]/70">
                     Alchemist: {c.creatorName || 'Guest Patron'}
                   </p>
                   <div className="flex flex-wrap gap-1 pt-2">
                     {c.flavors?.map((f, fIdx) => (
                       <span
                         key={fIdx}
-                        className="text-[9px] font-mono bg-[#071A2B] text-[#D6A06A] px-2 py-0.5 rounded-full border border-white/10"
+                        className="text-[9px] font-mono bg-[#2A1B16] text-[#EEDCC6] px-2 py-0.5 rounded-full border border-[#EEDCC6]/20"
                       >
                         {typeof f === 'string' ? f : f.name}
                       </span>
@@ -367,12 +369,12 @@ export const AdminDashboard = () => {
             className="space-y-6"
           >
             <div className="flex justify-between items-center">
-              <h3 className="font-display font-bold text-xl text-[#F7FAF9] uppercase">
+              <h3 className="font-display font-bold text-xl text-[#F4E8D1] uppercase">
                 CATALOG INVENTORY ({products.length})
               </h3>
               <button
                 onClick={() => setIsAddProductOpen(true)}
-                className="px-4 py-2 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-bold uppercase shadow-bronze-glow flex items-center space-x-1.5"
+                className="px-4 py-2 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-bold uppercase shadow-md flex items-center space-x-1.5 hover:bg-[#F4E8D1]"
               >
                 <Plus className="w-4 h-4" />
                 <span>ADD NEW CREATION</span>
@@ -383,28 +385,28 @@ export const AdminDashboard = () => {
               {products.map((p) => (
                 <div
                   key={p._id}
-                  className="p-5 rounded-3xl bg-[#0B2538] border border-[#B8783E]/25 space-y-3 flex flex-col justify-between"
+                  className="p-5 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 space-y-3 flex flex-col justify-between shadow-lg"
                 >
                   <div className="space-y-2">
-                    <div className="h-40 w-full rounded-2xl overflow-hidden bg-[#071A2B]">
+                    <div className="h-40 w-full rounded-2xl overflow-hidden bg-[#2A1B16]">
                       <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex items-center justify-between">
-                      <h4 className="font-display font-bold text-base text-[#F7FAF9]">{p.name}</h4>
-                      <span className="font-mono font-bold text-sm text-[#67D9D0]">
+                      <h4 className="font-display font-bold text-base text-[#F4E8D1]">{p.name}</h4>
+                      <span className="font-mono font-bold text-sm text-[#EEDCC6]">
                         ${p.price?.toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-xs text-[#A8B0B4] line-clamp-2">{p.description}</p>
+                    <p className="text-xs text-[#EEDCC6]/70 line-clamp-2">{p.description}</p>
                   </div>
 
-                  <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-[#D6A06A] uppercase">
+                  <div className="pt-3 border-t border-[#EEDCC6]/15 flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#EEDCC6] uppercase">
                       {p.temperature} • {p.categorySlug}
                     </span>
                     <button
                       onClick={() => handleDeleteProduct(p._id)}
-                      className="p-2 rounded-xl text-[#A8B0B4] hover:text-red-400 hover:bg-[#071A2B] transition-colors"
+                      className="p-2 rounded-xl text-[#EEDCC6]/70 hover:text-red-400 hover:bg-[#2A1B16] transition-colors"
                       title="Delete Product"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -427,16 +429,16 @@ export const AdminDashboard = () => {
               {messages.map((m) => (
                 <div
                   key={m._id}
-                  className="p-6 rounded-3xl bg-[#0B2538] border border-[#B8783E]/25 space-y-3"
+                  className="p-6 rounded-3xl bg-[#3C2A21]/70 border border-[#EEDCC6]/25 space-y-3 shadow-lg"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display font-bold text-base text-[#F7FAF9]">{m.name}</span>
-                    <span className="text-[10px] font-mono text-[#67D9D0] uppercase px-2 py-0.5 rounded-full bg-[#071A2B]">
+                    <span className="font-display font-bold text-base text-[#F4E8D1]">{m.name}</span>
+                    <span className="text-[10px] font-mono text-[#EEDCC6] uppercase px-2 py-0.5 rounded-full bg-[#2A1B16]">
                       {m.topic || 'INQUIRY'}
                     </span>
                   </div>
-                  <div className="text-xs font-mono text-[#D6A06A]">{m.email}</div>
-                  <p className="text-xs text-[#A8B0B4] leading-relaxed italic">"{m.message}"</p>
+                  <div className="text-xs font-mono text-[#EEDCC6]">{m.email}</div>
+                  <p className="text-xs text-[#EEDCC6]/80 leading-relaxed italic">"{m.message}"</p>
                 </div>
               ))}
             </div>
