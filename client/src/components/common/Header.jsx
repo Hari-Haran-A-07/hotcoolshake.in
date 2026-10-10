@@ -12,16 +12,20 @@ import {
   User as UserIcon,
   Sparkles,
   ShieldCheck,
-  Compass,
+  Search,
   Coffee,
   Globe,
   Truck,
   Leaf,
   Cpu,
   Mail,
+  Award,
+  BookOpen,
+  Gift,
+  Briefcase,
 } from 'lucide-react';
 
-export const Header = () => {
+export const Header = ({ onOpenSearch }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -31,7 +35,7 @@ export const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
+      if (window.scrollY > 25) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -41,20 +45,29 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Primary links according to prompt: HOME, MENU, MAKE YOUR COFFEE, OUR STORY, LOCATIONS
+  // Desktop navigation links from Master Prompt
   const navLinks = [
-    { name: 'HOME', path: '/', icon: Compass, title: 'HOT COOL SHAKE • HOME' },
-    { name: 'MENU', path: '/menu', icon: Coffee, title: 'DISCOVER OUR BEVERAGES' },
-    { name: 'MAKE YOUR COFFEE', path: '/make-your-coffee', icon: Sparkles, highlight: true, title: 'CREATE YOUR COFFEE' },
-    { name: 'OUR STORY', path: '/story', icon: Compass, title: 'THE HOT COOL SHAKE STORY' },
-    { name: 'LOCATIONS', path: '/locations', icon: Globe, title: 'STORE LOCATOR' },
+    { name: 'MENU', path: '/menu', icon: Coffee, title: 'MENU & BEVERAGES' },
+    { name: 'MAKE YOUR COFFEE', path: '/make-your-coffee', icon: Sparkles, highlight: true, title: 'COFFEE LAB' },
+    { name: 'AI ALCHEMIST', path: '/alchemist', icon: Cpu, badge: 'AI', title: 'AURA-AI™ SENSORY MATRIX' },
+    { name: 'TELEMETRY', path: '/telemetry', icon: Radio, title: 'AERO-GRID™ GLOBAL SATELLITE' },
+    { name: 'OUR STORY', path: '/story', icon: BookOpen, title: 'THE HOT COOL SHAKE STORY' },
+    { name: 'LOCATIONS', path: '/locations', icon: Globe, title: 'FIND A STORE' },
+    { name: 'REWARDS', path: '/rewards', icon: Award, title: 'HOT COOL REWARDS' },
+    { name: 'OUR COFFEE', path: '/coffee', icon: Coffee, title: 'ORIGINS & CRAFT' },
   ];
 
   const secondaryNavLinks = [
+    { name: 'AI ALCHEMIST SENSORY MATRIX', path: '/alchemist', icon: Cpu, title: 'AURA-AI™ MOLECULAR ALCHEMIST' },
+    { name: 'GLOBAL SATELLITE TELEMETRY', path: '/telemetry', icon: Radio, title: 'AERO-GRID™ LIVE COMMAND' },
+    { name: 'CHAMBER-X™ TECHNOLOGY', path: '/technology', icon: Cpu, title: 'CHAMBER-X™ THERMODYNAMICS' },
+    { name: 'STORIES & NEWS', path: '/stories', icon: BookOpen, title: 'EDITORIAL & STORIES' },
+    { name: 'ORDER AHEAD / DELIVERY', path: '/order', icon: Truck, title: 'START YOUR ORDER' },
+    { name: 'GIFT CARDS', path: '/gift-cards', icon: Gift, title: 'DIGITAL GIFT CARDS' },
     { name: 'TRACK ORDER', path: '/track-order', icon: Truck, title: 'ORDER STATUS TRACKER' },
-    { name: 'TECHNOLOGY', path: '/technology', icon: Cpu, title: 'EXTRACTION & CRYO TECH' },
-    { name: 'SUSTAINABILITY', path: '/sustainability', icon: Leaf, title: 'CIRCULAR PACKAGING' },
-    { name: 'CONTACT', path: '/contact', icon: Mail, title: 'CONCIERGE INQUIRY' },
+    { name: 'SUSTAINABILITY', path: '/sustainability', icon: Leaf, title: 'SUSTAINABILITY & ETHICS' },
+    { name: 'CAREERS', path: '/careers', icon: Briefcase, title: 'JOIN THE CREW' },
+    { name: 'CONTACT & SUPPORT', path: '/contact', icon: Mail, title: 'CONCIERGE & SUPPORT' },
   ];
 
   const handleNavClick = (path, title) => {
@@ -69,14 +82,14 @@ export const Header = () => {
       <header
         className={`fixed top-0 inset-x-0 z-40 transition-all duration-500 ${
           isScrolled
-            ? 'bg-[#071A2B]/90 backdrop-blur-lg shadow-2xl py-3 border-b border-[#B8783E]/20'
+            ? 'bg-[#2A1B16]/95 backdrop-blur-xl shadow-2xl py-3 border-b border-[#EEDCC6]/15'
             : isHome
-            ? 'bg-gradient-to-b from-[#071A2B]/90 via-[#071A2B]/40 to-transparent py-5'
-            : 'bg-[#071A2B] py-4 border-b border-[#B8783E]/20'
+            ? 'bg-gradient-to-b from-[#2A1B16]/95 via-[#2A1B16]/50 to-transparent py-5'
+            : 'bg-[#2A1B16] py-4 border-b border-[#EEDCC6]/15'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo & Wordmark */}
+          {/* Brand Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => handleNavClick('/', 'HOT COOL SHAKE • HOME')}
@@ -87,30 +100,29 @@ export const Header = () => {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-3">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <button
                   key={link.name}
                   onClick={() => handleNavClick(link.path, link.title)}
-                  data-cursor={link.highlight ? 'create' : 'default'}
                   className={`relative px-3.5 py-1.5 text-xs font-mono font-bold tracking-wider transition-all duration-300 rounded-full group ${
                     link.highlight
-                      ? 'bg-brand-gradient text-[#071A2B] shadow-bronze-glow hover:scale-105 hover:brightness-110'
+                      ? 'bg-brand-gradient text-[#2A1B16] shadow-cream-glow hover:scale-105 font-black'
                       : isActive
-                      ? 'text-[#67D9D0] bg-[#0B2538] border border-[#67D9D0]/30'
-                      : 'text-[#F7FAF9]/80 hover:text-[#67D9D0] hover:bg-[#0B2538]/60'
+                      ? 'text-[#F4E8D1] bg-[#3C2A21] border border-[#EEDCC6]/30'
+                      : 'text-[#EEDCC6]/85 hover:text-[#F4E8D1] hover:bg-[#3C2A21]/60'
                   }`}
                 >
                   <span className="flex items-center space-x-1.5">
-                    {link.highlight && <Sparkles className="w-3.5 h-3.5 text-[#071A2B] animate-spin-slow" />}
+                    {link.highlight && <Sparkles className="w-3.5 h-3.5 text-[#2A1B16] animate-spin-slow" />}
                     <span>{link.name}</span>
                   </span>
                   {!link.highlight && isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
-                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#67D9D0] rounded-full"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#EEDCC6] rounded-full"
                     />
                   )}
                 </button>
@@ -120,7 +132,7 @@ export const Header = () => {
             {isAdmin && (
               <button
                 onClick={() => handleNavClick('/admin', 'ADMIN DASHBOARD')}
-                className="flex items-center space-x-1 px-3 py-1.5 text-xs font-mono font-bold tracking-wider text-[#D6A06A] bg-[#0B2538] border border-[#B8783E]/40 rounded-full hover:bg-[#B8783E] hover:text-[#071A2B] transition-all"
+                className="flex items-center space-x-1 px-3 py-1.5 text-xs font-mono font-bold tracking-wider text-[#EEDCC6] bg-[#3C2A21] border border-[#EEDCC6]/30 rounded-full hover:bg-[#EEDCC6] hover:text-[#2A1B16] transition-all"
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>ADMIN</span>
@@ -128,18 +140,28 @@ export const Header = () => {
             )}
           </nav>
 
-          {/* Right Action Buttons: Track, Auth, Cart, ORDER NOW */}
-          <div className="flex items-center space-x-2.5 sm:space-x-4">
-            {/* User Profile / Auth */}
+          {/* Right Action Suite: Search, Account, Cart, START YOUR ORDER */}
+          <div className="flex items-center space-x-2 sm:space-x-3.5">
+            {/* Search Trigger */}
+            <button
+              onClick={onOpenSearch}
+              className="p-2.5 rounded-full text-[#EEDCC6]/90 hover:text-[#F4E8D1] hover:bg-[#3C2A21] border border-transparent hover:border-[#EEDCC6]/20 transition-all"
+              title="Search Catalog & Stories"
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
+            {/* Account Dashboard / Auth */}
             {user ? (
               <div className="relative group">
                 <button
-                  onClick={() => handleNavClick('/admin', 'ADMIN DASHBOARD')}
-                  className="flex items-center space-x-2 p-2 rounded-full bg-[#0B2538] text-[#F7FAF9] hover:bg-[#B8783E] hover:text-[#071A2B] border border-[#B8783E]/30 transition-colors"
+                  onClick={() => handleNavClick('/account', 'ACCOUNT DASHBOARD')}
+                  className="flex items-center space-x-2 p-2 rounded-full bg-[#3C2A21] text-[#F4E8D1] hover:bg-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/20 transition-colors"
                   title={user.name}
                 >
-                  <UserIcon className="w-4 h-4 text-[#67D9D0]" />
-                  <span className="hidden md:inline text-xs font-mono font-semibold max-w-[90px] truncate">
+                  <UserIcon className="w-4 h-4 text-[#EEDCC6]" />
+                  <span className="hidden md:inline text-xs font-mono font-semibold max-w-[80px] truncate">
                     {user.name.split(' ')[0]}
                   </span>
                 </button>
@@ -147,8 +169,8 @@ export const Header = () => {
             ) : (
               <button
                 onClick={() => openAuthModal('login')}
-                className="p-2 rounded-full text-[#F7FAF9]/80 hover:text-[#67D9D0] hover:bg-[#0B2538] border border-transparent hover:border-[#67D9D0]/30 transition-all"
-                title="Account Login"
+                className="p-2.5 rounded-full text-[#EEDCC6]/90 hover:text-[#F4E8D1] hover:bg-[#3C2A21] border border-transparent hover:border-[#EEDCC6]/20 transition-all"
+                title="Account Sign In"
                 aria-label="Sign In"
               >
                 <UserIcon className="w-4 h-4" />
@@ -159,7 +181,7 @@ export const Header = () => {
             <div className="relative">
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2.5 rounded-full bg-[#0B2538] text-[#F7FAF9] hover:bg-[#67D9D0] hover:text-[#071A2B] border border-[#67D9D0]/30 shadow-md transition-all group"
+                className="relative p-2.5 rounded-full bg-[#3C2A21] text-[#F4E8D1] hover:bg-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/25 shadow-md transition-all group"
                 aria-label={`Shopping Bag (${totalItemsCount} items)`}
               >
                 <ShoppingBag className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -167,7 +189,7 @@ export const Header = () => {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[#B8783E] text-[#F7FAF9] text-[10px] font-mono font-black flex items-center justify-center shadow-md border border-[#071A2B]"
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[#EEDCC6] text-[#2A1B16] text-[10px] font-mono font-black flex items-center justify-center shadow-md border border-[#2A1B16]"
                   >
                     {totalItemsCount}
                   </motion.span>
@@ -175,18 +197,18 @@ export const Header = () => {
               </button>
             </div>
 
-            {/* ORDER NOW Primary CTA */}
+            {/* START YOUR ORDER Primary CTA */}
             <button
-              onClick={() => handleNavClick('/menu', 'DISCOVER OUR BEVERAGES')}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2 text-xs font-mono font-bold tracking-widest uppercase rounded-full bg-brand-gradient text-[#071A2B] shadow-bronze-glow hover:brightness-110 transition-all duration-300 transform hover:-translate-y-0.5"
+              onClick={() => handleNavClick('/order', 'START YOUR ORDER')}
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2 text-xs font-mono font-bold tracking-widest uppercase rounded-full bg-brand-gradient text-[#2A1B16] shadow-cream-glow hover:brightness-105 transition-all duration-300 transform hover:-translate-y-0.5"
             >
-              ORDER NOW
+              START YOUR ORDER
             </button>
 
             {/* Mobile Hamburger Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2.5 rounded-full text-[#F7FAF9] bg-[#0B2538] hover:bg-[#67D9D0] hover:text-[#071A2B] border border-[#67D9D0]/30 transition-colors"
+              className="lg:hidden p-2.5 rounded-full text-[#F4E8D1] bg-[#3C2A21] hover:bg-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/25 transition-colors"
               aria-label="Toggle Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
@@ -213,7 +235,7 @@ export const Header = () => {
             }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed z-50 pointer-events-none p-3 rounded-full bg-[#B8783E] text-[#F7FAF9] shadow-bronze-glow border border-[#071A2B]"
+            className="fixed z-50 pointer-events-none p-3 rounded-full bg-[#EEDCC6] text-[#2A1B16] shadow-cream-glow border border-[#2A1B16]"
           >
             <Coffee className="w-5 h-5" />
           </motion.div>
@@ -228,22 +250,25 @@ export const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-50 bg-[#071A2B] text-[#F7FAF9] pt-24 px-6 pb-8 flex flex-col justify-between lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-50 bg-[#2A1B16] text-[#F4E8D1] pt-24 px-6 pb-8 flex flex-col justify-between lg:hidden overflow-y-auto"
           >
             {/* Close Button Inside Drawer */}
             <div className="absolute top-6 right-6">
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-full bg-[#0B2538] text-[#F7FAF9] border border-[#67D9D0]/30"
+                className="p-2.5 rounded-full bg-[#3C2A21] text-[#F4E8D1] border border-[#EEDCC6]/30"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            <div className="flex flex-col space-y-3">
-              <div className="pb-3 border-b border-[#B8783E]/20">
-                <span className="text-[10px] font-mono tracking-widest text-[#D6A06A] uppercase font-semibold">
-                  HOT COOL SHAKE EXPERIENCE
+            <div className="flex flex-col space-y-2.5">
+              <div className="pb-3 border-b border-[#EEDCC6]/20 flex items-center justify-between">
+                <span className="text-[10px] font-mono tracking-widest text-[#EEDCC6] uppercase font-bold">
+                  HOT COOL SHAKE • EXPLORE
+                </span>
+                <span className="text-[10px] font-mono text-[#EEDCC6]/60">
+                  EST. 2026
                 </span>
               </div>
 
@@ -256,30 +281,30 @@ export const Header = () => {
                     onClick={() => handleNavClick(link.path, link.title)}
                     className={`flex items-center justify-between p-3.5 rounded-2xl text-left transition-all ${
                       link.highlight
-                        ? 'bg-brand-gradient text-[#071A2B] font-bold shadow-lg'
+                        ? 'bg-brand-gradient text-[#2A1B16] font-bold shadow-lg'
                         : isActive
-                        ? 'bg-[#0B2538] text-[#67D9D0] border border-[#67D9D0]/30'
-                        : 'text-[#F7FAF9]/90 hover:bg-[#0B2538]/50'
+                        ? 'bg-[#3C2A21] text-[#F4E8D1] border border-[#EEDCC6]/30'
+                        : 'text-[#F4E8D1]/90 hover:bg-[#3C2A21]/50'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
-                      <Icon className={`w-5 h-5 ${link.highlight ? 'text-[#071A2B]' : 'text-[#67D9D0]'}`} />
+                      <Icon className={`w-5 h-5 ${link.highlight ? 'text-[#2A1B16]' : 'text-[#EEDCC6]'}`} />
                       <span className="font-display text-base font-bold tracking-wide">
                         {link.name}
                       </span>
                     </div>
                     {link.highlight && (
-                      <span className="text-[10px] font-mono uppercase bg-[#071A2B] text-[#F7FAF9] px-2.5 py-0.5 rounded-full font-bold">
-                        SIGNATURE
+                      <span className="text-[10px] font-mono uppercase bg-[#2A1B16] text-[#F4E8D1] px-2.5 py-0.5 rounded-full font-bold">
+                        LAB
                       </span>
                     )}
                   </button>
                 );
               })}
 
-              <div className="pt-3 pb-1 border-t border-[#B8783E]/20">
-                <span className="text-[10px] font-mono tracking-widest text-[#A8B0B4] uppercase font-semibold">
-                  ADDITIONAL
+              <div className="pt-3 pb-1 border-t border-[#EEDCC6]/20">
+                <span className="text-[10px] font-mono tracking-widest text-[#EEDCC6]/60 uppercase font-semibold">
+                  DISCOVER MORE
                 </span>
               </div>
 
@@ -289,9 +314,9 @@ export const Header = () => {
                   <button
                     key={link.name}
                     onClick={() => handleNavClick(link.path, link.title)}
-                    className="flex items-center space-x-3 p-2.5 rounded-xl text-left text-sm text-[#A8B0B4] hover:text-[#67D9D0] transition-colors"
+                    className="flex items-center space-x-3 p-2.5 rounded-xl text-left text-sm text-[#EEDCC6]/80 hover:text-[#F4E8D1] transition-colors"
                   >
-                    <Icon className="w-4 h-4 text-[#B8783E]" />
+                    <Icon className="w-4 h-4 text-[#EEDCC6]" />
                     <span className="font-mono text-xs tracking-wider">{link.name}</span>
                   </button>
                 );
@@ -300,26 +325,26 @@ export const Header = () => {
               {isAdmin && (
                 <button
                   onClick={() => handleNavClick('/admin', 'ADMINISTRATIVE CONTROL')}
-                  className="flex items-center space-x-3 p-3.5 rounded-2xl bg-[#0B2538] border border-[#B8783E]/40 text-[#D6A06A] font-display font-bold text-base"
+                  className="flex items-center space-x-3 p-3.5 rounded-2xl bg-[#3C2A21] border border-[#EEDCC6]/40 text-[#EEDCC6] font-display font-bold text-base"
                 >
-                  <ShieldCheck className="w-5 h-5 text-[#B8783E]" />
+                  <ShieldCheck className="w-5 h-5 text-[#EEDCC6]" />
                   <span>ADMIN DASHBOARD</span>
                 </button>
               )}
             </div>
 
             {/* Mobile Drawer Footer */}
-            <div className="pt-6 border-t border-[#B8783E]/20 space-y-3">
+            <div className="pt-6 border-t border-[#EEDCC6]/20 space-y-3">
               <button
-                onClick={() => handleNavClick('/menu', 'DISCOVER OUR BEVERAGES')}
-                className="w-full py-3.5 rounded-full bg-brand-gradient text-[#071A2B] font-mono font-bold tracking-widest uppercase text-sm shadow-bronze-glow"
+                onClick={() => handleNavClick('/order', 'START YOUR ORDER')}
+                className="w-full py-3.5 rounded-full bg-brand-gradient text-[#2A1B16] font-mono font-bold tracking-widest uppercase text-sm shadow-cream-glow"
               >
-                ORDER NOW • VIEW MENU
+                START YOUR ORDER NOW
               </button>
               
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B0B4]">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#EEDCC6]/60">
                 <span>HOT COOL SHAKE</span>
-                <span>HOT. COOL. SHAKE.</span>
+                <span>HOT • COOL • SHAKE</span>
               </div>
             </div>
           </motion.div>
