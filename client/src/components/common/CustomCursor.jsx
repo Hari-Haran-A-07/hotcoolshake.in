@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [trailingPos, setTrailingPos] = useState({ x: -100, y: -100 });
-  const [cursorState, setCursorState] = useState('DEFAULT'); // 'DEFAULT' | 'LINK' | 'BUTTON' | 'PRODUCT' | 'IMAGE' | 'DRAG' | 'CLICK' | 'CREATE' | 'VIEW'
+  const [cursorState, setCursorState] = useState('DEFAULT'); // 'DEFAULT' | 'LINK' | 'BUTTON' | 'PRODUCT' | 'IMAGE' | 'CREATE' | 'VIEW'
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -103,7 +103,7 @@ export const CustomCursor = () => {
         }}
         transition={{ duration: 0.15, ease: 'easeOut' }}
       >
-        <div className="w-2.5 h-2.5 rounded-full bg-[#67D9D0] shadow-[0_0_10px_#67D9D0]" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#EEDCC6] shadow-[0_0_8px_#EEDCC6]" />
       </motion.div>
 
       {/* Trailing Outer Ring / Dynamic Badge */}
@@ -117,19 +117,17 @@ export const CustomCursor = () => {
           width: isSpecialLabel ? 68 : cursorState === 'BUTTON' || cursorState === 'LINK' ? 46 : isClicked ? 52 : 32,
           height: isSpecialLabel ? 68 : cursorState === 'BUTTON' || cursorState === 'LINK' ? 46 : isClicked ? 52 : 32,
           backgroundColor: isSpecialLabel
-            ? cursorState === 'CREATE'
-              ? 'rgba(184, 120, 62, 0.92)'
-              : 'rgba(103, 217, 208, 0.92)'
+            ? 'rgba(238, 220, 198, 0.95)'
             : cursorState === 'BUTTON' || cursorState === 'LINK'
-            ? 'rgba(103, 217, 208, 0.15)'
-            : 'rgba(247, 250, 249, 0.05)',
+            ? 'rgba(238, 220, 198, 0.15)'
+            : 'rgba(244, 232, 209, 0.05)',
           borderColor: isSpecialLabel
             ? 'transparent'
             : cursorState === 'BUTTON' || cursorState === 'LINK'
-            ? '#67D9D0'
+            ? '#EEDCC6'
             : isClicked
-            ? '#B8783E'
-            : 'rgba(214, 160, 106, 0.4)',
+            ? '#F4E8D1'
+            : 'rgba(238, 220, 198, 0.35)',
           borderWidth: isSpecialLabel ? '0px' : '1.5px',
           backdropFilter: isSpecialLabel ? 'blur(4px)' : 'none',
         }}
@@ -139,7 +137,7 @@ export const CustomCursor = () => {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="text-[10px] font-mono font-black tracking-widest text-[#071A2B] uppercase select-none"
+            className="text-[10px] font-mono font-black tracking-widest text-[#2A1B16] uppercase select-none"
           >
             CREATE
           </motion.span>
@@ -148,7 +146,7 @@ export const CustomCursor = () => {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="text-[10px] font-mono font-black tracking-widest text-[#071A2B] uppercase select-none"
+            className="text-[10px] font-mono font-black tracking-widest text-[#2A1B16] uppercase select-none"
           >
             VIEW
           </motion.span>
