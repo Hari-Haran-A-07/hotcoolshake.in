@@ -32,6 +32,37 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    rewardsPoints: {
+      type: Number,
+      default: 250, // Initial welcome bonus
+    },
+    tier: {
+      type: String,
+      enum: ['STARTER', 'BREWER', 'CREATOR', 'SIGNATURE'],
+      default: 'STARTER',
+    },
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
+    savedCreations: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CustomCoffee',
+      },
+    ],
+    addresses: [
+      {
+        label: { type: String, default: 'Home' },
+        street: { type: String, required: true },
+        city: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        country: { type: String, default: 'USA' },
+        isDefault: { type: Boolean, default: false },
+      },
+    ],
     defaultAddress: {
       street: { type: String, default: '' },
       city: { type: String, default: '' },
