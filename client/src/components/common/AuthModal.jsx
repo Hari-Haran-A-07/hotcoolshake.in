@@ -72,19 +72,19 @@ export const AuthModal = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeAuthModal}
-          className="fixed inset-0 bg-[#071A2B]/90 backdrop-blur-md"
+          className="fixed inset-0 bg-[#2A1B16]/85 backdrop-blur-md"
         />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-md bg-[#0B2538] text-[#F7FAF9] rounded-[36px] overflow-hidden border-2 border-[#B8783E]/40 shadow-2xl z-10 p-6 sm:p-8"
+          className="relative w-full max-w-md bg-[#3C2A21] text-[#F4E8D1] rounded-[32px] overflow-hidden border-2 border-[#EEDCC6]/30 shadow-2xl z-10 p-6 sm:p-8"
         >
           {/* Close button */}
           <button
             onClick={closeAuthModal}
-            className="absolute top-5 right-5 p-2 rounded-full bg-[#071A2B] text-[#A8B0B4] hover:text-[#F7FAF9] transition-colors"
+            className="absolute top-5 right-5 p-2 rounded-full bg-[#2A1B16] text-[#EEDCC6]/70 hover:text-[#F4E8D1] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -94,10 +94,10 @@ export const AuthModal = () => {
             <div className="inline-flex justify-center mb-1">
               <TripleWaveEmblem size={56} animate />
             </div>
-            <h3 className="text-xl sm:text-2xl font-display font-black text-[#F7FAF9] uppercase">
-              {authModalMode === 'login' ? 'SIGN IN TO YOUR LAB' : 'CREATE VIP ACCOUNT'}
+            <h3 className="text-xl sm:text-2xl font-display font-black text-[#F4E8D1] uppercase">
+              {authModalMode === 'login' ? 'SIGN IN TO YOUR ACCOUNT' : 'CREATE VIP ACCOUNT'}
             </h3>
-            <p className="text-xs font-mono text-[#D6A06A]">
+            <p className="text-xs font-mono text-[#EEDCC6]">
               HOT COOL SHAKE • AUTHENTICATION
             </p>
           </div>
@@ -112,60 +112,60 @@ export const AuthModal = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {authModalMode === 'register' && (
               <div>
-                <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                   Full Name
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <User className="w-4 h-4 text-[#EEDCC6]/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Sophia Laurent"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] placeholder-[#EEDCC6]/40 focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
               </div>
             )}
 
             <div>
-              <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+              <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                 VIP Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-[#EEDCC6]/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="sophia@example.com"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] placeholder-[#EEDCC6]/40 focus:outline-none focus:border-[#EEDCC6]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+              <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                 Security Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-[#A8B0B4] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-[#EEDCC6]/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="password"
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] placeholder-[#EEDCC6]/40 focus:outline-none focus:border-[#EEDCC6]"
                 />
               </div>
             </div>
 
             {authModalMode === 'register' && (
               <div>
-                <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                   Phone (Optional)
                 </label>
                 <input
@@ -173,7 +173,7 @@ export const AuthModal = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] placeholder-[#A8B0B4]/60 focus:outline-none focus:border-[#67D9D0]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] placeholder-[#EEDCC6]/40 focus:outline-none focus:border-[#EEDCC6]"
                 />
               </div>
             )}
@@ -181,7 +181,7 @@ export const AuthModal = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-bronze-glow hover:brightness-110 transition-all disabled:opacity-50 mt-2"
+              className="w-full py-3.5 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-xl hover:bg-[#F4E8D1] transition-all disabled:opacity-50 mt-2"
             >
               {loading
                 ? 'AUTHENTICATING...'
@@ -192,22 +192,22 @@ export const AuthModal = () => {
           </form>
 
           {/* Quick Demo Credentials */}
-          <div className="mt-6 pt-4 border-t border-white/10 text-center space-y-2">
-            <span className="text-[10px] font-mono text-[#A8B0B4] uppercase block">
+          <div className="mt-6 pt-4 border-t border-[#EEDCC6]/20 text-center space-y-2">
+            <span className="text-[10px] font-mono text-[#EEDCC6]/70 uppercase block">
               ONE-CLICK DEMO CREDENTIALS
             </span>
             <div className="flex justify-center space-x-2">
               <button
                 type="button"
                 onClick={() => handleFillDemo('user')}
-                className="px-3 py-1.5 rounded-lg bg-[#071A2B] hover:bg-[#071A2B]/80 text-[#67D9D0] border border-[#67D9D0]/30 text-[10px] font-mono"
+                className="px-3 py-1.5 rounded-lg bg-[#2A1B16] hover:bg-[#2A1B16]/80 text-[#EEDCC6] border border-[#EEDCC6]/30 text-[10px] font-mono"
               >
                 Demo Patron
               </button>
               <button
                 type="button"
                 onClick={() => handleFillDemo('admin')}
-                className="px-3 py-1.5 rounded-lg bg-[#071A2B] hover:bg-[#071A2B]/80 text-[#D6A06A] border border-[#B8783E]/30 text-[10px] font-mono"
+                className="px-3 py-1.5 rounded-lg bg-[#2A1B16] hover:bg-[#2A1B16]/80 text-[#F4E8D1] border border-[#EEDCC6]/30 text-[10px] font-mono"
               >
                 Director Admin
               </button>
@@ -221,7 +221,7 @@ export const AuthModal = () => {
                 setError('');
                 setAuthModalMode(authModalMode === 'login' ? 'register' : 'login');
               }}
-              className="text-xs font-mono text-[#A8B0B4] hover:text-[#67D9D0] transition-colors"
+              className="text-xs font-mono text-[#EEDCC6]/70 hover:text-[#F4E8D1] transition-colors"
             >
               {authModalMode === 'login'
                 ? "Don't have a VIP account? Register here."

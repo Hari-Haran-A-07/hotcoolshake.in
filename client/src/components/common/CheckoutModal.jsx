@@ -100,7 +100,7 @@ export const CheckoutModal = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsCheckoutOpen(false)}
-          className="fixed inset-0 bg-[#071A2B]/90 backdrop-blur-md"
+          className="fixed inset-0 bg-[#2A1B16]/85 backdrop-blur-md"
         />
 
         {/* Modal Window */}
@@ -108,19 +108,19 @@ export const CheckoutModal = () => {
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
-          className="relative w-full max-w-2xl bg-[#0B2538] text-[#F7FAF9] rounded-[36px] border-2 border-[#B8783E]/40 shadow-2xl overflow-hidden z-10 my-8"
+          className="relative w-full max-w-2xl bg-[#3C2A21] text-[#F4E8D1] rounded-[32px] border-2 border-[#EEDCC6]/30 shadow-2xl overflow-hidden z-10 my-8"
         >
           {/* Header */}
-          <div className="px-6 sm:px-8 py-6 border-b border-white/10 flex items-center justify-between bg-[#071A2B]">
+          <div className="px-6 sm:px-8 py-6 border-b border-[#EEDCC6]/20 flex items-center justify-between bg-[#2A1B16]">
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-full bg-brand-gradient text-[#071A2B]">
+              <div className="p-2.5 rounded-full bg-[#EEDCC6] text-[#2A1B16]">
                 <Lock className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-display font-black text-xl text-[#F7FAF9] uppercase">
+                <h3 className="font-display font-black text-xl text-[#F4E8D1] uppercase">
                   CONFIRM VIP ORDER
                 </h3>
-                <span className="text-xs font-mono text-[#D6A06A]">
+                <span className="text-xs font-mono text-[#EEDCC6]">
                   256-BIT ENCRYPTED DISPATCH CHECKOUT
                 </span>
               </div>
@@ -128,7 +128,7 @@ export const CheckoutModal = () => {
 
             <button
               onClick={() => setIsCheckoutOpen(false)}
-              className="p-2 rounded-full text-[#A8B0B4] hover:text-[#F7FAF9] hover:bg-[#0B2538] transition-colors"
+              className="p-2 rounded-full text-[#EEDCC6]/70 hover:text-[#F4E8D1] hover:bg-[#3C2A21] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -143,13 +143,13 @@ export const CheckoutModal = () => {
 
             {/* Delivery Destination */}
             <div className="space-y-4">
-              <span className="text-xs font-mono font-bold text-[#67D9D0] uppercase tracking-wider block">
+              <span className="text-xs font-mono font-bold text-[#EEDCC6] uppercase tracking-wider block">
                 DELIVERY DESTINATION
               </span>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     Full Name *
                   </label>
                   <input
@@ -159,12 +159,12 @@ export const CheckoutModal = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Sophia Laurent"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     VIP Email *
                   </label>
                   <input
@@ -174,12 +174,12 @@ export const CheckoutModal = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="sophia@example.com"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     Phone Number *
                   </label>
                   <input
@@ -189,12 +189,12 @@ export const CheckoutModal = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     City *
                   </label>
                   <input
@@ -204,12 +204,12 @@ export const CheckoutModal = () => {
                     value={formData.city}
                     onChange={handleChange}
                     placeholder="London, New York, Mumbai..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     Street Address *
                   </label>
                   <input
@@ -219,12 +219,12 @@ export const CheckoutModal = () => {
                     value={formData.address}
                     onChange={handleChange}
                     placeholder="72 Artisan Boulevard, Mayfair"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     Postal Code *
                   </label>
                   <input
@@ -234,12 +234,12 @@ export const CheckoutModal = () => {
                     value={formData.postalCode}
                     onChange={handleChange}
                     placeholder="W1K 7AA / 10012"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono text-[#A8B0B4] uppercase block mb-1">
+                  <label className="text-[11px] font-mono text-[#EEDCC6] uppercase block mb-1">
                     Delivery Instructions
                   </label>
                   <input
@@ -248,15 +248,15 @@ export const CheckoutModal = () => {
                     value={formData.notes}
                     onChange={handleChange}
                     placeholder="Leave with concierge..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#071A2B] border border-[#B8783E]/30 text-xs text-[#F7FAF9] focus:outline-none focus:border-[#67D9D0]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A1B16] border border-[#EEDCC6]/30 text-xs text-[#F4E8D1] focus:outline-none focus:border-[#EEDCC6]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Payment Method Selector */}
-            <div className="space-y-3 pt-2 border-t border-white/10">
-              <span className="text-xs font-mono font-bold text-[#67D9D0] uppercase tracking-wider block">
+            <div className="space-y-3 pt-2 border-t border-[#EEDCC6]/20">
+              <span className="text-xs font-mono font-bold text-[#EEDCC6] uppercase tracking-wider block">
                 PAYMENT PROTOCOL
               </span>
 
@@ -275,11 +275,11 @@ export const CheckoutModal = () => {
                       onClick={() => setFormData({ ...formData, paymentMethod: pm.id })}
                       className={`p-3 rounded-2xl border text-center transition-all flex flex-col items-center justify-center space-y-1 ${
                         isSelected
-                          ? 'bg-[#071A2B] border-[#67D9D0] text-[#F7FAF9] shadow-teal-glow'
-                          : 'bg-[#071A2B]/50 border-white/10 text-[#A8B0B4]'
+                          ? 'bg-[#2A1B16] border-[#EEDCC6] text-[#F4E8D1] ring-1 ring-[#EEDCC6]'
+                          : 'bg-[#2A1B16]/50 border-[#EEDCC6]/15 text-[#EEDCC6]/60'
                       }`}
                     >
-                      <Icon className="w-4 h-4 text-[#D6A06A]" />
+                      <Icon className="w-4 h-4 text-[#EEDCC6]" />
                       <span className="text-[10px] font-mono font-bold">{pm.label}</span>
                     </button>
                   );
@@ -288,10 +288,10 @@ export const CheckoutModal = () => {
             </div>
 
             {/* Total Charge & Submit */}
-            <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="pt-4 border-t border-[#EEDCC6]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-left w-full sm:w-auto">
-                <span className="text-xs font-mono text-[#A8B0B4] block">TOTAL AMOUNT:</span>
-                <span className="text-2xl font-mono font-black text-brand-gradient">
+                <span className="text-xs font-mono text-[#EEDCC6]/70 block">TOTAL AMOUNT:</span>
+                <span className="text-2xl font-mono font-black text-[#EEDCC6]">
                   ${total.toFixed(2)}
                 </span>
               </div>
@@ -299,7 +299,7 @@ export const CheckoutModal = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto px-10 py-4 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-bronze-glow hover:brightness-110 transition-all disabled:opacity-50"
+                className="w-full sm:w-auto px-10 py-4 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-xl hover:bg-[#F4E8D1] transition-all disabled:opacity-50"
               >
                 {isSubmitting ? 'DISPATCHING ORDER...' : `AUTHORIZE & PLACE ORDER • $${total.toFixed(2)}`}
               </button>
