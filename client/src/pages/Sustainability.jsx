@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { usePageLoader } from '../context/LoadingContext';
+import { Link } from 'react-router-dom';
 import {
   Leaf,
   Recycle,
@@ -15,41 +15,35 @@ import {
 } from 'lucide-react';
 
 export const Sustainability = () => {
-  const { startPageTransition } = usePageLoader();
-
   const metrics = [
     {
       value: '100%',
       label: 'Circular Thermal Vessels',
       sub: 'Zero single-use paper or plastic cups utilized across our entire global flagship network.',
-      color: 'text-[#67D9D0]',
     },
     {
       value: '+45%',
       label: 'Direct Trade Premium',
-      sub: 'Paid above global fair trade minimums directly to micro-lot farm families.',
-      color: 'text-[#D6A06A]',
+      sub: 'Paid above global commodity minimums directly to micro-lot farm families.',
     },
     {
       value: '98.4%',
       label: 'Closed-Loop Water Recovery',
-      sub: 'Multi-stage reverse-osmosis filtration with regenerative grey-water cycling.',
-      color: 'text-[#67D9D0]',
+      sub: 'Multi-stage reverse-osmosis filtration with regenerative recycling.',
     },
     {
       value: '0 g',
       label: 'Net Carbon per Extraction',
       sub: 'Offset via certified agroforestry biodiversity projects in Colombia and Ethiopia.',
-      color: 'text-[#B8783E]',
     },
   ];
 
   return (
-    <div className="min-h-screen pt-28 pb-24 bg-[#071A2B] text-[#F7FAF9] relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-24 bg-[#2A1B16] text-[#F4E8D1] relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-radial-navy opacity-90 pointer-events-none" />
-      <div className="absolute top-1/3 left-0 w-96 h-96 rounded-full bg-[#67D9D0]/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-[#B8783E]/5 blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-radial-vignette opacity-80 pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#EEDCC6]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-[#3C2A21]/60 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-20">
         {/* Header */}
@@ -57,9 +51,9 @@ export const Sustainability = () => {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center space-x-2 text-xs font-mono tracking-widest text-[#67D9D0] uppercase font-bold px-4 py-1.5 rounded-full bg-[#0B2538] border border-[#67D9D0]/30"
+            className="inline-flex items-center space-x-2 text-xs font-mono tracking-widest text-[#EEDCC6] uppercase font-bold px-4 py-1.5 rounded-full bg-[#3C2A21] border border-[#EEDCC6]/30 shadow-sm"
           >
-            <Leaf className="w-3.5 h-3.5 text-[#67D9D0]" />
+            <Leaf className="w-3.5 h-3.5 text-[#EEDCC6]" />
             <span>CIRCULAR PLANETARY ETHICS</span>
           </motion.div>
 
@@ -67,17 +61,17 @@ export const Sustainability = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#F7FAF9] uppercase"
+            className="text-4xl sm:text-6xl font-display font-black tracking-tight text-[#F4E8D1] uppercase"
           >
-            SUSTAINABILITY <br />
-            <span className="text-gradient-brand">WITHOUT COMPROMISE.</span>
+            BETTER COFFEE. <br />
+            <span className="text-[#EEDCC6]">BETTER FUTURE.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base text-[#A8B0B4] font-sans leading-relaxed"
+            className="text-sm sm:text-base text-[#EEDCC6]/80 font-sans leading-relaxed"
           >
             We believe the future of luxury coffee is intrinsically regenerative. From volcanic soil to aerospace-grade reusable vessels, every step is audited for zero waste and maximum agricultural prosperity.
           </motion.p>
@@ -92,15 +86,15 @@ export const Sustainability = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-8 rounded-[32px] bg-[#0B2538]/80 border border-[#B8783E]/20 shadow-luxury-card space-y-3 backdrop-blur-sm hover:border-[#67D9D0]/40 transition-all"
+              className="p-8 rounded-[28px] bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-xl space-y-3 backdrop-blur-sm hover:border-[#EEDCC6]/50 transition-all"
             >
-              <div className={`font-display font-black text-4xl sm:text-5xl ${m.color}`}>
+              <div className="font-display font-black text-4xl sm:text-5xl text-[#EEDCC6]">
                 {m.value}
               </div>
-              <h3 className="font-mono text-xs font-bold text-[#F7FAF9] uppercase tracking-wider">
+              <h3 className="font-mono text-xs font-bold text-[#F4E8D1] uppercase tracking-wider">
                 {m.label}
               </h3>
-              <p className="text-xs text-[#A8B0B4] font-sans leading-relaxed">
+              <p className="text-xs text-[#EEDCC6]/75 font-sans leading-relaxed">
                 {m.sub}
               </p>
             </motion.div>
@@ -109,51 +103,51 @@ export const Sustainability = () => {
 
         {/* Deep Dive Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-[36px] bg-[#0B2538]/60 border border-[#67D9D0]/20 space-y-4">
-            <div className="p-3.5 rounded-2xl bg-[#071A2B] text-[#67D9D0] border border-[#67D9D0]/20 w-fit">
+          <div className="p-8 rounded-[32px] bg-[#3C2A21]/70 border border-[#EEDCC6]/20 space-y-4 shadow-lg">
+            <div className="p-3.5 rounded-2xl bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/30 w-fit">
               <Recycle className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-display font-bold text-[#F7FAF9]">
+            <h3 className="text-xl font-display font-bold text-[#F4E8D1]">
               1. 100% CIRCULAR VESSEL PROGRAM
             </h3>
-            <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#EEDCC6]/75 font-sans leading-relaxed">
               Every HOT COOL SHAKE beverage is served in an aerospace titanium-coated or borosilicate vessel that can be cleaned, sanitized, and refilled at any global flagship roastery with zero single-use trash.
             </p>
           </div>
 
-          <div className="p-8 rounded-[36px] bg-[#0B2538]/60 border border-[#B8783E]/20 space-y-4">
-            <div className="p-3.5 rounded-2xl bg-[#071A2B] text-[#D6A06A] border border-[#B8783E]/20 w-fit">
+          <div className="p-8 rounded-[32px] bg-[#3C2A21]/70 border border-[#EEDCC6]/20 space-y-4 shadow-lg">
+            <div className="p-3.5 rounded-2xl bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/30 w-fit">
               <TreePine className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-display font-bold text-[#F7FAF9]">
+            <h3 className="text-xl font-display font-bold text-[#F4E8D1]">
               2. SHADE-GROWN AGROECOLOGY
             </h3>
-            <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#EEDCC6]/75 font-sans leading-relaxed">
               We exclusively source Arabica varietals cultivated under natural multi-strata forest canopies. This shields fragile soil from erosion, preserves native wildlife habitats, and eliminates synthetic chemicals.
             </p>
           </div>
 
-          <div className="p-8 rounded-[36px] bg-[#0B2538]/60 border border-[#168C8A]/20 space-y-4">
-            <div className="p-3.5 rounded-2xl bg-[#071A2B] text-[#67D9D0] border border-[#168C8A]/30 w-fit">
+          <div className="p-8 rounded-[32px] bg-[#3C2A21]/70 border border-[#EEDCC6]/20 space-y-4 shadow-lg">
+            <div className="p-3.5 rounded-2xl bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/30 w-fit">
               <Sun className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-display font-bold text-[#F7FAF9]">
+            <h3 className="text-xl font-display font-bold text-[#F4E8D1]">
               3. 100% SOLAR ROASTING & EV DISPATCH
             </h3>
-            <p className="text-xs sm:text-sm text-[#A8B0B4] font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#EEDCC6]/75 font-sans leading-relaxed">
               Our micro-lot roasters and extraction laboratory cells are 100% powered by local renewable solar arrays. Intra-city deliveries are dispatched in climate-locked electric vehicles with zero tailpipe emissions.
             </p>
           </div>
         </div>
 
         {/* Reusable Vessel Lifecycle Infographic Box */}
-        <div className="p-8 sm:p-12 rounded-[40px] bg-[#0B2538]/80 border border-[#B8783E]/25 shadow-luxury-card space-y-6">
+        <div className="p-8 sm:p-12 rounded-[32px] bg-[#3C2A21]/70 border border-[#EEDCC6]/25 shadow-2xl space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-mono text-[#D6A06A] uppercase tracking-wider font-bold">
+              <span className="text-xs font-mono text-[#EEDCC6] uppercase tracking-wider font-bold">
                 CLOSED-LOOP INITIATIVE
               </span>
-              <h3 className="text-2xl sm:text-3xl font-display font-black text-[#F7FAF9] uppercase mt-1">
+              <h3 className="text-2xl sm:text-3xl font-display font-black text-[#F4E8D1] uppercase mt-1">
                 HOW THE REUSABLE BOTTLE ECOSYSTEM WORKS
               </h3>
             </div>
@@ -166,10 +160,10 @@ export const Sustainability = () => {
               { num: '03', title: 'Return or Refill', desc: 'Drop off at any flagship kiosk or swap via courier dispatch.' },
               { num: '04', title: 'Medical-Grade Clean', desc: 'Automated ultraviolet sanitization prepares vessel for next cycle.' },
             ].map((st) => (
-              <div key={st.num} className="p-5 rounded-2xl bg-[#071A2B] border border-[#67D9D0]/20 space-y-2">
-                <span className="text-xs font-mono font-bold text-[#67D9D0]">{st.num}</span>
-                <h4 className="font-display font-bold text-sm text-[#F7FAF9]">{st.title}</h4>
-                <p className="text-xs text-[#A8B0B4] leading-relaxed">{st.desc}</p>
+              <div key={st.num} className="p-5 rounded-2xl bg-[#2A1B16] border border-[#EEDCC6]/20 space-y-2">
+                <span className="text-xs font-mono font-bold text-[#EEDCC6]">{st.num}</span>
+                <h4 className="font-display font-bold text-sm text-[#F4E8D1]">{st.title}</h4>
+                <p className="text-xs text-[#EEDCC6]/70 leading-relaxed">{st.desc}</p>
               </div>
             ))}
           </div>
@@ -177,16 +171,16 @@ export const Sustainability = () => {
 
         {/* CTA */}
         <div className="text-center pt-4 space-y-4">
-          <h3 className="font-display font-bold text-xl text-[#F7FAF9]">
+          <h3 className="font-display font-bold text-xl text-[#F4E8D1]">
             JOIN THE ZERO-WASTE REVOLUTION
           </h3>
-          <button
-            onClick={() => startPageTransition('/make-your-coffee', 'MAKE YOUR COFFEE')}
-            className="px-8 py-4 rounded-full bg-brand-gradient text-[#071A2B] font-mono text-xs font-black tracking-widest uppercase shadow-luxury hover:brightness-110 transition-all inline-flex items-center space-x-2"
+          <Link
+            to="/make-your-coffee"
+            className="px-8 py-4 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-xl hover:bg-[#F4E8D1] transition-all inline-flex items-center space-x-2"
           >
             <span>ORDER IN A REUSABLE VESSEL</span>
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
