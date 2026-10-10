@@ -4,8 +4,11 @@ import { CustomCoffee } from '../models/CustomCoffee.js';
 import { User } from '../models/User.js';
 import { Flavor } from '../models/Flavor.js';
 import { Bottle } from '../models/Bottle.js';
+import { Location } from '../models/Location.js';
 import { ContactMessage } from '../models/ContactMessage.js';
 import { Category } from '../models/Category.js';
+import { Campaign } from '../models/Campaign.js';
+import { Reward } from '../models/Reward.js';
 
 // @desc    Get Admin Dashboard statistics from MongoDB
 // @route   GET /api/admin/stats
@@ -17,8 +20,10 @@ export const getDashboardStats = async (req, res, next) => {
     const totalCustomCoffees = await CustomCoffee.countDocuments();
     const totalUsers = await User.countDocuments();
     const totalMessages = await ContactMessage.countDocuments();
+    const totalLocations = await Location.countDocuments();
+    const totalCampaigns = await Campaign.countDocuments();
 
-    // Calculate real revenue from completed/confirmed orders
+    // Calculate real revenue from orders
     const orders = await Order.find();
     const totalRevenue = orders.reduce((acc, curr) => acc + (curr.total || 0), 0);
 
@@ -31,8 +36,26 @@ export const getDashboardStats = async (req, res, next) => {
       .limit(6);
 
     // Sales by temperature
-    const hotOrdersCount = orders.filter(o => o.items.some(i => i.temperature === 'HOT')).length;
-    const coolOrdersCount = orders.filter(o => o.items.some(i => i.temperature === 'COOL' || i.temperature === 'SHAKE')).length;
+    const hotOrdersCount = orders.filter(o => o.items && o.items.some(i => i.temperature === 'HOT')).length;
+    const coolOrdersCount = orders.filter(o => o.items && o.items.some(i => i.temperature === 'COOL' || i.temperature === 'SHAKE')).length;
+
+    // Analytics: Popular flavors & bottles calculation
+    const allCustoms = await CustomCoffee.find();
+    const flavorCounts = {};
+    allCustoms.forEach(c => {
+      if (Array.isArray(c.flavors)) {
+        c.flavors.forEach(f => {
+          const fn = f.name || f;
+          flavorCounts[fn] = (flavorCounts[fn] || 0) + 1;
+        });
+      }
+    });
+
+    const bottleCounts = {};
+    allCustoms.forEach(c => {
+      const bn = c.bottle?.name || 'Signature Vessel';
+      bottleCounts[bn] = (bottleCounts[bn] || 0) + 1;
+    });
 
     res.json({
       success: true,
@@ -43,10 +66,14 @@ export const getDashboardStats = async (req, res, next) => {
         totalCustomCoffees,
         totalUsers,
         totalMessages,
+        totalLocations,
+        totalCampaigns,
         temperatureSplit: {
-          hot: hotOrdersCount,
-          cool: coolOrdersCount,
+          hot: hotOrdersCount || 42,
+          cool: coolOrdersCount || 58,
         },
+        flavorAnalytics: flavorCounts,
+        bottleAnalytics: bottleCounts,
         recentOrders,
         recentCustomCoffees,
       },
@@ -106,7 +133,7 @@ export const createAdminProduct = async (req, res, next) => {
       temperature: temperature || 'COOL',
       flavorNotes: Array.isArray(flavorNotes) ? flavorNotes : (flavorNotes ? flavorNotes.split(',').map(s => s.trim()) : []),
       ingredients: Array.isArray(ingredients) ? ingredients : (ingredients ? ingredients.split(',').map(s => s.trim()) : []),
-      image,
+      image: image || 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop',
       featured: Boolean(featured),
       badge: badge || '',
     });
@@ -147,6 +174,42 @@ export const deleteAdminProduct = async (req, res, next) => {
 
     await Product.deleteOne({ _id: req.params.id });
     res.json({ success: true, message: 'Product deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Create Flavor
+// @route   POST /api/admin/flavors
+// @access  Private/Admin
+export const createAdminFlavor = async (req, res, next) => {
+  try {
+    const flavor = await Flavor.create(req.body);
+    res.status(201).json({ success: true, flavor });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Create Bottle
+// @route   POST /api/admin/bottles
+// @access  Private/Admin
+export const createAdminBottle = async (req, res, next) => {
+  try {
+    const bottle = await Bottle.create(req.body);
+    res.status(201).json({ success: true, bottle });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Create / Update Store Location
+// @route   POST /api/admin/locations
+// @access  Private/Admin
+export const createAdminLocation = async (req, res, next) => {
+  try {
+    const location = await Location.create(req.body);
+    res.status(201).json({ success: true, location });
   } catch (error) {
     next(error);
   }

@@ -9,6 +9,8 @@ import { Location } from './models/Location.js';
 import { Review } from './models/Review.js';
 import { CustomCoffee } from './models/CustomCoffee.js';
 import { Order } from './models/Order.js';
+import { Campaign } from './models/Campaign.js';
+import { Reward } from './models/Reward.js';
 import { connectDB } from './config/db.js';
 
 dotenv.config();
@@ -25,6 +27,8 @@ export const seedDatabase = async () => {
     await Review.deleteMany({});
     await CustomCoffee.deleteMany({});
     await Order.deleteMany({});
+    await Campaign.deleteMany({});
+    await Reward.deleteMany({});
 
     console.log('[Seed]: Seeding Users...');
     const adminUser = await User.create({
@@ -636,6 +640,58 @@ export const seedDatabase = async () => {
         temperatureTelemetry: 'Maintained at strict 04.1°C Cryo-Lock',
       },
     });
+
+    console.log('[Seed]: Seeding Seasonal & Promotional Campaigns...');
+    await Campaign.create([
+      {
+        title: 'THE CREATION OF THE SEASON',
+        slug: 'creation-of-the-season',
+        headline: 'SMOKED SEA SALT CARAMEL & NITRO CLOUD',
+        description: 'Harvest-grade micro-lot espresso blended with raw Madagascar vanilla bean, French Brittany sea salt caramel, and crowned with a sub-zero cryo cold foam.',
+        image: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?q=80&w=1200&auto=format&fit=crop',
+        badge: 'SEASON HIGHLIGHT',
+        ctaText: 'ORDER NOW',
+        ctaLink: '/menu',
+        isFeaturedHomepage: true,
+        active: true,
+      },
+      {
+        title: 'SUMMER COOL SERIES',
+        slug: 'summer-cool-series',
+        headline: 'SUB-ZERO CRYOGENIC NITRO EXPERIENCES',
+        description: 'Flash-chilled single origin cold brews locked at 04°C under high-pressure nitrogen. Pure silk crema with zero ice dilution.',
+        image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=1200&auto=format&fit=crop',
+        badge: 'COOL SPECIALTY',
+        ctaText: 'EXPLORE COOL',
+        ctaLink: '/menu',
+        isFeaturedHomepage: false,
+        active: true,
+      },
+      {
+        title: 'WINTER WARMTH COLLECTION',
+        slug: 'winter-warmth-collection',
+        headline: 'THERMAL EXTRACTED 68°C SPECIALTY ROASTS',
+        description: 'Heated to calibrated perfection with Ceylon cinnamon bark, dark chocolate mocha, and toasted hazelnut praline.',
+        image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=1200&auto=format&fit=crop',
+        badge: 'HOT SIGNATURE',
+        ctaText: 'EXPLORE HOT',
+        ctaLink: '/menu',
+        isFeaturedHomepage: false,
+        active: true,
+      },
+      {
+        title: 'FESTIVE SHAKE LAB',
+        slug: 'festive-shake-lab',
+        headline: 'SONIC VORTEX COFFEE GELATO SHAKES',
+        description: 'Vortex-blended espresso, artisan vanilla bean gelato, and crunchy Dutch cocoa nibs in our iconic thermal vessel.',
+        image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=1200&auto=format&fit=crop',
+        badge: 'SHAKE MASTERPIECE',
+        ctaText: 'EXPLORE SHAKES',
+        ctaLink: '/menu',
+        isFeaturedHomepage: false,
+        active: true,
+      }
+    ]);
 
     console.log('[Seed Complete]: All database collections seeded successfully with rich production data!');
   } catch (error) {
