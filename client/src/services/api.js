@@ -47,6 +47,75 @@ export const api = {
     return handleResponse(res);
   },
 
+  // Campaigns & Promotions (CMS)
+  async getCampaigns() {
+    const res = await fetch(`${API_BASE}/campaigns`);
+    return handleResponse(res);
+  },
+
+  async getCampaign(idOrSlug) {
+    const res = await fetch(`${API_BASE}/campaigns/${idOrSlug}`);
+    return handleResponse(res);
+  },
+
+  async createCampaign(data) {
+    const res = await fetch(`${API_BASE}/campaigns`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  async updateCampaign(id, data) {
+    const res = await fetch(`${API_BASE}/campaigns/${id}`, {
+      method: 'PATCH',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  async deleteCampaign(id) {
+    const res = await fetch(`${API_BASE}/campaigns/${id}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+    return handleResponse(res);
+  },
+
+  // Rewards & Points
+  async getRewards() {
+    const res = await fetch(`${API_BASE}/rewards`, {
+      headers: getHeaders(),
+    });
+    return handleResponse(res);
+  },
+
+  async redeemPoints(data) {
+    const res = await fetch(`${API_BASE}/rewards/redeem`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  // Gift Cards
+  async createGiftCard(data) {
+    const res = await fetch(`${API_BASE}/gift-cards`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  async getGiftCard(code) {
+    const res = await fetch(`${API_BASE}/gift-cards/${code}`);
+    return handleResponse(res);
+  },
+
   // Custom Coffee Lab
   async createCustomCoffee(data) {
     const res = await fetch(`${API_BASE}/custom-coffee`, {
@@ -136,7 +205,6 @@ export const api = {
     return handleResponse(res);
   },
 
-
   // Auth
   async login(email, password) {
     const res = await fetch(`${API_BASE}/auth/login`, {
@@ -200,6 +268,33 @@ export const api = {
     const res = await fetch(`${API_BASE}/admin/products/${id}`, {
       method: 'DELETE',
       headers: getHeaders(),
+    });
+    return handleResponse(res);
+  },
+
+  async createAdminFlavor(data) {
+    const res = await fetch(`${API_BASE}/admin/flavors`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  async createAdminBottle(data) {
+    const res = await fetch(`${API_BASE}/admin/bottles`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(res);
+  },
+
+  async createAdminLocation(data) {
+    const res = await fetch(`${API_BASE}/admin/locations`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(data),
     });
     return handleResponse(res);
   },
