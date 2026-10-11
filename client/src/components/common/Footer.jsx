@@ -273,6 +273,14 @@ export const Footer = () => {
                   App
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => handleNavClick('/brewing-guide', 'BREWING GUIDE')}
+                  className="hover:text-[#F4E8D1] transition-colors text-left"
+                >
+                  Brewing Guide
+                </button>
+              </li>
             </ul>
           </div>
 

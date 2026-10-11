@@ -67,6 +67,7 @@ export const Header = ({ onOpenSearch }) => {
     { name: 'TRACK ORDER', path: '/track-order', icon: Truck, title: 'ORDER STATUS TRACKER' },
     { name: 'SUSTAINABILITY', path: '/sustainability', icon: Leaf, title: 'SUSTAINABILITY & ETHICS' },
     { name: 'CAREERS', path: '/careers', icon: Briefcase, title: 'JOIN THE CREW' },
+    { name: 'BREWING LAB & ACADEMY', path: '/brewing-guide', icon: Coffee, title: 'BARISTA EXTRACTION LAB' },
     { name: 'CONTACT & SUPPORT', path: '/contact', icon: Mail, title: 'CONCIERGE & SUPPORT' },
   ];
 
