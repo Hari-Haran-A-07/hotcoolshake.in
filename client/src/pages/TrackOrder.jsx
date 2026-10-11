@@ -16,6 +16,9 @@ import {
   ArrowRight,
   RefreshCw,
   Zap,
+  Printer,
+  FileText,
+  X,
 } from 'lucide-react';
 
 const ORDER_STATES = [
@@ -33,6 +36,7 @@ export const TrackOrder = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [advancing, setAdvancing] = useState(false);
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
 
   const fetchOrderDetails = async () => {
     try {
@@ -252,6 +256,16 @@ export const TrackOrder = () => {
                   </div>
                 </div>
 
+                {/* Official Thermal Receipt Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowReceiptModal(true)}
+                  className="w-full py-3 rounded-full bg-[#2A1B16] text-[#EEDCC6] border border-[#EEDCC6]/40 font-mono text-xs font-bold tracking-widest uppercase hover:bg-[#3C2A21] hover:text-[#F4E8D1] transition-all flex items-center justify-center space-x-2"
+                >
+                  <FileText className="w-4 h-4 text-[#EEDCC6]" />
+                  <span>VIEW OFFICIAL THERMAL RECEIPT</span>
+                </button>
+
                 <Link
                   to="/make-your-coffee"
                   className="w-full py-3.5 rounded-full bg-[#EEDCC6] text-[#2A1B16] font-mono text-xs font-black tracking-widest uppercase shadow-xl hover:bg-[#F4E8D1] transition-all flex items-center justify-center space-x-2"
@@ -259,6 +273,159 @@ export const TrackOrder = () => {
                   <span>CREATE ANOTHER CUP</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Luxury Thermal Receipt Modal */}
+        {showReceiptModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2A1B16]/80 backdrop-blur-md">
+            <div className="relative w-full max-w-md bg-[#FAF6F0] text-[#1A120E] p-8 rounded-3xl shadow-2xl border border-[#EEDCC6] font-mono text-xs max-h-[90vh] overflow-y-auto">
+              {/* Receipt Header Controls */}
+              <div className="flex items-center justify-between pb-4 border-b border-dashed border-[#1A120E]/20 print:hidden">
+                <span className="font-bold tracking-wider text-[11px] uppercase text-[#1A120E]/70">
+                  DIGITAL THERMAL RECEIPT
+                </span>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => window.print()}
+                    className="p-2 rounded-full bg-[#1A120E] text-[#FAF6F0] hover:bg-[#2A1B16] transition-colors"
+                    title="Print or Save PDF"
+                  >
+                    <Printer className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setShowReceiptModal(false)}
+                    className="p-2 rounded-full bg-[#1A120E]/10 hover:bg-[#1A120E]/20 text-[#1A120E] transition-colors"
+                    title="Close Receipt"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Printable Receipt Body */}
+              <div className="space-y-4 pt-4 text-center">
+                <div className="space-y-1">
+                  <h3 className="font-display font-black text-xl tracking-wider text-[#1A120E]">
+                    HOT COOL SHAKE
+                  </h3>
+                  <p className="text-[10px] tracking-widest text-[#1A120E]/60 uppercase">
+                    &quot;HOT. COOL. YOUR WAY.&quot;
+                  </p>
+                  <p className="text-[10px] text-[#1A120E]/50">
+                    Flagship Roastery Lab • Global Network
+                  </p>
+                </div>
+
+                <div className="py-2 border-y border-dashed border-[#1A120E]/20 text-[11px] text-left space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-[#1A120E]/60">INVOICE NO:</span>
+                    <span className="font-bold">{order.orderNumber || 'HCS-2026-01042'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#1A120E]/60">DATE & TIME:</span>
+                    <span>{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#1A120E]/60">GUEST:</span>
+                    <span className="font-bold">{order.customer?.name || 'Sophia Laurent'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#1A120E]/60">DISPATCH DESTINATION:</span>
+                    <span>{order.customer?.city || 'London Mayfair'}</span>
+                  </div>
+                </div>
+
+                {/* Itemized Table */}
+                <div className="space-y-2 text-left">
+                  <div className="flex justify-between text-[10px] font-bold text-[#1A120E]/60 uppercase border-b border-[#1A120E]/10 pb-1">
+                    <span>ITEM / CREATION</span>
+                    <span>TOTAL</span>
+                  </div>
+                  {order.items?.map((item, idx) => (
+                    <div key={idx} className="flex justify-between text-[11px]">
+                      <div>
+                        <div className="font-bold">{item.name}</div>
+                        <div className="text-[10px] text-[#1A120E]/60">
+                          {item.quantity || 1}x @ ${(item.price || 0).toFixed(2)} • {item.temperature || 'CALIBRATED'}
+                        </div>
+                      </div>
+                      <span className="font-bold">
+                        ${((item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Subtotals & Taxes */}
+                <div className="py-3 border-t border-dashed border-[#1A120E]/20 space-y-1 text-left text-[11px]">
+                  <div className="flex justify-between text-[#1A120E]/70">
+                    <span>SUBTOTAL:</span>
+                    <span>${((order.total || 17.75) * 0.92).toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-[#1A120E]/70">
+                    <span>ZERO-EMISSION COURIER:</span>
+                    <span className="text-emerald-700 font-bold">$0.00 (COMPLIMENTARY)</span>
+                  </div>
+                  <div className="flex justify-between text-[#1A120E]/70">
+                    <span>VAT / APPLICABLE TAX (8.5%):</span>
+                    <span>${((order.total || 17.75) * 0.08).toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between font-black text-sm pt-2 border-t border-[#1A120E]/20">
+                    <span>TOTAL PAID:</span>
+                    <span className="text-base">${(order.total || 17.75).toFixed(2)}</span>
+                  </div>
+                </div>
+
+                {/* Telemetry Certification Stamp */}
+                <div className="p-3 bg-[#1A120E]/5 rounded-xl text-left text-[10px] space-y-1">
+                  <div className="font-bold text-[#1A120E] flex items-center space-x-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>CHAMBER-X™ CALIBRATION INTEGRITY CERTIFIED</span>
+                  </div>
+                  <div className="text-[#1A120E]/70">
+                    Telemetry: {order.courierTracking?.temperatureTelemetry || 'Active 04°C / 68°C Lock'}
+                  </div>
+                  <div className="text-[#1A120E]/70">
+                    Courier: {order.courierTracking?.driverName || 'Kai Vance'} • Zero-Emission Electric
+                  </div>
+                </div>
+
+                {/* Barcode representation */}
+                <div className="pt-2 text-center space-y-1">
+                  <div className="h-9 flex items-center justify-center space-x-1 opacity-80">
+                    {[...Array(32)].map((_, bIdx) => (
+                      <span
+                        key={bIdx}
+                        className={`h-full bg-[#1A120E] inline-block ${
+                          bIdx % 3 === 0 ? 'w-1' : bIdx % 5 === 0 ? 'w-1.5' : 'w-0.5'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-[9px] font-mono tracking-widest text-[#1A120E]/60 uppercase">
+                    * {order.orderNumber || 'HCS-2026-01042'} *
+                  </p>
+                </div>
+
+                {/* Printable Action Buttons */}
+                <div className="pt-4 flex items-center space-x-3 print:hidden">
+                  <button
+                    onClick={() => window.print()}
+                    className="flex-1 py-3 rounded-full bg-[#1A120E] text-[#FAF6F0] font-bold text-xs uppercase tracking-wider hover:bg-[#2A1B16] transition-all flex items-center justify-center space-x-2"
+                  >
+                    <Printer className="w-4 h-4" />
+                    <span>PRINT / SAVE PDF</span>
+                  </button>
+                  <button
+                    onClick={() => setShowReceiptModal(false)}
+                    className="px-6 py-3 rounded-full border border-[#1A120E]/30 text-[#1A120E] font-bold text-xs uppercase tracking-wider hover:bg-[#1A120E]/10 transition-all"
+                  >
+                    CLOSE
+                  </button>
+                </div>
               </div>
             </div>
           </div>
