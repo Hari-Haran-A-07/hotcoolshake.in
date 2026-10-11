@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import { usePageLoader } from '../context/LoadingContext';
 import { ProductDetailModal } from '../components/common/ProductDetailModal';
 import {
@@ -19,6 +20,7 @@ import {
   Activity,
   Zap,
   Leaf,
+  Heart,
 } from 'lucide-react';
 
 export const Menu = () => {
@@ -38,6 +40,7 @@ export const Menu = () => {
   const [loading, setLoading] = useState(true);
 
   const { addToCart } = useCart();
+  const { toggleFavorite, isFavorite } = useWishlist();
   const { startPageTransition } = usePageLoader();
 
   // Section 15 Full Menu Taxonomy
@@ -353,6 +356,24 @@ export const Menu = () => {
                       </span>
                     </div>
                   )}
+
+                  {/* Favorite Bookmark Toggle */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(product);
+                    }}
+                    className={`absolute ${product.badge ? 'top-11' : 'top-3'} right-3 p-2 rounded-full backdrop-blur-md transition-all z-10 ${
+                      isFavorite(product._id || product.slug)
+                        ? 'bg-rose-600 text-white shadow-lg scale-105'
+                        : 'bg-[#2A1B16]/80 text-[#EEDCC6]/80 hover:text-rose-400 hover:bg-[#2A1B16]'
+                    } border border-[#EEDCC6]/30`}
+                    aria-label={`Bookmark ${product.name}`}
+                    title={isFavorite(product._id || product.slug) ? 'Remove from Saved Reserves' : 'Save to Reserves'}
+                  >
+                    <Heart className={`w-3.5 h-3.5 ${isFavorite(product._id || product.slug) ? 'fill-current' : ''}`} />
+                  </button>
 
                   {/* Price Tag Overlay */}
                   <div className="absolute bottom-3 left-3">

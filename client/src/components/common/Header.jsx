@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { TripleWaveLogo } from './TripleWaveLogo';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { useWishlist } from '../../context/WishlistContext';
 import { usePageLoader } from '../../context/LoadingContext';
 import {
   ShoppingBag,
@@ -23,6 +24,7 @@ import {
   BookOpen,
   Gift,
   Briefcase,
+  Heart,
 } from 'lucide-react';
 
 export const Header = ({ onOpenSearch }) => {
@@ -31,6 +33,7 @@ export const Header = ({ onOpenSearch }) => {
   const location = useLocation();
   const { totalItemsCount, setIsCartOpen, flyingItem } = useCart();
   const { user, isAdmin, openAuthModal, logout } = useAuth();
+  const { favoritesCount, setIsWishlistOpen } = useWishlist();
   const { startPageTransition } = usePageLoader();
 
   useEffect(() => {
@@ -177,6 +180,27 @@ export const Header = ({ onOpenSearch }) => {
                 <UserIcon className="w-4 h-4" />
               </button>
             )}
+
+            {/* Saved Reserves (Wishlist) Trigger */}
+            <div className="relative">
+              <button
+                onClick={() => setIsWishlistOpen(true)}
+                className="relative p-2.5 rounded-full bg-[#3C2A21] text-[#F4E8D1] hover:bg-[#EEDCC6] hover:text-[#2A1B16] border border-[#EEDCC6]/25 shadow-md transition-all group"
+                aria-label={`Saved Reserves (${favoritesCount} drinks)`}
+                title="Saved Reserves"
+              >
+                <Heart className={`w-4 h-4 group-hover:scale-110 transition-transform ${favoritesCount > 0 ? 'text-rose-400 fill-rose-400' : ''}`} />
+                {favoritesCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-rose-500 text-white text-[10px] font-mono font-black flex items-center justify-center shadow-md border border-[#2A1B16]"
+                  >
+                    {favoritesCount}
+                  </motion.span>
+                )}
+              </button>
+            </div>
 
             {/* Cart Drawer Trigger */}
             <div className="relative">

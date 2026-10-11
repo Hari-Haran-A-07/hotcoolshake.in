@@ -6,6 +6,7 @@ import OpeningExperience from './components/common/OpeningExperience';
 import PageLoaderModal from './components/common/PageLoaderModal';
 import CustomCursor from './components/common/CustomCursor';
 import CartDrawer from './components/common/CartDrawer';
+import WishlistDrawer from './components/common/WishlistDrawer';
 import CheckoutModal from './components/common/CheckoutModal';
 import AuthModal from './components/common/AuthModal';
 import SearchModal from './components/common/SearchModal';
@@ -95,6 +96,9 @@ export const App = () => {
 
       {/* Global Slide-out Cart Drawer */}
       <CartDrawer />
+
+      {/* Global Slide-out Wishlist / Saved Drinks Drawer */}
+      <WishlistDrawer />
 
       {/* Global Checkout Modal */}
       <CheckoutModal />
