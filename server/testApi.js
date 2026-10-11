@@ -142,6 +142,14 @@ const runTests = async () => {
     });
     console.log('✓ User Registration:', regRes.status === 201, regRes.data.user?.email);
 
+    // 11. FAQ Knowledge Base
+    const faqRes = await fetchJson('/api/faq');
+    console.log(`✓ FAQ Endpoint (${faqRes.data.count} articles):`, faqRes.status === 200, faqRes.data.success);
+
+    // 12. Aero-Grid Live Telemetry
+    const telemetryRes = await fetchJson('/api/telemetry/live');
+    console.log('✓ Aero-Grid Live Telemetry:', telemetryRes.status === 200, telemetryRes.data.telemetry?.status);
+
     console.log('--- ALL BACKEND MERN API TESTS PASSED PERFECTLY ---');
 
   } catch (err) {

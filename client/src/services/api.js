@@ -314,4 +314,16 @@ export const api = {
     });
     return handleResponse(res);
   },
+
+  // FAQ & Telemetry Endpoints
+  async getFaqs(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`${API_BASE}/faq?${query}`);
+    return handleResponse(res);
+  },
+
+  async getLiveTelemetry() {
+    const res = await fetch(`${API_BASE}/telemetry/live`);
+    return handleResponse(res);
+  },
 };

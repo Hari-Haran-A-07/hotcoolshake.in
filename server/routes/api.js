@@ -53,6 +53,8 @@ import {
   getAdminMessages,
   updateAdminMessageStatus,
 } from '../controllers/adminController.js';
+import { getFaqs } from '../controllers/faqController.js';
+import { getLiveTelemetry } from '../controllers/telemetryController.js';
 import { protect, admin, optionalAuth } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -66,6 +68,12 @@ router.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// FAQ Knowledge Base
+router.get('/faq', getFaqs);
+
+// Live Aero-Grid™ Telemetry
+router.get('/telemetry/live', getLiveTelemetry);
 
 // Authentication
 router.post('/auth/register', registerUser);
