@@ -25,6 +25,7 @@ import {
   Gift,
   Briefcase,
   Heart,
+  HelpCircle,
 } from 'lucide-react';
 
 export const Header = ({ onOpenSearch }) => {
@@ -71,6 +72,7 @@ export const Header = ({ onOpenSearch }) => {
     { name: 'SUSTAINABILITY', path: '/sustainability', icon: Leaf, title: 'SUSTAINABILITY & ETHICS' },
     { name: 'CAREERS', path: '/careers', icon: Briefcase, title: 'JOIN THE CREW' },
     { name: 'BREWING LAB & ACADEMY', path: '/brewing-guide', icon: Coffee, title: 'BARISTA EXTRACTION LAB' },
+    { name: 'FAQ & HELP CONCIERGE', path: '/faq', icon: HelpCircle, title: 'FREQUENTLY ASKED QUESTIONS' },
     { name: 'CONTACT & SUPPORT', path: '/contact', icon: Mail, title: 'CONCIERGE & SUPPORT' },
   ];
 

@@ -32,6 +32,7 @@ import Technology from './pages/Technology';
 import TrackOrder from './pages/TrackOrder';
 import Contact from './pages/Contact';
 import BrewingGuide from './pages/BrewingGuide';
+import Faq from './pages/Faq';
 import AdminDashboard from './pages/AdminDashboard';
 
 export const App = () => {
@@ -84,6 +85,7 @@ export const App = () => {
           <Route path="/track-order/:id" element={<TrackOrder />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/brewing-guide" element={<BrewingGuide />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>

@@ -342,7 +342,7 @@ export const Footer = () => {
               </li>
               <li>
                 <button
-                  onClick={() => handleNavClick('/contact', 'FAQ')}
+                  onClick={() => handleNavClick('/faq', 'FAQ')}
                   className="hover:text-[#F4E8D1] transition-colors text-left"
                 >
                   FAQ
