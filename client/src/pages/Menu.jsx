@@ -16,6 +16,9 @@ import {
   Coffee,
   Check,
   Filter,
+  Activity,
+  Zap,
+  Leaf,
 } from 'lucide-react';
 
 export const Menu = () => {
@@ -105,7 +108,29 @@ export const Menu = () => {
       selectedFlavorFilter === 'ALL' ||
       (p.flavorNotes && p.flavorNotes.some((n) => n.toLowerCase().includes(selectedFlavorFilter.toLowerCase())));
 
-    return matchesCategory && matchesTemp && matchesSearch && matchesFlavor;
+    let matchesDiet = true;
+    if (selectedDiet !== 'ALL') {
+      const caffeineNum = parseInt(p.nutrition?.caffeine || '140', 10);
+      const sugarNum = parseInt(p.nutrition?.sugar || '12', 10);
+      const ingText = (p.ingredients || []).join(' ').toLowerCase();
+      const descText = (p.description || '').toLowerCase();
+      const nameText = (p.name || '').toLowerCase();
+      const hasDairy = /dairy|whole milk|cream|butter/i.test(ingText) || /dairy|cream/i.test(descText);
+
+      if (selectedDiet === 'VEGAN') {
+        matchesDiet = !hasDairy && !nameText.includes('dairy');
+      } else if (selectedDiet === 'DAIRY-FREE') {
+        matchesDiet = !hasDairy;
+      } else if (selectedDiet === 'KETO') {
+        matchesDiet = sugarNum <= 5 || p.categorySlug === 'coffee-espresso';
+      } else if (selectedDiet === 'LOW SUGAR') {
+        matchesDiet = sugarNum <= 10;
+      } else if (selectedDiet === 'HIGH CAFFEINE') {
+        matchesDiet = caffeineNum >= 140;
+      }
+    }
+
+    return matchesCategory && matchesTemp && matchesSearch && matchesFlavor && matchesDiet;
   }).sort((a, b) => {
     if (sortBy === 'price-asc') return a.price - b.price;
     if (sortBy === 'price-desc') return b.price - a.price;
@@ -208,6 +233,34 @@ export const Menu = () => {
                 <option value="price-desc">Price: High to Low</option>
               </select>
             </div>
+          </div>
+
+          {/* Dietary & Lifestyle Telemetry Filter */}
+          <div className="flex items-center space-x-2 overflow-x-auto pt-3 border-t border-[#2A1B16] no-scrollbar">
+            <span className="text-[10px] font-mono text-[#EEDCC6]/60 uppercase tracking-wider flex items-center space-x-1 shrink-0 mr-1">
+              <Leaf className="w-3.5 h-3.5 text-[#EEDCC6]" />
+              <span>DIETARY:</span>
+            </span>
+            {[
+              { id: 'ALL', label: 'All Lifestyles' },
+              { id: 'VEGAN', label: 'Vegan Plant-Based' },
+              { id: 'DAIRY-FREE', label: 'Dairy-Free' },
+              { id: 'KETO', label: 'Keto / Low-Carb' },
+              { id: 'LOW SUGAR', label: 'Low Sugar (<10g)' },
+              { id: 'HIGH CAFFEINE', label: 'High Caffeine (140mg+)' },
+            ].map((diet) => (
+              <button
+                key={diet.id}
+                onClick={() => setSelectedDiet(diet.id)}
+                className={`px-3 py-1 rounded-full text-[11px] font-mono font-bold tracking-wider uppercase transition-all flex-shrink-0 ${
+                  selectedDiet === diet.id
+                    ? 'bg-[#EEDCC6] text-[#2A1B16] font-black shadow-sm'
+                    : 'bg-[#2A1B16] text-[#EEDCC6]/70 hover:text-[#F4E8D1] border border-[#EEDCC6]/20'
+                }`}
+              >
+                {diet.label}
+              </button>
+            ))}
           </div>
 
           {/* Category Horizontal Pills (Section 15) */}
@@ -331,6 +384,23 @@ export const Menu = () => {
                         {note}
                       </span>
                     ))}
+                  </div>
+
+                  {/* Nutrition Telemetry Badge Strip */}
+                  <div className="flex items-center space-x-2 pt-2.5 text-[10px] font-mono text-[#EEDCC6]/70">
+                    <span className="flex items-center space-x-1 bg-[#2A1B16] px-2 py-0.5 rounded-md border border-[#EEDCC6]/15">
+                      <Activity className="w-3 h-3 text-amber-400" />
+                      <span>{product.nutrition?.calories || 160} kcal</span>
+                    </span>
+                    <span className="flex items-center space-x-1 bg-[#2A1B16] px-2 py-0.5 rounded-md border border-[#EEDCC6]/15">
+                      <Zap className="w-3 h-3 text-cyan-400" />
+                      <span>{product.nutrition?.caffeine || '140mg'}</span>
+                    </span>
+                    {product.nutrition?.sugar && (
+                      <span className="text-[#EEDCC6]/50 hidden sm:inline">
+                        • {product.nutrition.sugar} sugar
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
