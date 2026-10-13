@@ -6,6 +6,7 @@ import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { usePageLoader } from '../../context/LoadingContext';
+import CurrencySelector from './CurrencySelector';
 import {
   ShoppingBag,
   Menu as MenuIcon,
@@ -148,6 +149,9 @@ export const Header = ({ onOpenSearch }) => {
 
           {/* Right Action Suite: Search, Account, Cart, START YOUR ORDER */}
           <div className="flex items-center space-x-2 sm:space-x-3.5">
+            {/* Global Currency Converter */}
+            <CurrencySelector />
+
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
