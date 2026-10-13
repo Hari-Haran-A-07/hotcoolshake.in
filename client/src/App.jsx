@@ -39,6 +39,7 @@ import TrackOrder from './pages/TrackOrder';
 import Contact from './pages/Contact';
 import BrewingGuide from './pages/BrewingGuide';
 import Faq from './pages/Faq';
+import PressKit from './pages/PressKit';
 import AdminDashboard from './pages/AdminDashboard';
 
 export const App = () => {
@@ -102,6 +103,7 @@ export const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/brewing-guide" element={<BrewingGuide />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/press" element={<PressKit />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>
