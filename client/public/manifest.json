@@ -1,0 +1,18 @@
+{
+  "short_name": "HOTCOOLSHAKE",
+  "name": "HOT COOL SHAKE | Luxury Coffee Experience",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#2A1B16",
+  "theme_color": "#C49A45",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["food", "lifestyle", "shopping"]
+}
