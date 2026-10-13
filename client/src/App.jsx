@@ -15,6 +15,7 @@ import AiSommelierModal from './components/common/AiSommelierModal';
 import KeyboardShortcutsModal from './components/common/KeyboardShortcutsModal';
 import CustomerFeedbackModal from './components/common/CustomerFeedbackModal';
 import BackToTop from './components/common/BackToTop';
+import ToastContainer from './components/common/ToastContainer';
 import { useCart } from './context/CartContext';
 import { useWishlist } from './context/WishlistContext';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -136,6 +137,9 @@ export const App = () => {
 
       {/* Global Customer Tasting & Sensory Feedback Modal */}
       <CustomerFeedbackModal />
+
+      {/* Global Real-time Sensory Toast Notifications */}
+      <ToastContainer />
 
       {/* Floating Scroll Progress Back to Top */}
       <BackToTop />
