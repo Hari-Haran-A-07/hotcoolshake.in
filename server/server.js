@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
+import { securityHeaders, rateLimiter } from './middleware/security.js';
 import apiRoutes from './routes/api.js';
 import { seedDatabase } from './seed.js';
 import { Product } from './models/Product.js';
@@ -17,6 +18,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Security & Defense Middleware
+app.use(securityHeaders);
+app.use('/api', rateLimiter({ max: 300, windowMs: 60000 }));
 
 // Middleware
 app.use(cors({
