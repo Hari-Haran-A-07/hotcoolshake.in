@@ -12,6 +12,10 @@ import AuthModal from './components/common/AuthModal';
 import SearchModal from './components/common/SearchModal';
 import SensoryAudioPlayer from './components/common/SensoryAudioPlayer';
 import AiSommelierModal from './components/common/AiSommelierModal';
+import KeyboardShortcutsModal from './components/common/KeyboardShortcutsModal';
+import { useCart } from './context/CartContext';
+import { useWishlist } from './context/WishlistContext';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
 import Home from './pages/Home';
 import Menu from './pages/Menu';
@@ -40,6 +44,16 @@ export const App = () => {
     return sessionStorage.getItem('hcs_intro_seen') === 'true';
   });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { setIsCartOpen } = useCart();
+  const { setIsWishlistOpen } = useWishlist();
+
+  useKeyboardShortcuts({
+    onToggleSearch: () => setIsSearchOpen((prev) => !prev),
+    onToggleCart: () => setIsCartOpen((prev) => !prev),
+    onToggleWishlist: () => setIsWishlistOpen((prev) => !prev),
+    onToggleHelp: () => window.dispatchEvent(new CustomEvent('hcs_toggle_shortcuts')),
+    onEscape: () => setIsSearchOpen(false),
+  });
 
   const handleOpeningComplete = () => {
     sessionStorage.setItem('hcs_intro_seen', 'true');
@@ -110,6 +124,9 @@ export const App = () => {
 
       {/* Global Instant Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
+      {/* Global Keyboard Shortcuts Cheat Sheet Modal */}
+      <KeyboardShortcutsModal />
 
       {/* Multi-Column International Footer */}
       <Footer />
