@@ -118,22 +118,30 @@ HOTCOOLSHAKE/
 │   │   ├── context/              # AuthContext, CartContext, LoadingContext
 │   │   ├── pages/                # Home, Menu, MakeYourCoffee, OurStory,
 │   │   │                         # Locations, Sustainability, Technology,
-│   │   │                         # TrackOrder, Contact, AdminDashboard
+│   │   │                         # TrackOrder, Contact, AdminDashboard,
+│   │   │                         # PressKit, SecretMenu, Faq, BrewingGuide
 │   │   ├── sections/home/        # HeroSection, BrandConceptStrip, SignatureLabTeaser,
 │   │   │                         # FeaturedMenuSection, StorySection, etc.
 │   │   ├── services/             # api.js (REST API Client)
+│   │   ├── utils/                # currency.js, seo.js, storageCache.js, telemetry.js
+│   │   ├── context/              # Auth, Cart, Wishlist, Loading, A11y, Toast
+│   │   ├── hooks/                # useKeyboardShortcuts.js
 │   │   ├── App.jsx
 │   │   ├── main.jsx
 │   │   └── index.css             # Luxury Coffee Palette & Tailored Utilities
 │   └── tailwind.config.js
 ├── server/
 │   ├── config/                   # db.js (MongoDB + Memory Server Fallback)
-│   ├── controllers/              # Auth, Product, CustomCoffee, Order, Location, Admin
-│   ├── middleware/               # auth.js, errorHandler.js
-│   ├── models/                   # User, Product, Category, Flavor, Bottle, CustomCoffee, Order, Location, Review, ContactMessage
+│   ├── controllers/              # Auth, Product, CustomCoffee, Order, Location, Admin, Feedback, Telemetry, Faq
+│   ├── middleware/               # auth.js, errorHandler.js, security.js (Rate Limiter & Headers)
+│   ├── models/                   # User, Product, Category, Flavor, Bottle, CustomCoffee, Order, Location, Review, Feedback
 │   ├── routes/                   # api.js
+│   ├── docs/                     # openapi.json (OpenAPI 3.0 Spec)
 │   ├── seed.js                   # High-Fidelity Catalog Seed Data
+│   ├── testApi.js                # Full Integration Test Suite
 │   └── server.js                 # Express Application Entrypoint
+├── .github/workflows/            # ci-cd.yml (Continuous Integration & Test Matrix)
+├── API.md                        # Complete REST API Documentation
 ├── .env.example
 ├── package.json
 └── README.md
@@ -141,4 +149,18 @@ HOTCOOLSHAKE/
 
 ---
 
+## 🚀 Version 2.0 Architectural Enhancements
+
+- **Progressive Web App (PWA)**: Offline caching service worker, manifest, and instant installability.
+- **Global Currency Engine**: Instant conversions across USD ($), EUR (€), GBP (£), INR (₹), JPY (¥), and AED (د.إ).
+- **Tactile Hotkey Shortcuts**: Fast keyboard navigation (`Ctrl+K` search, `B` cart, `W` saved drinks, `?` shortcuts dialog).
+- **Palate & Sensory Feedback**: Dynamic NPS rating, aroma/flavor clarity scoring, and telemetry logging (`/api/feedback`).
+- **Barista Secret Vault**: Exclusive secret recipes and unlockable reserve blends (`/secret-menu`).
+- **Official Press Center**: High-resolution brand marks, vector assets, and editorial photography kit (`/press`).
+- **Adaptive Accessibility Layer**: Contrast enhancement, reduced-motion preferences, and font scalers.
+- **OpenAPI 3.0 Architecture**: Standardized REST endpoint definitions and testing coverage.
+
+---
+
 ## ☕ HOT COOL SHAKE • "HOT. COOL. YOUR WAY."
+
