@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import { CartProvider } from './context/CartContext.jsx';
 import { WishlistProvider } from './context/WishlistContext.jsx';
 import { LoadingProvider } from './context/LoadingContext.jsx';
+import { AccessibilityProvider } from './context/AccessibilityContext.jsx';
 import { initTelemetryObserver } from './utils/telemetry.js';
 
 // Initialize Aero-Grid™ Client-Side Performance Observer
@@ -16,15 +17,17 @@ initTelemetryObserver();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoadingProvider>
-        <AuthProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <App />
-            </WishlistProvider>
-          </CartProvider>
-        </AuthProvider>
-      </LoadingProvider>
+      <AccessibilityProvider>
+        <LoadingProvider>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <App />
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
+        </LoadingProvider>
+      </AccessibilityProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
