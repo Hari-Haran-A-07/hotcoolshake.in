@@ -55,6 +55,7 @@ import {
 } from '../controllers/adminController.js';
 import { getFaqs } from '../controllers/faqController.js';
 import { getLiveTelemetry } from '../controllers/telemetryController.js';
+import { submitFeedback, getFeedbackStats } from '../controllers/feedbackController.js';
 import { protect, admin, optionalAuth } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -127,6 +128,10 @@ router.post('/reviews', createReview);
 // Contact Concierge & Newsletter
 router.post('/contact', submitContactMessage);
 router.post('/newsletter', subscribeNewsletter);
+
+// Sensory & Palate Feedback
+router.post('/feedback', submitFeedback);
+router.get('/feedback', getFeedbackStats);
 
 // Admin Routes (protected, admin role)
 router.get('/admin/stats', protect, admin, getDashboardStats);
