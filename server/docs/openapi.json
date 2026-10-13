@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HOT COOL SHAKE REST API",
+    "description": "International Luxury Beverage Platform & Precision Coffee Lab API",
+    "version": "2.0.0",
+    "contact": {
+      "name": "HOT COOL SHAKE Engineering Team",
+      "url": "https://hotcoolshake.in",
+      "email": "api@hotcoolshake.in"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://hotcoolshake.in/api",
+      "description": "Production Cloud Server"
+    },
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "System Health & Uptime Status",
+        "responses": {
+          "200": { "description": "Operational status" }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "List all signature beverage items",
+        "responses": {
+          "200": { "description": "Array of beverage items" }
+        }
+      }
+    },
+    "/bottles": {
+      "get": {
+        "summary": "List patented thermal and cryo vessels",
+        "responses": {
+          "200": { "description": "Array of bottles" }
+        }
+      }
+    },
+    "/flavors": {
+      "get": {
+        "summary": "List artisanal flavor infusion drops",
+        "responses": {
+          "200": { "description": "Array of flavors" }
+        }
+      }
+    },
+    "/custom-coffee": {
+      "post": {
+        "summary": "Create personalized Coffee Lab blend",
+        "responses": {
+          "201": { "description": "Custom coffee created" }
+        }
+      }
+    },
+    "/feedback": {
+      "post": {
+        "summary": "Submit tasting NPS and sensory rating",
+        "responses": {
+          "201": { "description": "Feedback recorded" }
+        }
+      },
+      "get": {
+        "summary": "Fetch tasting feedback statistics",
+        "responses": {
+          "200": { "description": "Feedback summary" }
+        }
+      }
+    },
+    "/telemetry/live": {
+      "get": {
+        "summary": "Aero-Grid™ real-time satellite telemetry",
+        "responses": {
+          "200": { "description": "Live telemetry stats" }
+        }
+      }
+    }
+  }
+}
