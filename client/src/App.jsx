@@ -13,6 +13,7 @@ import SearchModal from './components/common/SearchModal';
 import SensoryAudioPlayer from './components/common/SensoryAudioPlayer';
 import AiSommelierModal from './components/common/AiSommelierModal';
 import KeyboardShortcutsModal from './components/common/KeyboardShortcutsModal';
+import CustomerFeedbackModal from './components/common/CustomerFeedbackModal';
 import { useCart } from './context/CartContext';
 import { useWishlist } from './context/WishlistContext';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -127,6 +128,9 @@ export const App = () => {
 
       {/* Global Keyboard Shortcuts Cheat Sheet Modal */}
       <KeyboardShortcutsModal />
+
+      {/* Global Customer Tasting & Sensory Feedback Modal */}
+      <CustomerFeedbackModal />
 
       {/* Multi-Column International Footer */}
       <Footer />

@@ -372,6 +372,14 @@ export const Footer = () => {
                   Accessibility
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('hcs_open_feedback'))}
+                  className="hover:text-[#F4E8D1] text-[#C49A45] font-semibold transition-colors text-left"
+                >
+                  ★ Tasting Feedback
+                </button>
+              </li>
             </ul>
           </div>
         </div>
