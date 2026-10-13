@@ -1,4 +1,4 @@
-name: HOT COOL SHAKE CI/CD Pipeline
+name: HOT COOL SHAKE Continuous Integration & Build Matrix
 
 on:
   push:
@@ -7,31 +7,39 @@ on:
     branches: [ main, master ]
 
 jobs:
-  build-and-test:
-    name: Test & Build Application
+  test-and-build:
+    name: Node ${{ matrix.node-version }} - Test & Build Suite
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js Environment
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install Root Dependencies
-        run: npm ci || npm install
-
-      - name: Install Client Dependencies
+      - name: Install Root & Workspace Dependencies
         run: |
-          cd client
           npm ci || npm install
-          cd ..
+          npm install --prefix client
 
-      - name: Run Backend Integration Test Suite
+      - name: Run Backend Integration & Health Test Suite
         run: npm run test:api
 
-      - name: Build Frontend Client
+      - name: Production Build Frontend Client
         run: npm run build
+
+      - name: Upload Client Production Bundle Artifact
+        if: matrix.node-version == '20.x' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotcoolshake-dist
+          path: client/dist
+          retention-days: 7
