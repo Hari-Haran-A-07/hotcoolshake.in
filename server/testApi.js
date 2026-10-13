@@ -150,6 +150,21 @@ const runTests = async () => {
     const telemetryRes = await fetchJson('/api/telemetry/live');
     console.log('✓ Aero-Grid Live Telemetry:', telemetryRes.status === 200, telemetryRes.data.telemetry?.status);
 
+    // 13. Customer Tasting Feedback
+    const feedbackPost = await fetchJson('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify({
+        npsScore: 10,
+        aromaRating: 5,
+        flavorRating: 5,
+        comment: 'Unbelievable velvet mouthfeel on the nitro cold drip.',
+      }),
+    });
+    console.log('✓ Customer Feedback Submission:', feedbackPost.status === 201, feedbackPost.data.data?.sentiment === 'PROMOTER');
+
+    const feedbackGet = await fetchJson('/api/feedback');
+    console.log(`✓ Customer Feedback Retrieval (${feedbackGet.data.count} items):`, feedbackGet.status === 200, feedbackGet.data.success);
+
     console.log('--- ALL BACKEND MERN API TESTS PASSED PERFECTLY ---');
 
   } catch (err) {
