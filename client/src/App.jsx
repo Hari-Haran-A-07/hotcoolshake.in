@@ -16,6 +16,7 @@ import KeyboardShortcutsModal from './components/common/KeyboardShortcutsModal';
 import CustomerFeedbackModal from './components/common/CustomerFeedbackModal';
 import BackToTop from './components/common/BackToTop';
 import ToastContainer from './components/common/ToastContainer';
+import OfflineBanner from './components/common/OfflineBanner';
 import { useCart } from './context/CartContext';
 import { useWishlist } from './context/WishlistContext';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -143,6 +144,9 @@ export const App = () => {
 
       {/* Floating Scroll Progress Back to Top */}
       <BackToTop />
+
+      {/* Real-time Offline Connectivity Banner */}
+      <OfflineBanner />
 
       {/* Multi-Column International Footer */}
       <Footer />
