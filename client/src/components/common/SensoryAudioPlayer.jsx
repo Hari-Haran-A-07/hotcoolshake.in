@@ -217,9 +217,20 @@ export const SensoryAudioPlayer = () => {
               </div>
             </div>
 
-            {/* Volume Slider */}
+            {/* Volume Slider & Instant Mute Toggle */}
             <div className="flex items-center space-x-3 pt-2 border-t border-[#EEDCC6]/15 text-xs font-mono text-[#EEDCC6]">
-              {volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              <button
+                type="button"
+                onClick={() => {
+                  const newVol = volume > 0 ? 0 : 0.5;
+                  setVolume(newVol);
+                  soundscape.setMasterVolume(newVol);
+                }}
+                className="hover:text-[#F4E8D1] transition-colors focus:outline-none"
+                title={volume === 0 ? 'Unmute' : 'Mute'}
+              >
+                {volume === 0 ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4" />}
+              </button>
               <input
                 type="range"
                 min="0"
