@@ -136,8 +136,20 @@ export const Faq = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search answers, temperature questions, beans..."
-              className="w-full pl-11 pr-4 py-3.5 rounded-full bg-[#3C2A21]/80 border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] placeholder-[#EEDCC6]/50 focus:outline-none focus:border-[#EEDCC6] shadow-xl"
+              className="w-full pl-11 pr-10 py-3.5 rounded-full bg-[#3C2A21]/80 border border-[#EEDCC6]/30 text-xs font-mono text-[#F4E8D1] placeholder-[#EEDCC6]/50 focus:outline-none focus:border-[#EEDCC6] shadow-xl"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-[#EEDCC6]/70 hover:text-[#F4E8D1]"
+                aria-label="Clear search query"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <div className="text-[11px] font-mono text-[#EEDCC6]/60 pt-1">
+            Displaying {filteredFaqs.length} of {FAQ_DATA.length} answers
           </div>
         </div>
 
