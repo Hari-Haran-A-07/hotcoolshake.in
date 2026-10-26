@@ -152,6 +152,17 @@ export const Header = ({ onOpenSearch }) => {
             {/* Global Currency Converter */}
             <CurrencySelector />
 
+            {/* Track Order Quick Telemetry */}
+            <button
+              onClick={() => handleNavClick('/track-order', 'LIVE ORDER TRACKER')}
+              className="p-2.5 rounded-full text-[#EEDCC6]/90 hover:text-[#F4E8D1] hover:bg-[#3C2A21] border border-transparent hover:border-[#EEDCC6]/20 transition-all relative hidden sm:flex items-center justify-center"
+              title="Track Active Order Telemetry"
+              aria-label="Track Order"
+            >
+              <Truck className="w-4 h-4" />
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+            </button>
+
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
