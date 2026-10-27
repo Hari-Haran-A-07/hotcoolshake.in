@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - 2026-10-27
+
+### Added
+- **Date & Relative Time Utility**: Localized date formatting, brewing timer strings, and human-friendly relative offsets in `client/src/utils/dateFormatter.js`.
+- **Form & Input Validation**: Validation for international/Indian phone formats, email regex, coupon code normalization, and password entropy evaluation in `client/src/utils/validation.js`.
+- **Caffeine Allowance Tracker**: Beverage-specific caffeine estimator with FDA daily limit (400mg) percentage tracking in `client/src/utils/caffeineCalculator.js`.
+- **Flavor & Pastry Pairings**: Gourmet pairing engine matching light, medium, dark, and nitro roasts to artisanal desserts in `client/src/utils/coffeePairings.js`.
+- **Brand Palette & Contrast Utility**: Theme color tokens and WCAG 2.1 compliance contrast ratio checker in `client/src/utils/colorPalette.js`.
+- **Native Share & Clipboard Fallback**: Cross-platform Web Share API integration in `client/src/utils/shareUtils.js`.
+- **Text Receipt Slip Generator**: ASCII receipt formatter for slips and terminal receipts in `client/src/utils/orderReceiptFormatter.js`.
+- **Client Analytics Tracker**: Lightweight session storage event queue in `client/src/utils/analyticsTracker.js`.
+- **useDebounce Hook**: React debounce hook for search queries and filter inputs in `client/src/hooks/useDebounce.js`.
+- **useLocalStorage Hook**: Synchronized local storage hook with cross-tab update propagation in `client/src/hooks/useLocalStorage.js`.
+- **useWindowDimensions Hook**: Responsive viewport dimension observer with breakpoint flags in `client/src/hooks/useWindowDimensions.js`.
+- **useInterval Hook**: Declarative timer hook adhering to React lifecycle in `client/src/hooks/useInterval.js`.
+- **useDocumentTitle Hook**: Dynamic page title and branding updater in `client/src/hooks/useDocumentTitle.js`.
+- **useAudioFeedback Hook**: Web Audio API micro-synthesizer for button clicks and success cues in `client/src/hooks/useAudioFeedback.js`.
+- **CoffeeRoastBadge Component**: Visual roast indicator pill with roast level styling in `client/src/components/common/CoffeeRoastBadge.jsx`.
+- **SkeletonLoader Component**: Shimmer skeleton placeholder for cards and text in `client/src/components/common/SkeletonLoader.jsx`.
+- **BadgePill Component**: Dietary (vegan, organic, sugar-free) and seasonal tag component in `client/src/components/common/BadgePill.jsx`.
+- **NewsletterModal Component**: Interactive coffee club subscription modal with reward coupon in `client/src/components/common/NewsletterModal.jsx`.
+- **Promo Discount Engine**: Server-side coupon verification and threshold calculation in `server/utils/discountEngine.js`.
+- **Order Number Generator**: Collision-resistant alphanumeric order identifier generator in `server/utils/orderNumberGenerator.js`.
+- **Input Sanitization Utility**: Deep XSS sanitizer escaping unsafe HTML sequences in `server/utils/sanitizeInput.js`.
+- **Structured JSON Logger**: Production log dispatcher with severity levels in `server/utils/logger.js`.
+- **System Health Diagnostics**: Server memory profiling and MongoDB ping latency check in `server/utils/healthCheck.js`.
+- **Dietary Filter Unit Tests**: Test suite for dietary restriction matching in `server/testDietaryFilters.js`.
+- **Discount Engine Unit Tests**: Automated unit tests for promo discounts in `server/testDiscountEngine.js`.
+- **Nutrition Calculator Unit Tests**: Nutrition and calorie aggregation test suite in `server/testNutritionCalculator.js`.
+- **Architecture Documentation**: Comprehensive guide on system topology, caching, and subsystems in `docs/ARCHITECTURE.md`.
+
+---
+
 ## [2.1.0] - 2026-10-26
 
 ### Added
