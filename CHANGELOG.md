@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.3.0] - 2026-11-01
+
+### Added
+- **useCopyToClipboard Hook**: Custom React hook with fallback execution and automatic reset state in `client/src/hooks/useCopyToClipboard.js`.
+- **RatingStars Component**: Configurable interactive and read-only star rating system with keyboard and screen reader accessibility in `client/src/components/common/RatingStars.jsx`.
+- **OrderProgressBar Component**: Visual multi-step thermodynamic progress stepper tracking extraction, thermal lock, and transit in `client/src/components/common/OrderProgressBar.jsx`.
+- **Currency Conversion Engine**: Multi-currency engine supporting INR, USD, EUR, GBP, AED, JPY, and SGD with locale formatting in `server/utils/currencyConverter.js`.
+- **Delivery Time Estimator**: Telemetry engine calculating prep delay, weather penalties, volume multiplier, and peak surge times in `server/utils/deliveryEstimator.js`.
+- **Gift Card Engine**: Secure gift voucher token generation with modulo checksum validation and balance redemption in `server/utils/giftCardEngine.js`.
+- **Delivery Estimator Test Suite**: Comprehensive unit tests validating thermal and peak calculations in `server/testDeliveryEstimator.js`.
+- **Currency Converter Test Suite**: Automated unit tests for identity, exchange rates, and locale formatting in `server/testCurrencyConverter.js`.
+- **API v2.3 Specification Guide**: Detailed documentation with request schemas and code samples in `docs/API_V2_GUIDE.md`.
+
+---
+
 ## [2.2.0] - 2026-10-27
 
 ### Added

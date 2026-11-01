@@ -13,6 +13,7 @@
     "postinstall": "npm install --prefix client",
     "seed": "node server/seed.js",
     "test:api": "node server/testApi.js",
+    "test:unit": "node server/testDietaryFilters.js && node server/testDiscountEngine.js && node server/testNutritionCalculator.js && node server/testDeliveryEstimator.js && node server/testCurrencyConverter.js",
     "start": "node server/server.js"
   },
   "workspaces": [
